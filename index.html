@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maximiliano Gaete — Portafolio</title>
+<meta name="description" content="Ingeniería Civil Biomédica · Inteligencia Artificial aplicada a la salud · Fabricación digital">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff;
+    --ink:#0a0a0a;
+    --text:#1a1a1a;
+    --soft:#555555;
+    --mute:#8a8a8a;
+    --faint:#b8b8b8;
+    --line:rgba(0,0,0,0.10);
+    --line-soft:rgba(0,0,0,0.05);
+    --serif:'Cormorant Garamond', 'Times New Roman', serif;
+    --sans:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--serif);
+    background:var(--bg);
+    color:var(--text);
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  a{color:inherit;text-decoration:none}
+  ::selection{background:#000;color:#fff}
+
+  /* ---------- LAYOUT ---------- */
+  .shell{display:grid;grid-template-columns:260px 1fr;max-width:1240px;margin:0 auto;min-height:100vh}
+  @media (max-width:900px){
+    .shell{grid-template-columns:1fr;display:block}
+  }
+
+  /* ---------- SIDEBAR ---------- */
+  .sidebar{
+    position:sticky;top:0;height:100vh;
+    padding:3rem 2rem 2rem 2.5rem;
+    border-right:1px solid var(--line);
+    display:flex;flex-direction:column;justify-content:space-between;
+    background:var(--bg);
+  }
+  @media (max-width:900px){
+    .sidebar{position:relative;height:auto;border-right:none;border-bottom:1px solid var(--line);padding:2.5rem 1.5rem 1.5rem}
+  }
+  .brand-mark{
+    font-family:var(--sans);
+    font-size:10px;letter-spacing:0.32em;text-transform:uppercase;
+    color:var(--mute);margin-bottom:1.5rem;
+  }
+  .brand-name{
+    font-family:var(--serif);
+    font-size:1.7rem;line-height:1.1;font-weight:500;
+    color:var(--ink);letter-spacing:-0.01em;
+  }
+  .brand-name em{font-style:italic;font-weight:400;color:var(--soft)}
+  .brand-role{
+    margin-top:.6rem;
+    font-family:var(--sans);font-size:11.5px;letter-spacing:0.08em;
+    color:var(--soft);line-height:1.5;
+  }
+  nav.toc{margin-top:2.5rem}
+  nav.toc ol{list-style:none;counter-reset:toc}
+  nav.toc li{
+    counter-increment:toc;
+    font-family:var(--sans);font-size:12.5px;
+    border-bottom:1px solid var(--line-soft);
+  }
+  nav.toc li a{
+    display:flex;align-items:baseline;gap:.9rem;
+    padding:.6rem 0;color:var(--text);
+    transition:color .25s ease, padding-left .25s ease;
+  }
+  nav.toc li a::before{
+    content:counter(toc,decimal-leading-zero);
+    font-size:10px;color:var(--faint);letter-spacing:0.05em;
+    font-variant-numeric:tabular-nums;
+  }
+  nav.toc li a:hover{color:#000;padding-left:.4rem}
+  nav.toc li a:hover::before{color:#000}
+
+  .sidebar-foot{
+    margin-top:2rem;
+    font-family:var(--sans);font-size:10.5px;
+    color:var(--mute);line-height:1.6;
+  }
+  .sidebar-foot a{color:var(--soft);border-bottom:1px solid var(--line)}
+  .sidebar-foot a:hover{color:#000;border-color:#000}
+
+  /* ---------- MAIN ---------- */
+  main{padding:5rem 4.5rem 8rem;max-width:820px}
+  @media (max-width:900px){main{padding:3rem 1.5rem 5rem}}
+
+  /* ---------- HERO ---------- */
+  .hero{padding-bottom:3rem;border-bottom:1px solid var(--line)}
+  .hero-eyebrow{
+    font-family:var(--sans);font-size:10.5px;
+    letter-spacing:0.32em;text-transform:uppercase;
+    color:var(--mute);margin-bottom:1.4rem;
+  }
+  .hero h1{
+    font-family:var(--serif);
+    font-size:clamp(2.6rem, 6vw, 4rem);
+    font-weight:500;line-height:1.02;
+    letter-spacing:-0.02em;color:var(--ink);
+    margin-bottom:1rem;
+  }
+  .hero h1 em{font-style:italic;font-weight:400;color:var(--soft)}
+  .hero-lede{
+    font-size:1.15rem;color:var(--soft);
+    max-width:60ch;line-height:1.55;margin-top:1.5rem;
+  }
+  .hero-meta{
+    margin-top:2.5rem;
+    display:flex;flex-wrap:wrap;gap:.4rem 2rem;
+    font-family:var(--sans);font-size:12px;color:var(--soft);
+  }
+  .hero-meta span{display:inline-flex;align-items:center;gap:.5rem}
+  .hero-meta span::before{content:"";width:4px;height:4px;background:var(--ink);border-radius:50%;display:inline-block}
+  .hero-meta span:first-child::before{display:none}
+
+  /* ---------- SECTION ---------- */
+  section{padding-top:4rem}
+  .sec-head{
+    display:grid;grid-template-columns:36px 1fr;
+    align-items:baseline;gap:1rem;margin-bottom:2.5rem;
+  }
+  .sec-num{
+    font-family:var(--sans);font-size:11px;letter-spacing:0.1em;
+    color:var(--faint);font-variant-numeric:tabular-nums;
+  }
+  .sec-title{
+    font-family:var(--serif);font-size:1.85rem;font-weight:500;
+    color:var(--ink);letter-spacing:-0.01em;line-height:1.1;
+  }
+  .sec-rule{grid-column:2;border-top:1px solid var(--ink);margin-top:.9rem}
+
+  /* ---------- PROFILE ---------- */
+  .profile p{margin-bottom:1rem;color:var(--text)}
+  .profile p.lead{font-size:1.18rem;color:var(--ink);line-height:1.5}
+  .profile ul{list-style:none;margin:1.2rem 0 0;padding-left:0}
+  .profile ul li{
+    position:relative;padding-left:1.5rem;
+    color:var(--soft);font-size:1rem;margin-bottom:.45rem;
+  }
+  .profile ul li::before{
+    content:"—";position:absolute;left:0;color:var(--faint);
+  }
+
+  /* ---------- TIMELINE ---------- */
+  .entry{margin-bottom:2.6rem}
+  .entry:last-child{margin-bottom:0}
+  .entry-head{
+    display:flex;justify-content:space-between;align-items:baseline;
+    gap:1.5rem;flex-wrap:wrap;margin-bottom:.3rem;
+  }
+  .entry-title{
+    font-family:var(--serif);font-size:1.32rem;font-weight:600;
+    color:var(--ink);letter-spacing:-0.005em;
+  }
+  .entry-org{
+    font-family:var(--sans);font-size:12.5px;color:var(--soft);
+    margin-bottom:.3rem;
+  }
+  .entry-org::before{content:"";display:inline-block;width:14px;height:1px;background:var(--soft);vertical-align:middle;margin-right:.5rem}
+  .entry-date{
+    font-family:var(--sans);font-size:11px;letter-spacing:0.08em;
+    color:var(--mute);text-transform:uppercase;
+    font-variant-numeric:tabular-nums;white-space:nowrap;
+  }
+  .entry-list{list-style:none;margin-top:.7rem;padding-left:0}
+  .entry-list li{
+    position:relative;padding-left:1.2rem;
+    color:var(--text);font-size:1rem;line-height:1.6;margin-bottom:.5rem;
+  }
+  .entry-list li::before{
+    content:"";position:absolute;left:0;top:.7em;
+    width:5px;height:1px;background:var(--ink);
+  }
+  .entry-list b, .entry-list strong{font-weight:600;color:var(--ink)}
+
+  /* ---------- PROJECTS ---------- */
+  .project{
+    border-top:1px solid var(--line);padding-top:1.8rem;margin-bottom:1.8rem;
+  }
+  .project:last-child{border-bottom:1px solid var(--line);padding-bottom:1.8rem}
+  .project-head{
+    display:flex;justify-content:space-between;align-items:baseline;
+    gap:1.5rem;flex-wrap:wrap;margin-bottom:.5rem;
+  }
+  .project-name{
+    font-family:var(--serif);font-size:1.35rem;font-weight:600;
+    color:var(--ink);letter-spacing:-0.005em;
+  }
+  .project-tag{
+    font-family:var(--sans);font-size:10.5px;letter-spacing:0.14em;
+    text-transform:uppercase;color:var(--mute);
+    border:1px solid var(--line);padding:.25rem .6rem;
+  }
+  .project-stack{
+    font-family:var(--sans);font-size:11.5px;
+    color:var(--soft);margin-bottom:.8rem;letter-spacing:0.01em;
+  }
+  .project-stack::before{content:"Stack — ";color:var(--mute);font-style:italic}
+  .project-link{
+    display:inline-flex;align-items:center;gap:.4rem;
+    font-family:var(--sans);font-size:12px;
+    color:var(--ink);border-bottom:1px solid var(--ink);
+    padding-bottom:1px;margin-bottom:.9rem;
+    transition:gap .25s ease;
+  }
+  .project-link:hover{gap:.7rem}
+  .project-link svg{width:10px;height:10px}
+  .project-list{list-style:none;padding-left:0}
+  .project-list li{
+    position:relative;padding-left:1.2rem;
+    color:var(--text);font-size:1rem;line-height:1.6;margin-bottom:.5rem;
+  }
+  .project-list li::before{
+    content:"";position:absolute;left:0;top:.7em;
+    width:5px;height:1px;background:var(--ink);
+  }
+  .project-list b, .project-list strong{font-weight:600;color:var(--ink)}
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid{display:grid;grid-template-columns:1fr;gap:1.2rem}
+  .skill-row{
+    display:grid;grid-template-columns:200px 1fr;
+    gap:1.5rem;padding-bottom:1rem;
+    border-bottom:1px solid var(--line-soft);
+  }
+  .skill-row:last-child{border-bottom:none}
+  .skill-label{
+    font-family:var(--sans);font-size:11.5px;
+    color:var(--mute);letter-spacing:0.08em;text-transform:uppercase;
+  }
+  .skill-value{font-size:1.02rem;color:var(--text);line-height:1.5}
+  @media (max-width:600px){.skill-row{grid-template-columns:1fr;gap:.3rem}}
+
+  /* ---------- AWARDS ---------- */
+  .award{
+    display:grid;grid-template-columns:1fr auto;gap:1rem;
+    padding:1.2rem 0;border-bottom:1px solid var(--line-soft);
+  }
+  .award:last-child{border-bottom:none}
+  .award-title{font-family:var(--serif);font-size:1.18rem;font-weight:600;color:var(--ink)}
+  .award-org{font-family:var(--sans);font-size:12px;color:var(--soft);margin-top:.2rem}
+  .award-desc{font-size:.95rem;color:var(--soft);margin-top:.5rem;line-height:1.5}
+  .award-year{
+    font-family:var(--sans);font-size:11px;letter-spacing:0.08em;
+    color:var(--mute);text-transform:uppercase;font-variant-numeric:tabular-nums;
+  }
+
+  /* ---------- ADDITIONAL ---------- */
+  .add-block{margin-bottom:1.8rem}
+  .add-label{
+    font-family:var(--sans);font-size:11px;letter-spacing:0.14em;
+    text-transform:uppercase;color:var(--mute);margin-bottom:.5rem;
+  }
+  .add-text{color:var(--text);font-size:1.05rem;line-height:1.6}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    margin-top:5rem;padding-top:2rem;
+    border-top:1px solid var(--line);
+    font-family:var(--sans);font-size:11px;color:var(--mute);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+  }
+
+  /* ---------- PRINT ---------- */
+  @media print{
+    .sidebar{display:none}
+    main{padding:0;max-width:100%}
+    body{font-size:11pt}
+    a{color:#000}
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div>
+      <div class="brand-mark">Portafolio · 2025</div>
+      <div class="brand-name">Maximiliano<br>Gaete <em>Pizarro</em></div>
+      <div class="brand-role">Ing. Civil Biomédica<br>IA aplicada a la salud</div>
+
+      <nav class="toc">
+        <ol>
+          <li><a href="#perfil">Perfil</a></li>
+          <li><a href="#experiencia">Experiencia</a></li>
+          <li><a href="#formacion">Formación</a></li>
+          <li><a href="#certificaciones">Certificaciones</a></li>
+          <li><a href="#proyectos">Proyectos</a></li>
+          <li><a href="#reconocimientos">Reconocimientos</a></li>
+          <li><a href="#habilidades">Habilidades</a></li>
+          <li><a href="#adicional">Adicional</a></li>
+        </ol>
+      </nav>
+    </div>
+
+    <div class="sidebar-foot">
+      <a href="mailto:maximilianogaetepizza@gmail.com">Email</a> ·
+      <a href="https://www.linkedin.com/in/maxigaete/">LinkedIn</a> ·
+      <a href="https://github.com/MaximilianoAntonio">GitHub</a><br>
+      Valparaíso, Chile
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main>
+
+    <!-- HERO -->
+    <header class="hero">
+      <div class="hero-eyebrow">Portafolio profesional</div>
+      <h1>Maximiliano Antonio<br>Gaete <em>Pizarro</em></h1>
+      <p class="hero-lede">
+        Estudiante de último año de Ingeniería Civil Biomédica con formación técnica en Electrónica
+        Industrial e investigación en Inteligencia Artificial aplicada a la salud. Trabajo en la
+        intersección entre neuroimágenes, fabricación digital y desarrollo de software médico.
+      </p>
+      <div class="hero-meta">
+        <span>Valparaíso, Chile</span>
+        <span>+56 9 3670 3492</span>
+        <span>Erasmus+ · Università di Bologna</span>
+      </div>
+    </header>
+
+    <!-- PERFIL -->
+    <section id="perfil">
+      <div class="sec-head">
+        <div class="sec-num">01</div>
+        <div>
+          <h2 class="sec-title">Perfil Profesional</h2>
+          <div class="sec-rule"></div>
+        </div>
+      </div>
+      <div class="profile">
+        <p class="lead">
+          Estudiante de último año en Ingeniería Civil Biomédica con formación técnica en
+          Electrónica Industrial y experiencia académica internacional en Inteligencia Artificial
+          y Machine Learning (Erasmus+, Universidad de Bologna).
+        </p>
+        <p>
+          Especializado en la intersección entre tecnología avanzada y salud, con experiencia
+          práctica demostrable en:
+        </p>
+        <ul>
+          <li>Investigación en neuroimágenes y análisis de redes funcionales cerebrales (iHEALTH)</li>
+          <li>Fabricación digital y prototipado rápido (FabLab UV)</li>
+          <li>Desarrollo de sistemas biomédicos: robótica, visión por computadora y telemetría</li>
+          <li>Análisis de datos y desarrollo de plataformas web con Python, C/C++ y SQL</li>
+        </ul>
+        <p>
+          Orientado a la innovación tecnológica con enfoque en resolución de problemas complejos
+          y desarrollo de soluciones de alto impacto social en el sector salud.
+        </p>
+      </div>
+    </section>
+
+    <!-- EXPERIENCIA -->
+    <section id="experiencia">
+      <div class="sec-head">
+        <div class="sec-num">02</div>
+        <div>
+          <h2 class="sec-title">Experiencia Laboral</h2>
+          <div class="sec-rule"></div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-head">
+          <div>
+            <div class="entry-title">Practicante en Ingeniería de Desarrollo e Investigación</div>
+            <div class="entry-org">Instituto Milenio iHEALTH · Chile</div>
+          </div>
+          <div class="entry-date">Ene 2026 — Mar 2026</div>
+        </div>
+        <ul class="entry-list">
+          <li>Investigador en Stream 4: Evaluación de disrupción de redes funcionales cerebrales en pacientes oncológicos mediante técnicas avanzadas de neuroimagen y análisis de conectividad cerebral.</li>
+          <li>Aplicación de métodos de Machine Learning para el procesamiento y análisis de datos neuroimagológicos.</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-head">
+          <div>
+            <div class="entry-title">Operario Especialista en Mantenimiento — Congreso Nacional</div>
+            <div class="entry-org">Cooperativa De Trabajo SVA · Valparaíso, Chile</div>
+          </div>
+          <div class="entry-date">Ene 2025 — Feb 2025</div>
+        </div>
+        <ul class="entry-list">
+          <li>Gestión integral del mantenimiento preventivo y correctivo de sistemas CCTV, redes de detección de incendios e infraestructura crítica del Congreso Nacional.</li>
+          <li>Actualización técnica de planos y documentación de sistemas; resolución de incidencias críticas bajo protocolos de seguridad institucional.</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-head">
+          <div>
+            <div class="entry-title">Instructor de Laboratorio & Especialista en Mantenimiento de Equipos</div>
+            <div class="entry-org">FabLab UV — Universidad de Valparaíso · Valparaíso, Chile</div>
+          </div>
+          <div class="entry-date">Mar 2023 — Presente</div>
+        </div>
+        <ul class="entry-list">
+          <li>Operación, calibración y reparación de equipos de fabricación digital (impresoras 3D, CNC, cortadoras láser, routers CNC).</li>
+          <li>Capacitación a estudiantes universitarios en metodologías de fabricación digital y prototipado rápido.</li>
+          <li>Liderazgo técnico en proyectos de innovación e ingeniería inversa aplicados a soluciones biomédicas.</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-head">
+          <div>
+            <div class="entry-title">Practicante — Departamento de Mantenimiento</div>
+            <div class="entry-org">Cámara de Diputadas y Diputados de Chile · Valparaíso, Chile</div>
+          </div>
+          <div class="entry-date">Ago 2024 — Sep 2024</div>
+        </div>
+        <ul class="entry-list">
+          <li>Coordinación de mantenimiento preventivo de sala de sesiones legislativas y espacios críticos.</li>
+          <li>Gestión de compras públicas (Mercado Público) para adquisición de insumos técnicos y equipamiento.</li>
+          <li>Ejecución de rondas de inspección técnica y elaboración de reportes de estado de infraestructura.</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-head">
+          <div>
+            <div class="entry-title">Asistente Topográfico & Mantenimiento de Equipos</div>
+            <div class="entry-org">Incigeo SPA · Chile</div>
+          </div>
+          <div class="entry-date">2022 — 2023</div>
+        </div>
+        <ul class="entry-list">
+          <li>Apoyo operativo en levantamientos topográficos y construcción de infraestructuras civiles.</li>
+          <li>Mantenimiento preventivo de instrumentos de medición y equipos de campo.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- FORMACIÓN -->
+    <section id="formacion">
+      <div class="sec-head">
+        <div class="sec-num">03</div>
+        <div>
+          <h2 class="sec-title">Formación Académica</h2>
+          <div class="sec-rule"></div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-head">
+          <div>
+            <div class="entry-title">Estudiante de Intercambio Erasmus+ — IA Aplicada a la Salud</div>
+            <div class="entry-org">Alma Mater Studiorum — Università di Bologna · Bologna, Italia</div>
+          </div>
+          <div class="entry-date">Sep 2025 — Feb 2026</div>
+        </div>
+        <ul class="entry-list">
+          <li><b>Cursos especializados:</b> Artificial Intelligence for Medicine, Bioimmagini e Ingegneria Clinica, Project Work in AI for Industry, Project Management and Soft Skills, Machine Learning and Data Mining.</li>
+          <li><b>Enfoque:</b> Aplicación de IA en diagnóstico médico, procesamiento de imágenes biomédicas y sistemas de apoyo clínico.</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-head">
+          <div>
+            <div class="entry-title">Licenciatura en Ciencias de la Ingeniería Biomédica</div>
+            <div class="entry-org">Universidad de Valparaíso · Valparaíso, Chile</div>
+          </div>
+          <div class="entry-date">2021 — Presente</div>
+        </div>
+        <ul class="entry-list">
+          <li><b>Programa actual:</b> Último año de Ingeniería Civil Biomédica con énfasis en bioinstrumentación, procesamiento de señales biomédicas y sistemas de información en salud.</li>
+          <li><b>Áreas de especialización:</b> Inteligencia artificial aplicada a la salud, ingeniería clínica, y tecnologías médicas emergentes.</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-head">
+          <div>
+            <div class="entry-title">Certificación en Fabricación Digital Avanzada (FAB-D)</div>
+            <div class="entry-org">Universidad de Valparaíso — FabLab UV · Valparaíso, Chile</div>
+          </div>
+          <div class="entry-date">Jun 2023 — Dic 2023</div>
+        </div>
+        <ul class="entry-list">
+          <li>Programa de especialización de 90 horas en fabricación digital aplicada al desarrollo de prototipos tecnológicos y dispositivos médicos.</li>
+          <li>Dominio de herramientas CAD/CAM, impresión 3D, corte láser y electrónica embebida.</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-head">
+          <div>
+            <div class="entry-title">Técnico de Nivel Medio en Electrónica Industrial</div>
+            <div class="entry-org">Colegio Salesiano de Valparaíso · Valparaíso, Chile</div>
+          </div>
+          <div class="entry-date">2017 — 2020</div>
+        </div>
+        <ul class="entry-list">
+          <li>Formación técnica integral en electrónica industrial, automatización y sistemas de control.</li>
+          <li>Proyecto de titulación: Diseño e implementación de sistemas electrónicos aplicados.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- CERTIFICACIONES -->
+    <section id="certificaciones">
+      <div class="sec-head">
+        <div class="sec-num">04</div>
+        <div>
+          <h2 class="sec-title">Certificaciones Profesionales</h2>
+          <div class="sec-rule"></div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-head">
+          <div>
+            <div class="entry-title">Programa de Especialización en Inteligencia Artificial</div>
+            <div class="entry-org">Academia RED & Microsoft — La Red por la Ciberseguridad</div>
+          </div>
+          <div class="entry-date">Jun 2026</div>
+        </div>
+        <ul class="entry-list">
+          <li><b>Gestión Estratégica:</b> IA para Directivos de PYMES, IA para Marketing y Ventas, IA para Recursos Humanos, IA para Líderes de Proyecto, IA para Ejecutivos de TI.</li>
+          <li><b>Herramientas y Productividad:</b> Copilot y GitHub, IA para Docentes, IA para la Vida y el Trabajo.</li>
+          <li><b>Ciberseguridad y Cumplimiento:</b> Ciberseguridad en el Trabajo, Protección de Datos Personales, Organización Moderna, Experiencia LATAM Microsoft.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- PROYECTOS -->
+    <section id="proyectos">
+      <div class="sec-head">
+        <div class="sec-num">05</div>
+        <div>
+          <h2 class="sec-title">Proyectos Destacados</h2>
+          <div class="sec-rule"></div>
+        </div>
+      </div>
+
+      <article class="project">
+        <div class="project-head">
+          <h3 class="project-name">Biomedical DSP — Plataforma de Procesamiento de Señales</h3>
+          <span class="project-tag">Plataforma académica</span>
+        </div>
+        <div class="project-stack">Python, JavaScript, Análisis de Señales, Visualización Interactiva</div>
+        <a class="project-link" href="https://biomedical-dsp-uv.vercel.app/" target="_blank" rel="noopener">
+          biomedical-dsp-uv.vercel.app
+          <svg viewBox="0 0 10 10"><path d="M1 9 L9 1 M3 1 H9 V7" stroke="currentColor" stroke-width="1" fill="none"/></svg>
+        </a>
+        <ul class="project-list">
+          <li><b>Desarrollo Web Técnico:</b> Creación de interfaz interactiva para el análisis y procesamiento digital de señales biomédicas (DSP).</li>
+          <li><b>Procesamiento de Datos:</b> Implementación de algoritmos de filtrado, transformadas y visualización de datos complejos en tiempo real.</li>
+        </ul>
+      </article>
+
+      <article class="project">
+        <div class="project-head">
+          <h3 class="project-name">HGF Repuestos — Plataforma Web de Analítica y Gestión de Inventario Inteligente</h3>
+          <span class="project-tag">En producción</span>
+        </div>
+        <div class="project-stack">Python, Django, PostgreSQL, Data Analytics, Series Temporales</div>
+        <a class="project-link" href="https://hgf-repuestos.onrender.com/" target="_blank" rel="noopener">
+          hgf-repuestos.onrender.com
+          <svg viewBox="0 0 10 10"><path d="M1 9 L9 1 M3 1 H9 V7" stroke="currentColor" stroke-width="1" fill="none"/></svg>
+        </a>
+        <ul class="project-list">
+          <li>Desarrollé una plataforma web integral de analítica continua con módulos interconectados: Dashboard ejecutivo, gestión de bodega, historial de transacciones y generador de códigos QR para trazabilidad física.</li>
+          <li>Implementé un algoritmo predictivo de demanda para licitaciones utilizando series temporales mensuales, regresión lineal robusta (control de outliers), desviación estándar adaptativa y cálculo dinámico de stocks de seguridad.</li>
+          <li>Diseñé un sistema jerárquico de roles (Admin/Técnico) con semáforo visual automatizado para alertas de stock crítico, reposición urgente y contratos próximos a vencer, optimizando la toma de decisiones de compra.</li>
+        </ul>
+      </article>
+
+      <article class="project">
+        <div class="project-head">
+          <h3 class="project-name">GENCLA — Homologador y Visualizador de Ingeniería Clínica</h3>
+          <span class="project-tag">Plataforma académica</span>
+        </div>
+        <div class="project-stack">Python, Normalización de Datos, Business Intelligence, Visualización Interactiva</div>
+        <a class="project-link" href="https://gencla.vercel.app/" target="_blank" rel="noopener">
+          gencla.vercel.app
+          <svg viewBox="0 0 10 10"><path d="M1 9 L9 1 M3 1 H9 V7" stroke="currentColor" stroke-width="1" fill="none"/></svg>
+        </a>
+        <ul class="project-list">
+          <li>Creé una plataforma académica orientada a ingeniería clínica que normaliza, limpia y procesa bases de datos heterogéneas (Excel/CSV) manteniendo trazabilidad completa de transformaciones aplicadas.</li>
+          <li>Integré herramientas avanzadas de BI: rankings multidimensionales por categorías clínicas, editores visuales (diagramas Ishikawa, flujos Mermaid) enfocados en calidad asistencial y generación de informes de trazabilidad.</li>
+        </ul>
+      </article>
+
+      <article class="project">
+        <div class="project-head">
+          <h3 class="project-name">PUCO — Analizador Inteligente de Mercado Público</h3>
+          <span class="project-tag">Herramienta SaaS</span>
+        </div>
+        <div class="project-stack">Python, API REST, Automatización, Web Scraping, Data Processing</div>
+        <a class="project-link" href="https://puco.onrender.com/" target="_blank" rel="noopener">
+          puco.onrender.com
+          <svg viewBox="0 0 10 10"><path d="M1 9 L9 1 M3 1 H9 V7" stroke="currentColor" stroke-width="1" fill="none"/></svg>
+        </a>
+        <ul class="project-list">
+          <li>Desarrollé una aplicación web para levantamiento estratégico, filtrado automatizado y análisis avanzado de licitaciones públicas mediante consumo directo de la API oficial de Mercado Público Chile.</li>
+          <li>Implementé pipelines de ETL para procesamiento masivo de datos de contratación pública con métricas de oportunidad y competitividad.</li>
+        </ul>
+      </article>
+
+      <article class="project">
+        <div class="project-head">
+          <h3 class="project-name">Sistema de Gestión Vehicular — SSVQ</h3>
+          <span class="project-tag">En producción</span>
+        </div>
+        <div class="project-stack">Python, Django REST Framework, Preact.js, JavaScript, Notificaciones en Tiempo Real</div>
+        <div class="entry-date" style="margin-bottom:.6rem">Abr 2025 — Jul 2025</div>
+        <ul class="project-list">
+          <li>Lideré el desarrollo de una plataforma digital completa para automatizar la asignación de vehículos administrativos en un servicio de salud público.</li>
+          <li>Arquitectura: Frontend SPA con Preact, API REST escalable con Django, sistema de notificaciones push y dashboard de administración en tiempo real.</li>
+        </ul>
+      </article>
+
+      <article class="project">
+        <div class="project-head">
+          <h3 class="project-name">Prototipo de Incubadora Neonatal con Control PID Inteligente</h3>
+          <span class="project-tag">Prototipo funcional</span>
+        </div>
+        <div class="project-stack">Python, Arduino, Sensores de Temperatura/Humedad, Control PID, MySQL, IoT</div>
+        <div class="entry-date" style="margin-bottom:.6rem">Jul 2024 — Dic 2024</div>
+        <ul class="project-list">
+          <li>Diseñé y construí un prototipo de incubadora neonatal con control preciso de temperatura y ventilación mediante algoritmos PID adaptativos.</li>
+          <li>Integración de sensores médicos-grade, interfaz de monitoreo en tiempo real y sistema de alertas para desviaciones de parámetros fisiológicos.</li>
+        </ul>
+      </article>
+
+      <article class="project">
+        <div class="project-head">
+          <h3 class="project-name">Brazo Robótico 3-GDL con Visión por Computadora</h3>
+          <span class="project-tag">Sistema operativo</span>
+        </div>
+        <div class="project-stack">Arduino, Python, OpenCV, Dynamixel AX-12A, Impresión 3D, Computer Vision</div>
+        <div class="entry-date" style="margin-bottom:.6rem">Jul 2024 — Dic 2024</div>
+        <ul class="project-list">
+          <li>Fabricación completa mediante impresión 3D de un brazo robótico de 3 grados de libertad controlado por Python.</li>
+          <li>Implementación de pipeline de visión por computadora (OpenCV) para detección y clasificación de objetos por color y forma usando servomotores inteligentes Dynamixel AX-12A.</li>
+        </ul>
+      </article>
+
+      <article class="project">
+        <div class="project-head">
+          <h3 class="project-name">Robot Continuo de Exploración Controlado por Señales EMG</h3>
+          <span class="project-tag">Investigación aplicada</span>
+        </div>
+        <div class="project-stack">Arduino UNO, Sensores EMG (OYMotion), Servomotores, Modelado 3D CAD, Impresión 3D</div>
+        <div class="entry-date" style="margin-bottom:.6rem">Mar 2024 — Ago 2024</div>
+        <ul class="project-list">
+          <li>Diseñé y construí un robot flexible de exploración controlado mediante señales electromiográficas (EMG) de superficie para aplicaciones de rehabilitación asistida.</li>
+          <li>Desarrollo de interfaz hardware-software para adquisición y procesamiento de señales biosensores en tiempo real.</li>
+        </ul>
+      </article>
+
+      <article class="project">
+        <div class="project-head">
+          <h3 class="project-name">Sistema de Monitoreo Telemétrico de Signos Vitales</h3>
+          <span class="project-tag">Sistema completo</span>
+        </div>
+        <div class="project-stack">Arduino, Python, PyQt5, MySQL, Sensores Biomédicos, IoT Healthcare</div>
+        <div class="entry-date" style="margin-bottom:.6rem">Mar 2023 — Jun 2023</div>
+        <ul class="project-list">
+          <li>Desarrollé un sistema de monitoreo en tiempo real de frecuencia cardíaca y temperatura corporal con almacenamiento de datos históricos y visualización mediante interfaz gráfica PyQt5.</li>
+          <li>Arquitectura cliente-servidor para telemedicina con alertas automáticas de parámetros fuera de rango fisiológico.</li>
+        </ul>
+      </article>
+
+      <article class="project">
+        <div class="project-head">
+          <h3 class="project-name">Órtesis Personalizadas Mediante Fabricación Digital</h3>
+          <span class="project-tag">Prototipado médico</span>
+        </div>
+        <div class="project-stack">Escaneo 3D, Meshmixer, Blender, Cura Slicer, Impresión 3D FDM</div>
+        <div class="entry-date" style="margin-bottom:.6rem">Mar 2023 — Abr 2023</div>
+        <ul class="project-list">
+          <li>Implementé un workflow completo de escaneo 3D anatómico, diseño paramétrico de órtesis personalizadas y fabricación mediante impresión 3D para aplicaciones de rehabilitación.</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- RECONOCIMIENTOS -->
+    <section id="reconocimientos">
+      <div class="sec-head">
+        <div class="sec-num">06</div>
+        <div>
+          <h2 class="sec-title">Reconocimientos y Premios</h2>
+          <div class="sec-rule"></div>
+        </div>
+      </div>
+
+      <div class="award">
+        <div>
+          <div class="award-title">Primera Escuela de Invierno iHEALTH</div>
+          <div class="award-org">Instituto Milenio iHEALTH — Aplicación de IA en Salud</div>
+          <div class="award-desc">Selección competitiva para programa intensivo en tecnologías de Inteligencia Artificial aplicadas al área médica y neurociencias.</div>
+        </div>
+        <div class="award-year">Jul 2025</div>
+      </div>
+
+      <div class="award">
+        <div>
+          <div class="award-title">Rally Latinoamericano de Innovación 2024 — 3er Lugar</div>
+          <div class="award-org">Universidad de Valparaíso — Categoría Impacto Social (Equipo "Evacuatech")</div>
+          <div class="award-desc">Reconocimiento por desarrollo de solución tecnológica con alto impacto social en contextos de emergencia y desastres naturales.</div>
+        </div>
+        <div class="award-year">Oct 2024</div>
+      </div>
+
+      <div class="award">
+        <div>
+          <div class="award-title">Datathon Make Health Latam</div>
+          <div class="award-org">CENS (Chile) & MIT (EE.UU.) — Participación Destacada</div>
+          <div class="award-desc">Competencia internacional enfocada en desarrollo de soluciones basadas en datos para desafíos de salud en América Latina.</div>
+        </div>
+        <div class="award-year">Ene 2023</div>
+      </div>
+    </section>
+
+    <!-- HABILIDADES -->
+    <section id="habilidades">
+      <div class="sec-head">
+        <div class="sec-num">07</div>
+        <div>
+          <h2 class="sec-title">Habilidades Técnicas y Competencias</h2>
+          <div class="sec-rule"></div>
+        </div>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-row">
+          <div class="skill-label">Lenguajes de Programación</div>
+          <div class="skill-value">Python (avanzado), C/C++, SQL, JavaScript, Arduino IDE</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-label">Frameworks y Web</div>
+          <div class="skill-value">Django, Flask, React/Preact, HTML5, CSS3, REST APIs</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-label">Data Science & ML</div>
+          <div class="skill-value">Pandas, NumPy, Scikit-learn, OpenCV, Power BI, Looker Studio</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-label">Hardware & Electrónica</div>
+          <div class="skill-value">Arduino, Raspberry Pi, Sensores Biomédicos, Impresión 3D, PCB Design</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-label">Diseño y Fabricación</div>
+          <div class="skill-value">AutoCAD/Fusion 360, SolidWorks, Cura, Meshmixer, Blender</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-label">DevOps & Colaboración</div>
+          <div class="skill-value">Git/GitHub, Docker (básico), Metodologías Ágiles</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-label">Idiomas</div>
+          <div class="skill-value">Español (Nativo), Inglés (B1–B2 Conversacional), Italiano (B1 Conversacional)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ADICIONAL -->
+    <section id="adicional">
+      <div class="sec-head">
+        <div class="sec-num">08</div>
+        <div>
+          <h2 class="sec-title">Información Adicional</h2>
+          <div class="sec-rule"></div>
+        </div>
+      </div>
+
+      <div class="add-block">
+        <div class="add-label">Disponibilidad</div>
+        <div class="add-text">
+          Disponible para prácticas profesionales, proyectos de investigación colaborativos
+          y oportunidades laborales en áreas de ingeniería biomédica, inteligencia artificial
+          aplicada a la salud, desarrollo de software médico o fabricación digital.
+        </div>
+      </div>
+
+      <div class="add-block">
+        <div class="add-label">Intereses de Investigación</div>
+        <div class="add-text">
+          Neuroimagen y conectividad cerebral, dispositivos médicos inteligentes (IoMT),
+          análisis de datos clínicos, robótica rehabilitadora, y sistemas de soporte clínico
+          basados en IA.
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div>© 2025 Maximiliano Antonio Gaete Pizarro</div>
+      <div>Valparaíso, Chile · Última actualización: 2025</div>
+    </footer>
+
+  </main>
+</div>
+</body>
+</html>
