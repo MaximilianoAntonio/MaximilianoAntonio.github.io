@@ -102,7 +102,11 @@
 
   /* LAYOUT */
   .shell{display:grid;grid-template-columns:290px 1fr;max-width:1280px;margin:0 auto;min-height:100vh;position:relative;z-index:5}
-  @media (max-width:950px){.shell{grid-template-columns:1fr;display:block}}
+  
+  /* BOTÓN MENÚ MÓVIL (Oculto en Escritorio) */
+  .menu-toggle {
+    display: none;
+  }
 
   /* SIDEBAR DE NAVEGACIÓN Y CONTACTO FIJO */
   .sidebar{
@@ -112,8 +116,70 @@
     display:flex;flex-direction:column;justify-content:space-between;
     background: transparent;
   }
+  
   @media (max-width:950px){
-    .sidebar{position:relative;height:auto;border-right:none;border-bottom:1px solid var(--line-soft);padding:2.5rem 1.5rem}
+    .shell{grid-template-columns:1fr;display:block}
+    
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: auto;
+      border-right: none;
+      border-bottom: 1px solid var(--line-soft);
+      padding: 2rem 1.5rem;
+      z-index: 1000;
+      background: rgba(4, 4, 6, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      display: block;
+    }
+
+    /* Botón desplegable dinámico */
+    .menu-toggle {
+      display: block;
+      position: absolute;
+      top: 2rem;
+      right: 1.5rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--line-soft);
+      color: var(--accent);
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: var(--mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      transition: all 0.2s ease;
+    }
+    .menu-toggle:hover {
+      background: rgba(0, 224, 182, 0.08);
+      border-color: var(--accent);
+    }
+
+    /* Ocultar elementos del menú por defecto en móvil */
+    .sidebar-contact-panel,
+    nav.toc,
+    .sidebar-foot {
+      display: none !important;
+    }
+
+    /* Mostrar dinámicamente al abrir el contenedor */
+    .sidebar.open .sidebar-contact-panel {
+      display: flex !important;
+    }
+    .sidebar.open nav.toc {
+      display: block !important;
+    }
+    .sidebar.open .sidebar-foot {
+      display: block !important;
+      margin-top: 2rem;
+    }
+
+    /* Eliminación absoluta de la barra superior de filtros en móvil */
+    .filter-container {
+      display: none !important;
+    }
   }
   
   .brand-name{font-size:1.25rem;font-weight:700;color:var(--ink);letter-spacing:-0.02em;}
@@ -604,6 +670,9 @@
 
   <!-- SIDEBAR (Navegación y Contacto Fijo) -->
   <aside class="sidebar">
+    <!-- Botón Toggle de Control de Menú Móvil -->
+    <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">Menú</button>
+    
     <div>
       <div class="brand-name">Maximiliano Gaete</div>
       <div class="brand-role">Estudiante de Ing. Civil Biomédica<br>Técnico Nivel Medio en Electrónica</div>
@@ -1415,7 +1484,7 @@
     const profileTexts = {
       all: "Estudiante de último año en Ingeniería Civil Biomédica con sólida formación técnica inicial en Electrónica Industrial y experiencia académica internacional en IA aplicada al entorno médico mediante una estancia en la Università di Bologna.",
       data: "Estudiante de último año en Ingeniería Civil Biomédica con enfoque en Ciencia de Datos y BI para el sector salud. Especializado en pipelines analísticos complexes (ETL), normalización de bases de datos clínicas y reportería interactiva.",
-      ml: "Especialización internacional en IA y Machine Learning aplicado al entorno médico en la Università di Bologna. Experiencia en el preprocesamiento automatizado de neuroimágenes masivas (fMRI, dTI) y modelos neuronales profundos.",
+      ml: "Especialización internacional en IA y Machine Learning aplicado al entorno médico en la Università di Bologna. Experiencia en el preprocesamiento automatizado de neuroimágenes masivas (fMRI, dTI) y models neuronales profundos.",
       software: "Desarrollador enfocado en arquitectura de software de salud, APIs REST robustas, sincronización en tiempo real vía WebSockets e integraciones seguras en entornos web distribuidos utilizando Python, TypeScript y bases de datos.",
       clinica: "Orientado a la gestión de tecnologías sanitarias, planificación de mantenimiento predictivo/correctivo en infraestructura crítica y optimización sistémica de recursos operativos hospitalarios.",
       hardware: "Especializado en el desarrollo de hardware médico, robótica de asistencia motora, instrumentación bioeléctrica (sensores EMG/ECG) y flujos avanzados de diseño paramétrico CAD/CAM en entornos FabLab.",
@@ -1512,6 +1581,31 @@
         applyFilters();
       });
     });
+
+    // 6. CONTROL INTERACTIVO DE MENÚ DESPLEGABLE MÓVIL
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+    if (menuToggle && sidebar) {
+      menuToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('open');
+        if (sidebar.classList.contains('open')) {
+          menuToggle.innerText = 'Cerrar';
+        } else {
+          menuToggle.innerText = 'Menú';
+        }
+      });
+
+      // Auto-cerrar el menú en móviles cuando el usuario haga clic en un enlace del TOC
+      const tocLinks = sidebar.querySelectorAll('nav.toc a');
+      tocLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          if (window.innerWidth <= 950) {
+            sidebar.classList.remove('open');
+            menuToggle.innerText = 'Menú';
+          }
+        });
+      });
+    }
 
     document.addEventListener('DOMContentLoaded', () => {
       initFilterCounters();
