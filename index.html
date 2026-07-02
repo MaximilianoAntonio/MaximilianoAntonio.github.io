@@ -41,14 +41,29 @@
     text-rendering:optimizeLegibility;
     overflow-x:hidden;
     letter-spacing:0.01em;
+    position: relative;
   }
 
   /* Textura de Ruido sutil */
   body::before {
     content: "";
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    pointer-events: none; z-index: 1; opacity: 0.015;
+    pointer-events: none; z-index: 2; opacity: 0.015;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+
+  /* Animación de fondo: Luces ambientales fluidas y sutiles */
+  body::after {
+    content: "";
+    position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
+    pointer-events: none; z-index: 0;
+    background: radial-gradient(circle at 30% 20%, rgba(0, 224, 182, 0.025) 0%, transparent 45%),
+                radial-gradient(circle at 70% 60%, rgba(0, 224, 182, 0.015) 0%, transparent 55%);
+    animation: ambientGlow 25s linear infinite;
+  }
+  @keyframes ambientGlow {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 
   /* Scroll Progress Bar */
@@ -78,7 +93,7 @@
   ::-webkit-scrollbar-thumb{background:var(--line-soft)}
 
   /* LAYOUT */
-  .shell{display:grid;grid-template-columns:260px 1fr;max-width:1200px;margin:0 auto;min-height:100vh;position:relative;z-index:2}
+  .shell{display:grid;grid-template-columns:260px 1fr;max-width:1240px;margin:0 auto;min-height:100vh;position:relative;z-index:5}
   @media (max-width:950px){.shell{grid-template-columns:1fr;display:block}}
 
   /* SIDEBAR */
@@ -87,6 +102,7 @@
     padding:4rem 2rem 2rem 2.5rem;
     border-right:1px solid var(--line-soft);
     display:flex;flex-direction:column;justify-content:space-between;
+    background: transparent;
   }
   @media (max-width:950px){
     .sidebar{position:relative;height:auto;border-right:none;border-bottom:1px solid var(--line-soft);padding:2.5rem 1.5rem}
@@ -124,7 +140,7 @@
   .sidebar-foot a:hover { color: var(--accent); text-decoration: underline; }
 
   /* MAIN */
-  main{padding:4rem 4rem 6rem;max-width:860px}
+  main{padding:4rem 4rem 6rem;max-width:980px; width:100%;}
   @media (max-width:950px){main{padding:3rem 1.5rem 4rem}}
 
   /* HERO */
@@ -203,6 +219,7 @@
     border-color: var(--mute);
     color: var(--ink);
     background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-1px);
   }
   .filter-btn.active {
     border-color: var(--accent);
@@ -218,7 +235,7 @@
     padding-bottom: 3rem; 
     scroll-margin-top: 1rem;
   }
-  .reveal{opacity:0;transform:translateY(15px);transition:opacity 0.6s ease, transform 0.6s ease;}
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);}
   .reveal.visible{opacity:1;transform:translateY(0);}
 
   .sec-head{display:grid;grid-template-columns:35px 1fr;align-items:baseline;gap:1rem;margin-bottom:3.5rem;}
@@ -228,13 +245,13 @@
   .sec-rule{grid-column:2;border-top:1px solid var(--line-soft);margin-top:1rem; width:0%; transition: width 1s ease;}
   .reveal.visible .sec-rule { width: 100%; }
 
-  /* BLOQUES EDITORIALES */
+  /* BLOQUES EDITORIALES GENERALES */
   .editorial-block {
     position: relative;
     margin-bottom: 4rem;      /* Alta separación física para descanso visual */
     padding-bottom: 3rem;
     border-bottom: 1px solid var(--line-soft);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .editorial-block:last-child {
     margin-bottom: 0;
@@ -244,6 +261,108 @@
   .editorial-block.hidden {
     display: none !important;
   }
+
+  /* NUEVA ARQUITECTURA: GRID DE TARJETAS PARA PROYECTOS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+  @media (max-width: 768px) {
+    .projects-grid { grid-template-columns: 1fr; }
+  }
+
+  .projects-grid .editorial-block {
+    background: rgba(255, 255, 255, 0.015);
+    border: 1px solid var(--line-soft);
+    padding: 1.75rem;
+    border-radius: 8px;
+    margin-bottom: 0;
+    padding-bottom: 1.75rem;
+    border-bottom: 1px solid var(--line-soft);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease, opacity 0.35s ease;
+  }
+  
+  .projects-grid .editorial-block:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 224, 182, 0.25);
+    background: rgba(255, 255, 255, 0.025);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  .projects-grid .project-head {
+    margin-bottom: 0.75rem;
+  }
+
+  /* SISTEMA DE PILL BADGES PARA TECH STACK */
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.25rem;
+    font-family: var(--mono);
+  }
+  .tech-badge {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    color: var(--soft);
+    padding: 0.15rem 0.55rem;
+    border-radius: 4px;
+    font-size: 10px;
+    letter-spacing: 0.02em;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+  .projects-grid .editorial-block:hover .tech-badge {
+    background: rgba(0, 224, 182, 0.06);
+    border-color: rgba(0, 224, 182, 0.15);
+    color: var(--ink);
+  }
+
+  /* SUB-GRID COMPACTO PARA CERTIFICACIONES MULTIPLES (Microsoft) */
+  .courses-heading {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 3.5rem 0 1.5rem 0;
+    font-family: var(--sans);
+    border-bottom: 1px solid var(--line-soft);
+    padding-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+  .courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+  @media (max-width: 600px) {
+    .courses-grid { grid-template-columns: 1fr; }
+  }
+  .course-card {
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid var(--line-soft);
+    padding: 1.25rem;
+    border-radius: 6px;
+    margin-bottom: 0 !important;
+    padding-bottom: 1.25rem !important;
+    border-bottom: 1px solid var(--line-soft) !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, background 0.3s ease;
+  }
+  .course-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(0, 224, 182, 0.2);
+    background: rgba(255, 255, 255, 0.02);
+  }
+  .course-card .entry-head { margin-bottom: 0.5rem; grid-template-columns: 1fr; gap: 0.25rem; }
+  .course-card .entry-title { font-size: 1.05rem; line-height: 1.3; }
+  .course-card .award-org { font-size: 11px; margin-top: 0.1rem; margin-bottom: 0.5rem; }
+  .course-card .block-text { font-size: 13px; line-height: 1.5; color: var(--mute); }
 
   /* ESTRUCTURA DE TEXTOS */
   .entry-head{display:grid;grid-template-columns:1fr auto;align-items:start;gap:2rem;margin-bottom:1rem;}
@@ -283,21 +402,22 @@
   .profile-text { color: var(--text); font-size: 1rem; text-align: left; }
   .profile-tail { color: var(--soft); font-size: 1rem; text-align: left; }
   .block-text { color: var(--soft); font-size: 1rem; line-height: 1.75; text-align: left; }
+  .block-text strong { font-weight: 600; color: var(--ink); }
 
   /* PROYECTOS Y CERTIFICADOS */
-  .project-tag { font-family:var(--mono); font-size:11px; text-transform:uppercase; color:var(--mute); letter-spacing:0.05em; margin-left: 0.75rem; font-weight: 400; }
-  .project-stack{font-family:var(--mono);font-size:12px;color:var(--mute);margin-bottom:1rem; letter-spacing: 0.02em;}
+  .project-tag { font-family:var(--mono); font-size:10px; text-transform:uppercase; color:var(--mute); letter-spacing:0.05em; display:block; margin-top: 0.25rem; font-weight: 400; }
   
-  .project-actions { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 1rem; margin-top: 0.5rem;}
+  .project-actions { display: flex; flex-wrap: wrap; gap: 1.25rem; margin-bottom: 0.25rem; margin-top: auto; padding-top: 1.25rem;}
   .project-link{
     display:inline-flex;align-items:center;gap:.3rem;
     font-family:var(--mono);font-size:12px;color:var(--accent);
     font-weight: 500;
-    transition: color 0.2s ease;
+    transition: color 0.2s ease, transform 0.2s ease;
   }
   .project-link:hover{
     color:var(--ink);
     text-decoration: underline;
+    transform: translateX(2px);
   }
   .project-link .arrow { display: inline-block; font-size: 10px; }
 
@@ -309,9 +429,11 @@
     gap: 2rem;
     padding: 1.5rem 0;
     border-bottom: 1px solid var(--line-soft);
+    transition: background 0.2s ease;
   }
   .skill-row-item:first-child { padding-top: 0; }
   .skill-row-item:last-child { border-bottom: none; }
+  .skill-row-item:hover { background: rgba(255,255,255,0.01); }
   
   .skill-label{font-family:var(--mono);font-size:12px;color:var(--accent);text-transform:uppercase;letter-spacing:0.08em; font-weight: 600; padding-top: 2px;}
   .skill-value{font-size:1rem;color:var(--text);line-height:1.7;}
@@ -337,6 +459,7 @@
     }
     .mask-text { transform: translateY(0); opacity: 1; }
     .sec-rule { width: 100%; }
+    body::after { animation: none; }
   }
 </style>
 </head>
@@ -427,10 +550,10 @@
           Especializado en el diseño e implementación de tecnologías sanitarias críticas, demostrando capacidades avanzadas en:
         </p>
         <ul class="content-list">
-          <li>Investigación de neuroimágenes estructurales/funcionales y conectividad de redes cerebrales.</li>
-          <li>Fabricación digital avanzada, ingeniería inversa y prototipado rápido en entornos FabLab.</li>
+          <li>Investigación de <strong>neuroimágenes estructurales/funcionales</strong> y conectividad de redes cerebrales.</li>
+          <li><strong>Fabricación digital avanzada</strong>, ingeniería inversa y prototipado rápido en entornos FabLab.</li>
           <li>Desarrollo de robótica médica, instrumentación biomédica, telemetría y visión artificial.</li>
-          <li>Diseño de arquitecturas de software robustas (ETL, API REST, Dashboards) utilizando Python, TypeScript y SQL.</li>
+          <li>Diseño de <strong>arquitecturas de software robustas</strong> (ETL, API REST, Dashboards) utilizando Python, TypeScript y SQL.</li>
         </ul>
         <p class="profile-tail">
           Enfoque proactivo orientado al desarrollo de sistemas bioingenieriles con alta escalabilidad, optimización algorítmica y un profundo impacto social en la asistencia clínica y de investigación.
@@ -459,8 +582,8 @@
             <time class="entry-date" datetime="2026-01">Ene 2026 — Mar 2026</time>
           </div>
           <ul class="content-list">
-            <li>Investigador adjunto en Stream 4: Evaluación de disrupción de redes funcionales cerebrales en pacientes oncológicos mediante técnicas avanzadas de neuroimagen (fMRI, dTI) y análisis matemático de conectividad cerebral.</li>
-            <li>Diseño e implementación de scripts y flujos de Machine Learning para el preprocesamiento y limpieza automatizada de datos neuroimagológicos masivos.</li>
+            <li>Investigador adjunto en Stream 4: Evaluación de disrupción de <strong>redes funcionales cerebrales</strong> en pacientes oncológicos mediante técnicas avanzadas de neuroimagen (<strong>fMRI, dTI</strong>) y análisis matemático de conectividad cerebral.</li>
+            <li>Diseño e implementación de scripts y <strong>flujos de Machine Learning</strong> para el preprocesamiento y limpieza automatizada de datos neuroimagológicos masivos.</li>
           </ul>
         </div>
 
@@ -473,7 +596,7 @@
             <time class="entry-date" datetime="2025-01">Ene 2025 — Feb 2025</time>
           </div>
           <ul class="content-list">
-            <li>Gestión integral del mantenimiento preventivo, predictivo y correctivo de sistemas de CCTV complejos, redes de detección temprana de incendios y cableado estructurado dentro de la infraestructura crítica del Congreso Nacional.</li>
+            <li>Gestión integral del mantenimiento preventivo, predictivo y correctivo de <strong>sistemas de CCTV complejos</strong>, redes de detección temprana de incendios y cableado estructurado dentro de la infraestructura crítica del Congreso Nacional.</li>
             <li>Actualización técnica avanzada de planos eléctricos y diagramas de redes; resolución de incidencias en tiempo real bajo estrictos protocolos de seguridad institucional.</li>
           </ul>
         </div>
@@ -487,9 +610,9 @@
             <time class="entry-date" datetime="2023-03">Mar 2023 — Presente</time>
           </div>
           <ul class="content-list">
-            <li>Encargado técnico del mantenimiento correctivo y calibración micrométrica de maquinaria industrial: impresoras 3D (FDM/SLA), fresadoras CNC, cortadoras láser CO2 y enrutadores.</li>
-            <li>Líder de capacitación técnica y metodológica a estudiantes de pregrado y postgrado en diseño paramétrico y flujos avanzados de fabricación digital.</li>
-            <li>Desarrollador de proyectos de ingeniería inversa aplicados al diseño de carcasas, fijaciones y chasis para hardware biomédico.</li>
+            <li>Encargado técnico del mantenimiento correctivo y <strong>calibración micrométrica</strong> de maquinaria industrial: impresoras 3D (FDM/SLA), fresadoras CNC, cortadoras láser CO2 y enrutadores.</li>
+            <li>Líder de capacitación técnica y metodológica a estudiantes en diseño paramétrico y <strong>flujos avanzados de fabricación digital</strong>.</li>
+            <li>Desarrollador de proyectos de <strong>ingeniería inversa</strong> aplicados al diseño de carcasas, fijaciones y chasis para hardware biomédico.</li>
           </ul>
         </div>
 
@@ -503,7 +626,7 @@
           </div>
           <ul class="content-list">
             <li>Planificación técnica y supervisión de los planes de mantenimiento preventivo aplicados al equipamiento audiovisual y de climatización en las salas legislativas principales.</li>
-            <li>Gestión administrative técnica y licitación de insumos de ingeniería mediante la plataforma oficial de compras públicas del Estado chileno (Mercado Público).</li>
+            <li>Gestión administrativa técnica y licitación de insumos de ingeniería mediante la plataforma oficial de compras públicas del Estado chileno (<strong>Mercado Público</strong>).</li>
           </ul>
         </div>
 
@@ -544,7 +667,7 @@
           </div>
           <ul class="content-list">
             <li><b>Asignaturas de Postgrado aprobadas:</b> Artificial Intelligence for Medicine, Bioimmagini e Ingegneria Clinica, Project Work in AI for Industry, Project Management and Soft Skills, Machine Learning and Data Mining.</li>
-            <li><b>Área de Especialización:</b> Implementación de Redes Neuronales Convolucionales (CNN) en diagnóstico por imagen médica, gestión de Big Data clínico y modelos predictivos hospitalarios.</li>
+            <li><b>Área de Especialización:</b> Implementación de <strong>Redes Neuronales Convolucionales (CNN)</strong> en diagnóstico por imagen médica, gestión de Big Data clínico y modelos predictivos hospitalarios.</li>
           </ul>
         </div>
 
@@ -557,7 +680,7 @@
             <time class="entry-date" datetime="2021-01">2021 — Presente</time>
           </div>
           <ul class="content-list">
-            <li><b>Estatus actual:</b> Alumno regular de último año en el programa integrado de Ingeniería Civil Biomédica. Foco directo en Bioinstrumentación avanzada, Sistemas de Información de Salud (HIS) y Procesamiento Digital de Señales (DSP).</li>
+            <li><b>Estatus actual:</b> Alumno regular de último año en el programa integrado de Ingeniería Civil Biomédica. Foco directo en <strong>Bioinstrumentación avanzada</strong>, Sistemas de Información de Salud (HIS) y Procesamiento Digital de Señales (DSP).</li>
           </ul>
         </div>
 
@@ -570,7 +693,7 @@
             <time class="entry-date" datetime="2017-01">2017 — 2020</time>
           </div>
           <ul class="content-list">
-            <li>Formación de especialización en automatización secuencial, lógica cableada y programada (PLC), diseño de circuitos impresos (PCB) y control electrónico de potencia industrial.</li>
+            <li>Formación de especialización en automatización secuencial, <strong>lógica cableada y programada (PLC)</strong>, diseño de circuitos impresos (PCB) y control electrónico de potencia industrial.</li>
           </ul>
         </div>
       </div>
@@ -598,7 +721,7 @@
             <time class="entry-date" datetime="2023-12">Jun 2023 — Dic 2023</time>
           </div>
           <p class="block-text">
-            Programa intensivo avanzado de 90 horas acreditadas en metodologías globales de fabricación digital. Dominio avanzado en entornos CAD/CAM paramétricos, optimización de trayectorias de herramientas para enrutadores CNC, diseño modular y encapsulamiento de hardware electrónico embebido.
+            Programa intensivo avanzado de 90 horas acreditadas en metodologías globales de fabricación digital. Dominio avanzado en entornos <strong>CAD/CAM paramétricos</strong>, optimización de trayectorias de herramientas para enrutadores CNC, diseño modular y encapsulamiento de hardware electrónico embebido.
           </p>
           <div class="project-actions">
             <a class="project-link" href="https://drive.google.com/file/d/1evt4FpQzL9LuA9la4xAQsxKdmMFZgI60/view?usp=sharing" target="_blank" rel="noopener noreferrer">
@@ -617,7 +740,7 @@
             <time class="entry-date" datetime="2026-07-01">01 Jul 2026</time>
           </div>
           <p class="block-text">
-            Especialización profesional orientada al diseño de arquitecturas de almacenamiento de datos robustas, estructuración de pipelines analíticos complejos (ETL), modelado de datos y optimización de dashboards ejecutivos para soporte de decisiones a gran escala.
+            Especialización profesional orientada al diseño de arquitecturas de almacenamiento de datos robustas, estructuración de <strong>pipelines analíticos complejos (ETL)</strong>, modelado de datos y optimización de dashboards ejecutivos para soporte de decisiones a gran escala.
           </p>
           <div class="project-actions">
             <a class="project-link" href="https://www.coursera.org/account/accomplishments/specialization/G8S1T4CKDO53" target="_blank" rel="noopener noreferrer">
@@ -636,7 +759,7 @@
             <time class="entry-date" datetime="2026-06-29">29 Jun 2026</time>
           </div>
           <p class="block-text">
-            Acreditación en el ciclo completo de análisis de datos: preparación, limpieza estructurada, análisis computacional y visualización interactiva. Dominio práctico en lenguajes SQL, programación en R Core, hojas de cálculo avanzadas y plataformas BI corporativas.
+            Acreditación en el ciclo completo de análisis de datos: preparación, limpieza estructurada, análisis computacional y visualización interactiva. Dominio práctico en lenguajes <strong>SQL</strong>, programación en <strong>R Core</strong>, hojas de cálculo avanzadas y plataformas BI corporativas.
           </p>
           <div class="project-actions">
             <a class="project-link" href="https://www.coursera.org/account/accomplishments/specialization/96B4VBQYHBBP" target="_blank" rel="noopener noreferrer">
@@ -655,7 +778,7 @@
             <time class="entry-date" datetime="2026-06">Jun 2026</time>
           </div>
           <p class="block-text">
-            Especialización orientada a la formulación de hipótesis analíticas robustas, traducción de métricas numéricas complejas en estrategias de procesos viables y gobernanza analítica en entornos TI estructurados.
+            Especialización orientada a la formulación de <strong>hipótesis analíticas robustas</strong>, traducción de métricas numéricas complejas en estrategias de procesos viables y gobernanza analítica en entornos TI estructurados.
           </p>
           <div class="project-actions">
             <a class="project-link" href="https://www.coursera.org/account/accomplishments/specialization/WVEPE3UG3EEE" target="_blank" rel="noopener noreferrer">
@@ -674,7 +797,7 @@
             <time class="entry-date" datetime="2026-06">Jun 2026</time>
           </div>
           <p class="block-text">
-            Formación enfocada en la aplicación práctica de Inteligencia Artificial Generativa, ingeniería de instrucciones (prompt engineering), optimización algorítmica de flujos cotidianos de ingeniería y uso ético/responsable de modelos fundacionales.
+            Formación enfocada en la aplicación práctica de Inteligencia Artificial Generativa, <strong>ingeniería de instrucciones (prompt engineering)</strong>, optimización algorítmica de flujos cotidianos de ingeniería y uso ético/responsable de modelos fundacionales.
           </p>
           <div class="project-actions">
             <a class="project-link" href="https://www.coursera.org/account/accomplishments/specialization/Y62SPQVRY19Z" target="_blank" rel="noopener noreferrer">
@@ -696,184 +819,195 @@
         </div>
       </div>
 
-      <article class="editorial-block" data-profile="data clinica">
-        <div class="project-head">
-          <h3 class="entry-title">Biomedical DSP — Suite de Procesamiento de Señales <span class="project-tag">Académico & SaaS</span></h3>
-        </div>
-        <div class="project-stack">Python, JavaScript, TypeScript, DSP Core, Tailwind CSS</div>
-        <ul class="content-list">
-          <li>Diseño completo de una plataforma interactiva de computación web orientada al Procesamiento Digital de Señales (DSP) biomédicas (ECG, EEG, EMG).</li>
-          <li>Implementación de pipelines algorítmicos matemáticos en tiempo real: Filtros digitales IIR/FIR, eliminación de ruido de línea mediante muesca (Notch), y Transformada Rápida de Fourier (FFT) acoplada a librerías de visualización interactiva.</li>
-        </ul>
-        <div class="project-actions">
-          <a class="project-link" href="https://biomedical-dsp-uv.vercel.app/" target="_blank" rel="noopener noreferrer">
-            Despliegue Vercel <span class="arrow">↗</span>
-          </a>
-          <a class="project-link" href="https://github.com/MaximilianoAntonio/Biomedical-DSP" target="_blank" rel="noopener noreferrer">
-            Backend Python <span class="arrow">↗</span>
-          </a>
-          <a class="project-link" href="https://github.com/MaximilianoAntonio/Biomedical-DSP-UV" target="_blank" rel="noopener noreferrer">
-            Frontend TS <span class="arrow">↗</span>
-          </a>
-        </div>
-      </article>
+      <!-- NUEVA CONTENEDOR GRID -->
+      <div class="projects-grid">
 
-      <article class="editorial-block" data-profile="data">
-        <div class="project-head">
-          <h3 class="entry-title">HGF Repuestos — Analítica Continua e Inventario Predictivo <span class="project-tag">Producción Comercial</span></h3>
-        </div>
-        <div class="project-stack">Python, Django Framework, TypeScript, PostgreSQL, Render Nube</div>
-        <ul class="content-list">
-          <li>Desarrollo integral de un sistema ERP/SaaS con dashboard analítico corporativo, gestión transaccional de bodegas multi-nodo y generador dinámico de etiquetas vectoriales QR para control físico de inventario.</li>
-          <li>Algoritmo matemático de predicción de demanda de licitaciones basado en modelos analíticos de series temporales, regresión lineal robusta resistente a valores atípicos (*outliers*) y cálculo automatizado de stocks de seguridad variables.</li>
-        </ul>
-        <div class="project-actions">
-          <a class="project-link" href="https://hgf-repuestos.onrender.com/" target="_blank" rel="noopener noreferrer">
-            Acceso Producción <span class="arrow">↗</span>
-          </a>
-          <a class="project-link" href="https://github.com/MaximilianoAntonio/HGF_Repuestos" target="_blank" rel="noopener noreferrer">
-            Código Fuente <span class="arrow">↗</span>
-          </a>
-        </div>
-      </article>
+        <article class="editorial-block" data-profile="data clinica">
+          <div class="project-head">
+            <h3 class="entry-title">Biomedical DSP — Suite de Procesamiento <span class="project-tag">Académico & SaaS</span></h3>
+          </div>
+          <div class="project-stack">
+            <span class="tech-badge">Python</span>
+            <span class="tech-badge">JavaScript</span>
+            <span class="tech-badge">TypeScript</span>
+            <span class="tech-badge">DSP Core</span>
+            <span class="tech-badge">Tailwind CSS</span>
+          </div>
+          <ul class="content-list">
+            <li>Plataforma web para Procesamiento Digital de Señales (<strong>DSP</strong>) biomédicas (ECG, EEG, EMG).</li>
+            <li>Pipelines en tiempo real: Filtros <strong>IIR/FIR</strong>, eliminación de ruido (Notch) y <strong>FFT</strong> interactiva.</li>
+          </ul>
+          <div class="project-actions">
+            <a class="project-link" href="https://biomedical-dsp-uv.vercel.app/" target="_blank" rel="noopener noreferrer">Despliegue <span class="arrow">↗</span></a>
+            <a class="project-link" href="https://github.com/MaximilianoAntonio/Biomedical-DSP" target="_blank" rel="noopener noreferrer">Backend <span class="arrow">↗</span></a>
+            <a class="project-link" href="https://github.com/MaximilianoAntonio/Biomedical-DSP-UV" target="_blank" rel="noopener noreferrer">Frontend <span class="arrow">↗</span></a>
+          </div>
+        </article>
 
-      <article class="editorial-block" data-profile="clinica data">
-        <div class="project-head">
-          <h3 class="entry-title">Sistema de Gestión de Flota Vehicular Autogestionada <span class="project-tag">Producción Institucional</span></h3>
-        </div>
-        <div class="project-stack">Django REST Framework, Preact.js, JavaScript, WebSockets, HTML5/CSS3</div>
-        <ul class="content-list">
-          <li>Arquitectura distribuida para el Servicio de Salud Viña del Mar-Quillota (SSVQ), automatizando la asignación crítica de la flota de vehículos fiscales de salud pública.</li>
-          <li>Construcción de una SPA fluida con Preact.js sincronizada mediante canales asíncronos bidireccionales con una API REST para control en tiempo real, notificaciones push de despacho e historiales auditables.</li>
-        </ul>
-        <div class="project-actions">
-          <a class="project-link" href="https://youtu.be/SWLqz3MG5k4" target="_blank" rel="noopener noreferrer">
-            Video Demostración <span class="arrow">↗</span>
-          </a>
-          <a class="project-link" href="https://github.com/MaximilianoAntonio/Asignacion-vehiculos" target="_blank" rel="noopener noreferrer">
-            Repositorio Monolito <span class="arrow">↗</span>
-          </a>
-          <a class="project-link" href="https://github.com/MaximilianoAntonio/frontflota" target="_blank" rel="noopener noreferrer">
-            Repositorio Frontend <span class="arrow">↗</span>
-          </a>
-          <a class="project-link" href="https://github.com/MaximilianoAntonio/ApiSSVQ" target="_blank" rel="noopener noreferrer">
-            API REST <span class="arrow">↗</span>
-          </a>
-        </div>
-      </article>
+        <article class="editorial-block" data-profile="data">
+          <div class="project-head">
+            <h3 class="entry-title">HGF Repuestos — Inventario Predictivo <span class="project-tag">Producción Comercial</span></h3>
+          </div>
+          <div class="project-stack">
+            <span class="tech-badge">Python</span>
+            <span class="tech-badge">Django</span>
+            <span class="tech-badge">TypeScript</span>
+            <span class="tech-badge">PostgreSQL</span>
+            <span class="tech-badge">Render Nube</span>
+          </div>
+          <ul class="content-list">
+            <li>Sistema ERP con dashboard analítico, gestión transaccional y generador dinámico de <strong>etiquetas QR</strong> vectoriales.</li>
+            <li>Predicción de demanda basada en modelos de <strong>series temporales</strong> y regresión lineal robusta.</li>
+          </ul>
+          <div class="project-actions">
+            <a class="project-link" href="https://hgf-repuestos.onrender.com/" target="_blank" rel="noopener noreferrer">Producción <span class="arrow">↗</span></a>
+            <a class="project-link" href="https://github.com/MaximilianoAntonio/HGF_Repuestos" target="_blank" rel="noopener noreferrer">Código <span class="arrow">↗</span></a>
+          </div>
+        </article>
 
-      <article class="editorial-block" data-profile="data clinica">
-        <div class="project-head">
-          <h3 class="entry-title">GENCLA — Homologador Inteligente de Ingeniería Clínica <span class="project-tag">Académico & BI</span></h3>
-        </div>
-        <div class="project-stack">Python, Vercel Core, Business Intelligence, Data Engineering</div>
-        <ul class="content-list">
-          <li>Plataforma analítica diseñada para unificar, limpiar y normalizar bases de datos heterogéneas de equipamiento médico clínico hospitalario provenientes de múltiples sistemas legacy.</li>
-          <li>Integración nativa de módulos de inteligencia de negocio (BI), rankings multidimensionales de criticidad de dispositivos médicos y renderizadores dinámicos de diagramas de calidad asistencial (Ishikawa, flujos Mermaid).</li>
-        </ul>
-        <div class="project-actions">
-          <a class="project-link" href="https://gencla.vercel.app/" target="_blank" rel="noopener noreferrer">
-            Acceso Herramienta <span class="arrow">↗</span>
-          </a>
-        </div>
-      </article>
+        <article class="editorial-block" data-profile="clinica data">
+          <div class="project-head">
+            <h3 class="entry-title">Gestión de Flota Vehicular Autogestionada <span class="project-tag">Producción Institucional</span></h3>
+          </div>
+          <div class="project-stack">
+            <span class="tech-badge">Django REST</span>
+            <span class="tech-badge">Preact.js</span>
+            <span class="tech-badge">WebSockets</span>
+            <span class="tech-badge">HTML5/CSS3</span>
+          </div>
+          <ul class="content-list">
+            <li>Arquitectura distribuida para el SSVQ, automatizando asignaciones críticas de vehículos de salud pública.</li>
+            <li>Construcción de SPA fluida sincronizada mediante canales asíncronos bidireccionales y control en tiempo real.</li>
+          </ul>
+          <div class="project-actions">
+            <a class="project-link" href="https://youtu.be/SWLqz3MG5k4" target="_blank" rel="noopener noreferrer">Demo <span class="arrow">↗</span></a>
+            <a class="project-link" href="https://github.com/MaximilianoAntonio/Asignacion-vehiculos" target="_blank" rel="noopener noreferrer">Monolito <span class="arrow">↗</span></a>
+            <a class="project-link" href="https://github.com/MaximilianoAntonio/frontflota" target="_blank" rel="noopener noreferrer">Front <span class="arrow">↗</span></a>
+          </div>
+        </article>
 
-      <article class="editorial-block" data-profile="data">
-        <div class="project-head">
-          <h3 class="entry-title">PUCO — Analizador de Licitaciones Estatales <span class="project-tag">SaaS / Automatización</span></h3>
-        </div>
-        <div class="project-stack">Python, TypeScript, API REST, Web Scraping, ETL Pipelines</div>
-        <ul class="content-list">
-          <li>Aplicación web automatizada dedicada a la ingesta estratégica, filtrado semántico y preprocesamiento masivo de datos de licitaciones públicas consumidas desde la API del Estado chileno.</li>
-          <li>Estructuración de tuberías de datos (ETL) que extraen, transforman y consolidan información financiera calculando índices de competitividad comercial automáticos.</li>
-        </ul>
-        <div class="project-actions">
-          <a class="project-link" href="https://puco.onrender.com/" target="_blank" rel="noopener noreferrer">
-            Despliegue App <span class="arrow">↗</span>
-          </a>
-          <a class="project-link" href="https://github.com/MaximilianoAntonio/PuCo" target="_blank" rel="noopener noreferrer">
-            Código Fuente <span class="arrow">↗</span>
-          </a>
-        </div>
-      </article>
+        <article class="editorial-block" data-profile="data clinica">
+          <div class="project-head">
+            <h3 class="entry-title">GENCLA — Homologador de Ingeniería Clínica <span class="project-tag">Académico & BI</span></h3>
+          </div>
+          <div class="project-stack">
+            <span class="tech-badge">Python</span>
+            <span class="tech-badge">Vercel Core</span>
+            <span class="tech-badge">BI Intelligence</span>
+            <span class="tech-badge">Data Engineering</span>
+          </div>
+          <ul class="content-list">
+            <li>Unificación, limpieza y normalización de bases de datos clínicas heterogéneas desde sistemas legacy.</li>
+            <li>Módulos de inteligencia de negocio (BI) con rankings multidimensionales de <strong>criticidad de dispositivos médicos</strong>.</li>
+          </ul>
+          <div class="project-actions">
+            <a class="project-link" href="https://gencla.vercel.app/" target="_blank" rel="noopener noreferrer">Acceso Herramienta <span class="arrow">↗</span></a>
+          </div>
+        </article>
 
-      <article class="editorial-block" data-profile="ml hardware">
-        <div class="project-head">
-          <h3 class="entry-title">Brazo Robótico 3-GDL con Visión Artificial <span class="project-tag">Robótica & Visión</span></h3>
-        </div>
-        <div class="project-stack">Python, OpenCV, Arduino, Dynamixel AX-12A servos, Impresión 3D</div>
-        <ul class="content-list">
-          <li>Diseño paramétrico, modelado e impresión tridimensional de un manipulador robótico antropomórfico articulado controlado por hardware embebido y lógica cinemática en Python.</li>
-          <li>Desarrollo de un pipeline de visión artificial con OpenCV para la segmentación espacial de objetos en tiempo real, extracción de características geométricas e indexación automática para tareas de clasificación industrial.</li>
-        </ul>
-        <div class="project-actions">
-          <a class="project-link" href="https://www.youtube.com/watch?v=Cd75hz88lqM" target="_blank" rel="noopener noreferrer">
-            Video Demostración <span class="arrow">↗</span>
-          </a>
-          <a class="project-link" href="https://github.com/MaximilianoAntonio/ur3e" target="_blank" rel="noopener noreferrer">
-            Controlador de Cinemática <span class="arrow">↗</span>
-          </a>
-        </div>
-      </article>
+        <article class="editorial-block" data-profile="data">
+          <div class="project-head">
+            <h3 class="entry-title">PUCO — Analizador de Licitaciones Estatales <span class="project-tag">SaaS / Automatización</span></h3>
+          </div>
+          <div class="project-stack">
+            <span class="tech-badge">Python</span>
+            <span class="tech-badge">TypeScript</span>
+            <span class="tech-badge">API REST</span>
+            <span class="tech-badge">Web Scraping</span>
+            <span class="tech-badge">ETL Pipelines</span>
+          </div>
+          <ul class="content-list">
+            <li>Ingesta estratégica, filtrado semántico y preprocesamiento masivo de datos de licitaciones públicas chilenas.</li>
+            <li>Tuberías de datos (<strong>ETL</strong>) para consolidar información financiera e índices de competitividad comercial.</li>
+          </ul>
+          <div class="project-actions">
+            <a class="project-link" href="https://puco.onrender.com/" target="_blank" rel="noopener noreferrer">Despliegue <span class="arrow">↗</span></a>
+            <a class="project-link" href="https://github.com/MaximilianoAntonio/PuCo" target="_blank" rel="noopener noreferrer">Código <span class="arrow">↗</span></a>
+          </div>
+        </article>
 
-      <article class="editorial-block" data-profile="clinica hardware">
-        <div class="project-head">
-          <h3 class="entry-title">Robot Continuo Biomédico Exploratorio <span class="project-tag">Bioingeniería / Hardware</span></h3>
-        </div>
-        <div class="project-stack">Arduino IDE, Sensores EMG Semicondutores, CAD Mecánico, MATLAB</div>
-        <ul class="content-list">
-          <li>Co-desarrollo de un dispositivo biomédico flexible hiper-redundante (Robot Continuo) diseñado para tareas de exploración interna quirúrgica o asistencia robótica en rehabilitación motora.</li>
-          <li>Diseño de la interfaz electrónica de acondicionamiento de señal para sensores electromiográficos (EMG) de superficie encargados de capturar los potenciales musculares del usuario y traducirlos en vectores cinemáticos en tiempo real.</li>
-        </ul>
-        <div class="project-actions">
-          <a class="project-link" href="https://github.com/FabLab-Projects/ProyectoRobotContinuo3" target="_blank" rel="noopener noreferrer">
-            Repositorio FabLab <span class="arrow">↗</span>
-          </a>
-          <a class="project-link" href="https://github.com/Erj5/Continuum-Robot" target="_blank" rel="noopener noreferrer">
-            Core Alternativo <span class="arrow">↗</span>
-          </a>
-          <a class="project-link" href="https://github.com/MaximilianoAntonio/EMG_Flappy_Bird" target="_blank" rel="noopener noreferrer">
-            EMG Signal Sandbox <span class="arrow">↗</span>
-          </a>
-        </div>
-      </article>
+        <article class="editorial-block" data-profile="ml hardware">
+          <div class="project-head">
+            <h3 class="entry-title">Brazo Robótico 3-GDL con Visión Artificial <span class="project-tag">Robótica & Visión</span></h3>
+          </div>
+          <div class="project-stack">
+            <span class="tech-badge">Python</span>
+            <span class="tech-badge">OpenCV</span>
+            <span class="tech-badge">Arduino</span>
+            <span class="tech-badge">Dynamixel AX-12A</span>
+            <span class="tech-badge">Impresión 3D</span>
+          </div>
+          <ul class="content-list">
+            <li>Manipulador antropomórfico controlado por hardware embebido y lógica cinemática paramétrica en Python.</li>
+            <li>Pipeline de <strong>visión artificial</strong> para segmentación espacial, extracción geométrica y clasificación en tiempo real.</li>
+          </ul>
+          <div class="project-actions">
+            <a class="project-link" href="https://www.youtube.com/watch?v=Cd75hz88lqM" target="_blank" rel="noopener noreferrer">Demo <span class="arrow">↗</span></a>
+            <a class="project-link" href="https://github.com/MaximilianoAntonio/ur3e" target="_blank" rel="noopener noreferrer">Cinemática <span class="arrow">↗</span></a>
+          </div>
+        </article>
 
-      <article class="editorial-block" data-profile="ml">
-        <div class="project-head">
-          <h3 class="entry-title">Taller HMI por Reconocimiento de Gestos — FabLab UV 2026 <span class="project-tag">Transferencia Tecnológica</span></h3>
-        </div>
-        <div class="project-stack">Python, OpenCV Core, Computer Vision, Documentación Científica</div>
-        <ul class="content-list">
-          <li>Creación y documentación técnica de la propuesta de transferencia para el diseño estructurado de interfaces Hombre-Máquina (HMI) no invasivas basadas en visión computacional.</li>
-          <li>Desarrollo de algoritmos base ligeros para el procesamiento matricial de imágenes y mapeo cinemático de contornos de manos aplicados a entornos industriales y de asistencia tecnológica.</li>
-        </ul>
-        <div class="project-actions">
-          <a class="project-link" href="https://github.com/fablab-UV/Taller-HMI-por-Gestos-FABLAB-UV-2026-" target="_blank" rel="noopener noreferrer">
-            Repositorio Oficial <span class="arrow">↗</span>
-          </a>
-        </div>
-      </article>
+        <article class="editorial-block" data-profile="clinica hardware">
+          <div class="project-head">
+            <h3 class="entry-title">Robot Continuo Biomédico Exploratorio <span class="project-tag">Bioingeniería / Hardware</span></h3>
+          </div>
+          <div class="project-stack">
+            <span class="tech-badge">Arduino IDE</span>
+            <span class="tech-badge">Sensores EMG</span>
+            <span class="tech-badge">CAD Mecánico</span>
+            <span class="tech-badge">MATLAB</span>
+          </div>
+          <ul class="content-list">
+            <li>Co-desarrollo de dispositivo hiper-redundante flexible para exploración interna quirúrgica o rehabilitación motora.</li>
+            <li>Acondicionamiento de señal para <strong>sensores electromiográficos (EMG)</strong> de superficie acoplados a vectores cinemáticos.</li>
+          </ul>
+          <div class="project-actions">
+            <a class="project-link" href="https://github.com/FabLab-Projects/ProyectoRobotContinuo3" target="_blank" rel="noopener noreferrer">Repo FabLab <span class="arrow">↗</span></a>
+            <a class="project-link" href="https://github.com/Erj5/Continuum-Robot" target="_blank" rel="noopener noreferrer">Core <span class="arrow">↗</span></a>
+          </div>
+        </article>
 
-      <article class="editorial-block" data-profile="clinica hardware">
-        <div class="project-head">
-          <h3 class="entry-title">Prototipo de Incubadora Neonatal con Lazos PID <span class="project-tag">Hardware Médico</span></h3>
-          <time class="entry-date">Jul 2024 — Dic 2024</time>
-        </div>
-        <div class="project-stack">Python, Arduino Core, Control Automático, MySQL, IoT Architecture</div>
-        <ul class="content-list">
-          <li>Diseño e implementación de un chasis termo-regulado controlado computacionalmente mediante algoritmos Proporcional-Integral-Derivativo (PID) adaptativos para la estabilización estricta de temperatura y flujo de aire.</li>
-          <li>Desarrollo del firmware de sensado de variables biomédicas acoplado a bases de datos relacionales locales para el almacenamiento continuo de logs metabólicos históricos.</li>
-        </ul>
-        <div class="project-actions">
-          <a class="project-link" href="https://github.com/MaximilianoAntonio/incubator-prototype/blob/main/Reporte%20Final%20Incubadora.pdf" target="_blank" rel="noopener noreferrer">
-            Reporte Final (PDF) <span class="arrow">↗</span>
-          </a>
-          <a class="project-link" href="https://github.com/MaximilianoAntonio/incubator-prototype" target="_blank" rel="noopener noreferrer">
-            Repositorio Proyecto <span class="arrow">↗</span>
-          </a>
-        </div>
-      </article>
+        <article class="editorial-block" data-profile="ml">
+          <div class="project-head">
+            <h3 class="entry-title">Taller HMI por Reconocimiento de Gestos <span class="project-tag">Transferencia Tecnológica</span></h3>
+          </div>
+          <div class="project-stack">
+            <span class="tech-badge">Python</span>
+            <span class="tech-badge">OpenCV Core</span>
+            <span class="tech-badge">Computer Vision</span>
+            <span class="tech-badge">Doc Científica</span>
+          </div>
+          <ul class="content-list">
+            <li>Diseño estructurado de interfaces Hombre-Máquina (<strong>HMI</strong>) no invasivas basadas en visión computacional.</li>
+            <li>Algoritmos base ligeros para procesamiento matricial de imágenes y mapeo cinemático de contornos de manos.</li>
+          </ul>
+          <div class="project-actions">
+            <a class="project-link" href="https://github.com/fablab-UV/Taller-HMI-por-Gestos-FABLAB-UV-2026-" target="_blank" rel="noopener noreferrer">Repo Oficial <span class="arrow">↗</span></a>
+          </div>
+        </article>
 
+        <article class="editorial-block" data-profile="clinica hardware">
+          <div class="project-head">
+            <h3 class="entry-title">Prototipo de Incubadora Neonatal con Lazos PID <span class="project-tag">Hardware Médico</span></h3>
+          </div>
+          <div class="project-stack">
+            <span class="tech-badge">Python</span>
+            <span class="tech-badge">Arduino Core</span>
+            <span class="tech-badge">Control PID</span>
+            <span class="tech-badge">MySQL</span>
+            <span class="tech-badge">IoT Architecture</span>
+          </div>
+          <ul class="content-list">
+            <li>Implementación de un chasis termo-regulado controlado computacionalmente mediante algoritmos <strong>PID adaptativos</strong>.</li>
+            <li>Firmware de sensado de variables biomédicas para almacenamiento continuo de logs metabólicos históricos.</li>
+          </ul>
+          <div class="project-actions">
+            <a class="project-link" href="https://github.com/MaximilianoAntonio/incubator-prototype/blob/main/Reporte%20Final%20Incubadora.pdf" target="_blank" rel="noopener noreferrer">Reporte (PDF) <span class="arrow">↗</span></a>
+            <a class="project-link" href="https://github.com/MaximilianoAntonio/incubator-prototype" target="_blank" rel="noopener noreferrer">Repositorio <span class="arrow">↗</span></a>
+          </div>
+        </article>
+
+      </div>
     </section>
 
     <!-- RECONOCIMIENTOS Y CONSTANCIAS -->
@@ -886,17 +1020,16 @@
         </div>
       </div>
 
-      <!-- Primera Escuela de Invierno iHEALTH -->
+      <!-- Logros Principales (Texto completo para alto impacto) -->
       <div class="editorial-block" data-profile="ml data">
         <div class="entry-head">
           <div class="entry-title">Primera Escuela de Invierno iHEALTH</div>
           <time class="entry-date">Jul 2025</time>
         </div>
         <div class="award-org">Instituto Milenio iHEALTH — IA aplicada en Salud</div>
-        <p class="block-text">Seleccionado nacional mediante concurso competitivo cerrado para cursar la formación avanzada en análisis matricial médico de datos, redes profundas neuronales y neurociencia computacional.</p>
+        <p class="block-text">Seleccionado nacional mediante concurso competitivo cerrado para cursar la formación avanzada en <strong>análisis matricial médico de datos</strong>, redes profundas neuronales y neurociencia computacional.</p>
       </div>
 
-      <!-- Rally Latinoamericano de Innovación -->
       <div class="editorial-block" data-profile="clinica">
         <div class="entry-head">
           <div class="entry-title">Rally Latinoamericano de Innovación — 3er Lugar Regional</div>
@@ -906,136 +1039,128 @@
         <p class="block-text">Galardón por el diseño de una infraestructura técnica de comunicación de emergencia y despliegue tecnológico ágil para la coordinación ante catástrofes y desastres geográficos.</p>
       </div>
 
-      <!-- Datathon Make Health Latam -->
       <div class="editorial-block" data-profile="data">
         <div class="entry-head">
           <div class="entry-title">Datathon Make Health Latam</div>
           <time class="entry-date">Ene 2023</time>
         </div>
         <div class="award-org">CENS (Chile) & Massachusetts Institute of Technology (MIT)</div>
-        <p class="block-text">Participante destacado en la competencia de minería de datos médicos orientada a proponer arquitecturas clínicas escalables ante problemáticas demográficas complejas en América Latina.</p>
+        <p class="block-text">Participante destacado en la competencia de <strong>minería de datos médicos</strong> orientada a proponer arquitecturas clínicas escalables ante problemáticas demográficas complejas en América Latina.</p>
       </div>
 
-      <!-- COPILOT Y GITHUB -->
-      <div class="editorial-block" data-profile="ml data">
-        <div class="entry-head">
-          <div class="entry-title">Constancia de Curso: Copilot y GitHub</div>
-          <time class="entry-date">22 Jun 2026</time>
+      <!-- NUEVA SECCIÓN GRUPAL COMPACTA: CURSOS ACADEMIA RED & MICROSOFT -->
+      <h3 class="courses-heading">Cursos de Especialización y Actualización</h3>
+      <div class="courses-grid">
+
+        <div class="editorial-block course-card" data-profile="ml data">
+          <div class="entry-head">
+            <div class="entry-title">Copilot y GitHub</div>
+            <time class="entry-date">Jun 2026</time>
+          </div>
+          <div class="award-org">Academia RED & Microsoft</div>
+          <p class="block-text">Integración de herramientas de IA generativa para aceleración de software y control de versiones distribuido. Folio: 9095932737MG.</p>
         </div>
-        <div class="award-org">Academia RED & Microsoft</div>
-        <p class="block-text">Acreditación técnica en la integración de herramientas de inteligencia artificial generativa para la aceleración del desarrollo de software, optimización de pipelines de datos y control de versiones distribuido. Folio: 9095932737MG.</p>
-      </div>
 
-      <!-- EXPERIENCIA LATAM -->
-      <div class="editorial-block" data-profile="ml">
-        <div class="entry-head">
-          <div class="entry-title">Constancia de Curso: ExperiencIA LATAM — Microsoft</div>
-          <time class="entry-date">22 Jun 2026</time>
+        <div class="editorial-block course-card" data-profile="ml">
+          <div class="entry-head">
+            <div class="entry-title">ExperiencIA LATAM</div>
+            <time class="entry-date">Jun 2026</time>
+          </div>
+          <div class="award-org">Academia RED & Microsoft</div>
+          <p class="block-text">Impacto socioeconómico de la Inteligencia Artificial, despliegue en la nube y adopción de arquitecturas cognitivas. Folio: 3553359018MG.</p>
         </div>
-        <div class="award-org">Academia RED & Microsoft</div>
-        <p class="block-text">Programa avanzado de actualización enfocado en el impacto socioeconómico de la Inteligencia Artificial, despliegue de soluciones tecnológicas ágiles basadas en la nube y adopción de arquitecturas cognitivas complejas. Folio: 3553359018MG.</p>
-      </div>
 
-      <!-- IA PARA LÍDERES DE PROYECTO -->
-      <div class="editorial-block" data-profile="ml data">
-        <div class="entry-head">
-          <div class="entry-title">Constancia de Curso: Inteligencia Artificial para Líderes de Proyecto</div>
-          <time class="entry-date">22 Jun 2026</time>
+        <div class="editorial-block course-card" data-profile="ml data">
+          <div class="entry-head">
+            <div class="entry-title">IA para Líderes de Proyecto</div>
+            <time class="entry-date">Jun 2026</time>
+          </div>
+          <div class="award-org">Academia RED & Microsoft</div>
+          <p class="block-text">Gobernanza y dirección de proyectos ingenieriles complejos utilizando modelos predictivos inteligentes. Folio: 8334574810MG.</p>
         </div>
-        <div class="award-org">Academia RED & Microsoft</div>
-        <p class="block-text">Formación orientada a la gobernanza y dirección de proyectos de ingeniería complejos, utilizando modelos predictivos inteligentes para la toma de decisiones críticas corporativas. Folio: 8334574810MG.</p>
-      </div>
 
-      <!-- IA PARA EJECUTIVOS DE TI -->
-      <div class="editorial-block" data-profile="ml data">
-        <div class="entry-head">
-          <div class="entry-title">Constancia de Curso: Inteligencia Artificial para Ejecutivos de TI</div>
-          <time class="entry-date">22 Jun 2026</time>
+        <div class="editorial-block course-card" data-profile="ml data">
+          <div class="entry-head">
+            <div class="entry-title">IA para Ejecutivos de TI</div>
+            <time class="entry-date">Jun 2026</time>
+          </div>
+          <div class="award-org">Academia RED & Microsoft</div>
+          <p class="block-text">Modernización de infraestructuras tecnológicas, escalabilidad y orquestación de servicios cloud. Folio: 7866165207MG.</p>
         </div>
-        <div class="award-org">Academia RED & Microsoft</div>
-        <p class="block-text">Capacitación directiva enfocada en la modernización de infraestructuras tecnológicas, escalabilidad de sistemas heterogéneos y la orquestación de servicios en la nube a gran escala. Folio: 7866165207MG.</p>
-      </div>
 
-      <!-- IA PARA DIRECTORES DE PYMES -->
-      <div class="editorial-block" data-profile="data">
-        <div class="entry-head">
-          <div class="entry-title">Constancia de Curso: Inteligencia Artificial para Directores de Pequeñas y Medianas Empresas</div>
-          <time class="entry-date">22 Jun 2026</time>
+        <div class="editorial-block course-card" data-profile="data">
+          <div class="entry-head">
+            <div class="entry-title">IA para Directores de PYMES</div>
+            <time class="entry-date">Jun 2026</time>
+          </div>
+          <div class="award-org">Academia RED & Microsoft</div>
+          <p class="block-text">Flujos ágiles de transformación digital e integración de herramientas analíticas predictivas operativas. Folio: 0877919322MG.</p>
         </div>
-        <div class="award-org">Academia RED & Microsoft</div>
-        <p class="block-text">Estudio de flujos ágiles de transformación digital e integración de herramientas analíticas predictivas para la optimización y automatización de procesos operativos. Folio: 0877919322MG.</p>
-      </div>
 
-      <!-- PROTECCIÓN DE DATOS PERSONALES -->
-      <div class="editorial-block" data-profile="clinica data">
-        <div class="entry-head">
-          <div class="entry-title">Constancia de Curso: Protección de Datos Personales</div>
-          <time class="entry-date">22 Jun 2026</time>
+        <div class="editorial-block course-card" data-profile="clinica data">
+          <div class="entry-head">
+            <div class="entry-title">Protección de Datos Personales</div>
+            <time class="entry-date">Jun 2026</time>
+          </div>
+          <div class="award-org">Academia RED — Ciberseguridad</div>
+          <p class="block-text">Marcos éticos y regulatorios aplicables a la gobernanza de datos clínicos e historiales médicos privados. Folio: 3078213461MG.</p>
         </div>
-        <div class="award-org">Academia RED — Red por la Ciberseguridad</div>
-        <p class="block-text">Estudio analítico de los marcos éticos y regulatorios globales para la protección y tratamiento de información privada. Altamente aplicable a la gobernanza de datos clínicos e historiales médicos. Folio: 3078213461MG.</p>
-      </div>
 
-      <!-- CIBERSEGURIDAD EN EL TRABAJO -->
-      <div class="editorial-block" data-profile="clinica data">
-        <div class="entry-head">
-          <div class="entry-title">Constancia de Curso: Ciberseguridad en el Trabajo</div>
-          <time class="entry-date">22 Jun 2026</time>
+        <div class="editorial-block course-card" data-profile="clinica data">
+          <div class="entry-head">
+            <div class="entry-title">Ciberseguridad en el Trabajo</div>
+            <time class="entry-date">Jun 2026</time>
+          </div>
+          <div class="award-org">Academia RED — Ciberseguridad</div>
+          <p class="block-text">Análisis preventivo de vectores de ataque informáticos y mitigación de riesgos perimetrales de red. Folio: 0391765378MG.</p>
         </div>
-        <div class="award-org">Academia RED — Red por la Ciberseguridad</div>
-        <p class="block-text">Formación enfocada en el análisis preventivo de vectores de ataque informáticos, mitigación de riesgos perimetrales e implementación de arquitecturas de red seguras. Folio: 0391765378MG.</p>
-      </div>
 
-      <!-- IA PARA LA VIDA Y EL TRABAJO -->
-      <div class="editorial-block" data-profile="ml">
-        <div class="entry-head">
-          <div class="entry-title">Constancia de Curso: Inteligencia Artificial para la Vida y el Trabajo</div>
-          <time class="entry-date">22 Jun 2026</time>
+        <div class="editorial-block course-card" data-profile="ml">
+          <div class="entry-head">
+            <div class="entry-title">IA para la Vida y el Trabajo</div>
+            <time class="entry-date">Jun 2026</time>
+          </div>
+          <div class="award-org">Academia RED & Microsoft</div>
+          <p class="block-text">Fundamentos computacionales de inteligencia artificial y optimización de flujos de valor cognitivos. Folio: 5744337648MG.</p>
         </div>
-        <div class="award-org">Academia RED & Microsoft</div>
-        <p class="block-text">Especialización en fundamentos computacionales de inteligencia artificial, procesamiento inteligente de la información y la optimización de flujos de valor cognitivos. Folio: 5744337648MG.</p>
-      </div>
 
-      <!-- IA PARA MARKETING Y VENTAS -->
-      <div class="editorial-block" data-profile="data">
-        <div class="entry-head">
-          <div class="entry-title">Constancia de Curso: Inteligencia Artificial para Marketing y Ventas</div>
-          <time class="entry-date">22 Jun 2026</time>
+        <div class="editorial-block course-card" data-profile="data">
+          <div class="entry-head">
+            <div class="entry-title">IA para Marketing y Ventas</div>
+            <time class="entry-date">Jun 2026</time>
+          </div>
+          <div class="award-org">Academia RED & Microsoft</div>
+          <p class="block-text">Análisis predictivo del comportamiento de datos comerciales y segmentación algorítmica estructurada. Folio: 7265359589MG.</p>
         </div>
-        <div class="award-org">Academia RED & Microsoft</div>
-        <p class="block-text">Análisis predictivo del comportamiento de datos comerciales, segmentación algorítmica de bases de datos heterogéneas e ingeniería de embudos automatizados. Folio: 7265359589MG.</p>
-      </div>
 
-      <!-- IA PARA RECURSOS HUMANOS -->
-      <div class="editorial-block" data-profile="data">
-        <div class="entry-head">
-          <div class="entry-title">Constancia de Curso: Inteligencia Artificial para Recursos Humanos</div>
-          <time class="entry-date">22 Jun 2026</time>
+        <div class="editorial-block course-card" data-profile="data">
+          <div class="entry-head">
+            <div class="entry-title">IA para Recursos Humanos</div>
+            <time class="entry-date">Jun 2026</time>
+          </div>
+          <div class="award-org">Academia RED & Microsoft</div>
+          <p class="block-text">Arquitecturas analíticas para gestión de talento, auditoría predictiva y diseño organizacional optimizado. Folio: 5206747675MG.</p>
         </div>
-        <div class="award-org">Academia RED & Microsoft</div>
-        <p class="block-text">Implementación de arquitecturas analíticas internas para la gestión inteligente del talento humano, auditoría predictiva de desempeño y diseño organizacional optimizado. Folio: 5206747675MG.</p>
-      </div>
 
-      <!-- IA PARA DOCENTES -->
-      <div class="editorial-block" data-profile="ml">
-        <div class="entry-head">
-          <div class="entry-title">Constancia de Curso: IA para Docentes</div>
-          <time class="entry-date">22 Jun 2026</time>
+        <div class="editorial-block course-card" data-profile="ml">
+          <div class="entry-head">
+            <div class="entry-title">IA para Docentes</div>
+            <time class="entry-date">Jun 2026</time>
+          </div>
+          <div class="award-org">Academia RED & Microsoft</div>
+          <p class="block-text">Diseño instruccional técnico, transferencia de conocimiento ingenieril y estructuración de talleres didácticos. Folio: 9394018456MG.</p>
         </div>
-        <div class="award-org">Academia RED & Microsoft</div>
-        <p class="block-text">Capacitación metodológica orientada al diseño instruccional técnico, transferencia del conocimiento ingenieril avanzado y la estructuración de talleres didácticos de IA. Folio: 9394018456MG.</p>
-      </div>
 
-      <!-- ORGANIZACIÓN MODERNA -->
-      <div class="editorial-block" data-profile="data">
-        <div class="entry-head">
-          <div class="entry-title">Constancia de Curso: Organización Moderna</div>
-          <time class="entry-date">22 Jun 2026</time>
+        <div class="editorial-block course-card" data-profile="data">
+          <div class="entry-head">
+            <div class="entry-title">Organización Moderna</div>
+            <time class="entry-date">Jun 2026</time>
+          </div>
+          <div class="award-org">Academia RED — Ciberseguridad</div>
+          <p class="block-text">Optimización sistémica de procesos informáticos, marcos ágiles e integración de pipelines de datos. Folio: 7010164484MG.</p>
         </div>
-        <div class="award-org">Academia RED — Red por la Ciberseguridad</div>
-        <p class="block-text">Capacitación centrada en la optimización sistémica de procesos informáticos corporativos, marcos ágiles de trabajo e integración estratégica de pipelines de datos. Folio: 7010164484MG.</p>
-      </div>
 
+      </div>
     </section>
 
     <!-- HABILIDADES -->
@@ -1122,7 +1247,7 @@
       progress.style.width = scrollPercent + '%';
     }, { passive: true });
 
-    // 2. Reveal Observer
+    // 2. Reveal Observer (Cubic Bezier optimizado para suavidad)
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
