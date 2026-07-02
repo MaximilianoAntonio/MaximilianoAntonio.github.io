@@ -44,25 +44,25 @@
     position: relative;
   }
 
-  /* --- CAPAS DE FONDO VECTORIAL TÉCNICO PROFESIONAL --- */
+  /* --- CAPAS DE FONDO VECTORIAL TÉCNICO MEJORADO --- */
   
   /* Capa 1: Textura de grano fino */
   body::before {
     content: "";
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    pointer-events: none; z-index: 3; opacity: 0.01;
+    pointer-events: none; z-index: 3; opacity: 0.012;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   }
 
-  /* Capa 2: Malla Geométrica y Formas Vectoriales Estilo Blueprint/Plano Clínico */
+  /* Capa 2: Malla Geométrica Vectorial Optimizada con Mayor Visibilidad */
   .vector-blueprint-bg {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    pointer-events: none; z-index: 1; opacity: 0.025;
+    pointer-events: none; z-index: 1; opacity: 0.055; /* Visibilidad aumentada */
     background-image: 
-      linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000' width='100%25' height='100%25'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1.5'%3E%3Ccircle cx='500' cy='500' r='350' stroke-dasharray='8 4'/%3E%3Ccircle cx='500' cy='500' r='180'/%3E%3Ccircle cx='500' cy='500' r='40'/%3E%3Cpath d='M500,50 L500,950 M50,500 L950,500' stroke-dasharray='20 10 5 10'/%3E%3Cpolygon points='500,200 760,350 760,650 500,800 240,650 240,350' stroke-dasharray='4 4'/%3E%3Ccircle cx='240' cy='350' r='8' fill='%23ffffff'/%3E%3Ccircle cx='760' cy='350' r='8' fill='%23ffffff'/%3E%3Ccircle cx='500' cy='800' r='8' fill='%23ffffff'/%3E%3Cline x1='100' y1='100' x2='300' y2='300' stroke-dasharray='12 6'/%3E%3Cline x1='900' y1='100' x2='700' y2='300' stroke-dasharray='12 6'/%3E%3Crect x='450' y='450' width='100' height='100' stroke-dasharray='2 2'/%3E%3C/g%3E%3C/svg%3E");
-    background-size: 50px 50px, 50px 50px, 900px 900px;
+      linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000' width='100%25' height='100%25'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1.5'%3E%3Ccircle cx='500' cy='500' r='360' stroke-dasharray='8 4' stroke='%2300E0B6' stroke-opacity='0.4'/%3E%3Ccircle cx='500' cy='500' r='220'/%3E%3Ccircle cx='500' cy='500' r='60' stroke='%2300E0B6' stroke-opacity='0.4'/%3E%3Cpath d='M500,20 L500,980 M20,500 L980,500' stroke-dasharray='15 10 5 10'/%3E%3Cpolygon points='500,150 803,325 803,675 500,850 197,675 197,325' stroke-dasharray='6 6'/%3E%3Ccircle cx='197' cy='325' r='10' fill='%2300E0B6'/%3E%3Ccircle cx='803' cy='325' r='10' fill='%2300E0B6'/%3E%3Ccircle cx='500' cy='850' r='10' fill='%2300E0B6'/%3E%3Cline x1='50' y1='50' x2='350' y2='350' stroke-dasharray='10 5'/%3E%3Cline x1='950' y1='50' x2='650' y2='350' stroke-dasharray='10 5'/%3E%3Crect x='420' y='420' width='160' height='160' stroke-dasharray='4 4'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 80px 80px, 80px 80px, 1000px 1000px;
     background-position: center;
   }
 
@@ -93,7 +93,7 @@
   ::-webkit-scrollbar-thumb{background:var(--line-soft)}
 
   /* LAYOUT */
-  .shell{display:grid;grid-template-columns:280px 1fr;max-width:1240px;margin:0 auto;min-height:100vh;position:relative;z-index:5}
+  .shell{display:grid;grid-template-columns:290px 1fr;max-width:1280px;margin:0 auto;min-height:100vh;position:relative;z-index:5}
   @media (max-width:950px){.shell{grid-template-columns:1fr;display:block}}
 
   /* SIDEBAR DE NAVEGACIÓN Y CONTACTO FIJO */
@@ -113,8 +113,8 @@
   
   /* Bloque de Información de Contacto Fijo en Barra Lateral */
   .sidebar-contact-panel {
-    margin-top: 2.5rem;
-    padding-top: 1.5rem;
+    margin-top: 2rem;
+    padding-top: 1.25rem;
     border-top: 1px dashed var(--line-soft);
     font-family: var(--mono);
     font-size: 11px;
@@ -139,7 +139,7 @@
     color: var(--accent);
   }
 
-  nav.toc{margin-top:2.5rem; flex-grow: 1;}
+  nav.toc{margin-top:2rem; flex-grow: 1;}
   nav.toc ol{list-style:none;counter-reset:toc}
   nav.toc li{counter-increment:toc;font-size:13px;margin-bottom:8px;}
   nav.toc li a{
@@ -204,7 +204,7 @@
     opacity: 0; animation: fadeUp 0.8s ease 0.8s forwards; transform: translateY(15px);
   }
 
-  /* CONTENEDOR DE FILTROS PERSISTENTES (STICKY) */
+  /* CONTENEDOR DE FILTROS PERSISTENTES (STICKY) MULTI-SELECCIÓN */
   .filter-container {
     position: sticky;
     top: 0;
@@ -244,6 +244,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
+    user-select: none;
   }
   .filter-count {
     font-size: 9px;
@@ -252,7 +253,6 @@
     padding: 1px 5px;
     border-radius: 4px;
     font-weight: 600;
-    transition: all 0.3s ease;
   }
   .filter-btn:hover {
     border-color: rgba(255, 255, 255, 0.15);
@@ -260,6 +260,8 @@
     background: rgba(255, 255, 255, 0.04);
     transform: translateY(-1px);
   }
+  
+  /* Estado seleccionado mutiple */
   .filter-btn.active {
     border-color: var(--accent);
     color: #060608;
@@ -276,7 +278,7 @@
   section {
     padding-top: 5rem; 
     padding-bottom: 3rem; 
-    scroll-margin-top: 5rem; /* Ajustado para que el sticky no tape el título de la sección */
+    scroll-margin-top: 5rem;
   }
   .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);}
   .reveal.visible{opacity:1;transform:translateY(0);}
@@ -291,7 +293,7 @@
   /* BLOQUES EDITORIALES GENERALES */
   .editorial-block {
     position: relative;
-    margin-bottom: 4rem;      /* Alta separación física para descanso visual */
+    margin-bottom: 4rem;
     padding-bottom: 3rem;
     border-bottom: 1px solid var(--line-soft);
     transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -313,16 +315,50 @@
     height: 0; padding: 0; margin: 0; border: none;
   }
 
+  /* NUEVA ARQUITECTURA: GRID DE CERTIFICACIONES DESTACADAS */
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+  @media (max-width: 768px) { .certs-grid { grid-template-columns: 1fr; } }
+
+  .certs-grid .editorial-block {
+    background: rgba(255, 255, 255, 0.012);
+    border: 1px solid var(--line-soft);
+    border-left: 3px solid var(--accent); /* Resaltado de credencial */
+    padding: 1.75rem;
+    border-radius: 8px;
+    margin-bottom: 0;
+    padding-bottom: 1.75rem;
+    border-bottom: 1px solid var(--line-soft);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease;
+  }
+  .certs-grid .editorial-block:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 224, 182, 0.3);
+    background: rgba(255, 255, 255, 0.02);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 224, 182, 0.05);
+  }
+  .cert-platform {
+    font-family: var(--mono); font-size: 10px; color: var(--accent);
+    text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-top: 0.25rem;
+  }
+
   /* GRID DE TARJETAS PARA PROYECTOS */
   .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 1.5rem;
     margin-top: 1rem;
   }
-  @media (max-width: 768px) {
-    .projects-grid { grid-template-columns: 1fr; }
-  }
+  @media (max-width: 768px) { .projects-grid { grid-template-columns: 1fr; } }
 
   .projects-grid .editorial-block {
     background: rgba(255, 255, 255, 0.01);
@@ -339,15 +375,12 @@
     -webkit-backdrop-filter: blur(8px);
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease;
   }
-  
   .projects-grid .editorial-block:hover {
     transform: translateY(-4px) scale(1.01);
     border-color: rgba(0, 224, 182, 0.3);
     background: rgba(255, 255, 255, 0.02);
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
   }
-
-  .projects-grid .project-head { margin-bottom: 0.75rem; }
 
   /* SISTEMA DE PILL BADGES PARA TECH STACK */
   .project-stack {
@@ -365,9 +398,9 @@
     border-radius: 4px;
     font-size: 10px;
     letter-spacing: 0.02em;
-    transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
   }
-  .projects-grid .editorial-block:hover .tech-badge {
+  .projects-grid .editorial-block:hover .tech-badge,
+  .certs-grid .editorial-block:hover .tech-badge {
     background: rgba(0, 224, 182, 0.06);
     border-color: rgba(0, 224, 182, 0.2);
     color: var(--ink);
@@ -383,19 +416,16 @@
     border-bottom: 1px solid var(--line-soft);
     padding-bottom: 0.5rem;
     letter-spacing: -0.01em;
-    transition: opacity 0.4s, transform 0.4s;
   }
-  .courses-heading.is-filtered-out {
-    display: none;
-  }
+  .courses-heading.is-filtered-out { display: none; }
+  
   .courses-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1rem;
   }
-  @media (max-width: 600px) {
-    .courses-grid { grid-template-columns: 1fr; }
-  }
+  @media (max-width: 600px) { .courses-grid { grid-template-columns: 1fr; } }
+  
   .course-card {
     background: rgba(255, 255, 255, 0.01);
     border: 1px solid var(--line-soft);
@@ -415,7 +445,6 @@
     transform: translateY(-2px);
     border-color: rgba(0, 224, 182, 0.25);
     background: rgba(255, 255, 255, 0.02);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
   }
   .course-card .entry-head { margin-bottom: 0.5rem; grid-template-columns: 1fr; gap: 0.25rem; }
   .course-card .entry-title { font-size: 1.05rem; line-height: 1.3; }
@@ -522,7 +551,7 @@
 </head>
 <body>
 
-  <!-- CAPA DE FONDO GEOMÉTRICO/VECTORIAL -->
+  <!-- CAPA DE FONDO GEOMÉTRICO/VECTORIAL INTENSIFICADO -->
   <div class="vector-blueprint-bg"></div>
 
   <div class="scroll-progress" id="scroll-progress"></div>
@@ -531,13 +560,13 @@
 
 <div class="shell">
 
-  <!-- SIDEBAR (Siempre visible en Desktop con datos de contacto permanentes) -->
+  <!-- SIDEBAR (Navegación y Contacto Fijo) -->
   <aside class="sidebar">
     <div>
       <div class="brand-name">Maximiliano Gaete</div>
       <div class="brand-role">Estudiante de Ing. Civil Biomédica<br>Técnico Nivel Medio en Electrónica</div>
 
-      <!-- DATOS DE CONTACTO FIJOS EN LA BARRA LATERAL -->
+      <!-- CONTACTO PERMANENTE -->
       <div class="sidebar-contact-panel">
         <div class="sidebar-contact-item">
           <span>Ubicación</span>
@@ -548,7 +577,7 @@
           <div><a href="tel:+56936703492">+56 9 3670 3492</a></div>
         </div>
         <div class="sidebar-contact-item">
-          <span>Email Correo</span>
+          <span>Email</span>
           <div><a href="mailto:Maximilianogaetepizza@gmail.com">Maximilianogaetepizza@gmail.com</a></div>
         </div>
       </div>
@@ -591,15 +620,17 @@
       </p>
     </header>
 
-    <!-- FILTROS DE PERFIL PERSISTENTES (Te siguen al bajar scroll) -->
+    <!-- FILTROS DE PERFIL STICKY MULTI-SELECCIÓN -->
     <div class="filter-container">
-      <div class="filter-label">Filtrar CV por perfil de interés:</div>
+      <div class="filter-label">Filtrar CV (Selecciona uno o varios perfiles en simultáneo):</div>
       <div class="filter-buttons" role="group" aria-label="Filtros de perfil profesional">
         <button class="filter-btn active" data-target="all">Ver Todo <span class="filter-count">0</span></button>
         <button class="filter-btn" data-target="data">Ciencia de Datos / BI <span class="filter-count">0</span></button>
         <button class="filter-btn" data-target="ml">Machine Learning e IA <span class="filter-count">0</span></button>
+        <button class="filter-btn" data-target="software">Software / Backend <span class="filter-count">0</span></button>
         <button class="filter-btn" data-target="clinica">Ingeniería Clínica <span class="filter-count">0</span></button>
         <button class="filter-btn" data-target="hardware">Fabricación Digital <span class="filter-count">0</span></button>
+        <button class="filter-btn" data-target="investigacion">Investigación / I+D <span class="filter-count">0</span></button>
       </div>
     </div>
 
@@ -623,7 +654,7 @@
           <li>Investigación de <strong>neuroimágenes estructurales/funcionales</strong> y conectividad de redes cerebrales.</li>
           <li><strong>Fabricación digital avanzada</strong>, ingeniería inversa y prototipado rápido en entornos FabLab.</li>
           <li>Desarrollo de robótica médica, instrumentación biomédica, telemetría y visión artificial.</li>
-          <li>Diseño de <strong>arquitecturas de software robustas</strong> (ETL, API REST, Dashboards) utilizando Python, TypeScript y SQL.</li>
+          <li>Diseño de <strong>architecturas de software robustas</strong> (ETL, API REST, Dashboards) utilizando Python, TypeScript y SQL.</li>
         </ul>
         <p class="profile-tail">
           Enfoque proactivo orientado al desarrollo de sistemas bioingenieriles con alta escalabilidad, optimización algorítmica y un profundo impacto social en la asistencia clínica y de investigación.
@@ -643,7 +674,7 @@
 
       <div class="entry-list-container">
         
-        <div class="editorial-block" data-profile="data ml">
+        <div class="editorial-block" data-profile="data ml investigacion">
           <div class="entry-head">
             <div>
               <div class="entry-title">Practicante en Ingeniería de Desarrollo e Investigación</div>
@@ -671,7 +702,7 @@
           </ul>
         </div>
 
-        <div class="editorial-block" data-profile="hardware">
+        <div class="editorial-block" data-profile="hardware investigacion">
           <div class="entry-head">
             <div>
               <div class="entry-title">Instructor de Laboratorio & Especialista de Equipos</div>
@@ -769,7 +800,7 @@
       </div>
     </section>
 
-    <!-- CERTIFICACIONES -->
+    <!-- CERTIFICACIONES REDISEÑADAS EN CUADRÍCULA -->
     <section id="certificaciones" class="reveal" aria-labelledby="cert-title">
       <div class="sec-head">
         <div class="sec-num">04</div>
@@ -779,36 +810,32 @@
         </div>
       </div>
 
-      <div class="entry-list-container">
+      <div class="certs-grid">
         
-        <div class="editorial-block" data-profile="hardware">
-          <div class="entry-head">
-            <div>
-              <div class="entry-title">Certificación en Fabricación Digital Avanzada (FAB-D)</div>
-              <div class="entry-org">Universidad de Valparaíso — FabLab UV · Chile</div>
-            </div>
-            <time class="entry-date" datetime="2023-12">Jun 2023 — Dic 2023</time>
+        <!-- FAB-D -->
+        <div class="editorial-block" data-profile="hardware investigacion">
+          <div class="project-head">
+            <span class="cert-platform">Universidad de Valparaíso</span>
+            <h3 class="entry-title">Fabricación Digital Avanzada (FAB-D)</h3>
           </div>
-          <p class="block-text">
-            Programa intensivo avanzado de 90 horas acreditadas en metodologías globales de fabricación digital. Dominio avanzado en entornos <strong>CAD/CAM paramétricos</strong>, optimización de trayectorias de herramientas para enrutadores CNC, diseño modular y encapsulamiento de hardware electrónico embebido.
+          <p class="block-text" style="font-size: 14px;">
+            90 horas acreditadas en metodologías globales FabLab. Entornos <strong>CAD/CAM paramétricos</strong>, optimización CNC y encapsulamiento de hardware electrónico médico.
           </p>
           <div class="project-actions">
             <a class="project-link" href="https://drive.google.com/file/d/1evt4FpQzL9LuA9la4xAQsxKdmMFZgI60/view?usp=sharing" target="_blank" rel="noopener noreferrer">
-              Ver documento original <span class="arrow">↗</span>
+              Ver credencial original <span class="arrow">↗</span>
             </a>
           </div>
         </div>
 
-        <div class="editorial-block" data-profile="data">
-          <div class="entry-head">
-            <div>
-              <div class="entry-title">Google Business Intelligence Professional Certificate</div>
-              <div class="entry-org">Google — Coursera</div>
-            </div>
-            <time class="entry-date" datetime="2026-07-01">01 Jul 2026</time>
+        <!-- GOOGLE BUSINESS INTELLIGENCE -->
+        <div class="editorial-block" data-profile="data software">
+          <div class="project-head">
+            <span class="cert-platform">Google — Coursera</span>
+            <h3 class="entry-title">Google Business Intelligence</h3>
           </div>
-          <p class="block-text">
-            Especialización profesional orientada al diseño de arquitecturas de almacenamiento de datos robustas, estructuración de <strong>pipelines analíticos complejos (ETL)</strong>, modelado de datos y optimización de dashboards ejecutivos para soporte de decisiones a gran escala.
+          <p class="block-text" style="font-size: 14px;">
+            Diseño de arquitecturas de almacenamiento de datos, estructuración de <strong>pipelines analíticos complejos (ETL)</strong> y optimización de dashboards a gran escala.
           </p>
           <div class="project-actions">
             <a class="project-link" href="https://www.coursera.org/account/accomplishments/specialization/G8S1T4CKDO53" target="_blank" rel="noopener noreferrer">
@@ -817,16 +844,14 @@
           </div>
         </div>
 
+        <!-- GOOGLE DATA ANALYTICS -->
         <div class="editorial-block" data-profile="data">
-          <div class="entry-head">
-            <div>
-              <div class="entry-title">Google Data Analytics Professional Certificate</div>
-              <div class="entry-org">Google — Coursera</div>
-            </div>
-            <time class="entry-date" datetime="2026-06-29">29 Jun 2026</time>
+          <div class="project-head">
+            <span class="cert-platform">Google — Coursera</span>
+            <h3 class="entry-title">Google Data Analytics</h3>
           </div>
-          <p class="block-text">
-            Acreditación en el ciclo completo de análisis de datos: preparación, limpieza estructurada, análisis computacional y visualización interactiva. Dominio práctico en lenguajes <strong>SQL</strong>, programación en <strong>R Core</strong>, hojas de cálculo avanzadas y plataformas BI corporativas.
+          <p class="block-text" style="font-size: 14px;">
+            Ciclo analítico completo de datos. Dominio práctico avanzado en bases de datos relacionales <strong>SQL</strong>, programación analítica en <strong>R Core</strong> y minería estructurada.
           </p>
           <div class="project-actions">
             <a class="project-link" href="https://www.coursera.org/account/accomplishments/specialization/96B4VBQYHBBP" target="_blank" rel="noopener noreferrer">
@@ -835,16 +860,14 @@
           </div>
         </div>
 
+        <!-- GOOGLE DATA-DRIVEN DECISION MAKING -->
         <div class="editorial-block" data-profile="data ml">
-          <div class="entry-head">
-            <div>
-              <div class="entry-title">Google Data-Driven Decision Making Specialization</div>
-              <div class="entry-org">Google — Coursera</div>
-            </div>
-            <time class="entry-date" datetime="2026-06">Jun 2026</time>
+          <div class="project-head">
+            <span class="cert-platform">Google — Coursera</span>
+            <h3 class="entry-title">Data-Driven Decision Making</h3>
           </div>
-          <p class="block-text">
-            Especialización orientada a la formulación de <strong>hipótesis analíticas robustas</strong>, traducción de métricas numéricas complejas en estrategias de procesos viables y gobernanza analítica en entornos TI estructurados.
+          <p class="block-text" style="font-size: 14px;">
+            Formulación de hipótesis estadísticas analíticas robustas, modelado y gobernanza de datos en arquitecturas e infraestructuras de TI complejas.
           </p>
           <div class="project-actions">
             <a class="project-link" href="https://www.coursera.org/account/accomplishments/specialization/WVEPE3UG3EEE" target="_blank" rel="noopener noreferrer">
@@ -853,16 +876,14 @@
           </div>
         </div>
 
-        <div class="editorial-block" data-profile="ml">
-          <div class="entry-head">
-            <div>
-              <div class="entry-title">Google AI Essentials Specialization</div>
-              <div class="entry-org">Google — Coursera</div>
-            </div>
-            <time class="entry-date" datetime="2026-06">Jun 2026</time>
+        <!-- GOOGLE AI ESSENTIALS -->
+        <div class="editorial-block" data-profile="ml investigacion">
+          <div class="project-head">
+            <span class="cert-platform">Google — Coursera</span>
+            <h3 class="entry-title">Google AI Essentials</h3>
           </div>
-          <p class="block-text">
-            Formación enfocada en la aplicación práctica de Inteligencia Artificial Generativa, <strong>ingeniería de instrucciones (prompt engineering)</strong>, optimización algorítmica de flujos cotidianos de ingeniería y uso ético/responsable de modelos fundacionales.
+          <p class="block-text" style="font-size: 14px;">
+            Aplicación avanzada de Inteligencia Artificial Generativa, <strong>ingeniería de instrucciones (prompt engineering)</strong> y despliegue ético de modelos fundacionales.
           </p>
           <div class="project-actions">
             <a class="project-link" href="https://www.coursera.org/account/accomplishments/specialization/Y62SPQVRY19Z" target="_blank" rel="noopener noreferrer">
@@ -886,7 +907,7 @@
 
       <div class="projects-grid">
 
-        <article class="editorial-block" data-profile="data clinica">
+        <article class="editorial-block" data-profile="data clinica software">
           <div class="project-head">
             <h3 class="entry-title">Biomedical DSP — Suite de Procesamiento <span class="project-tag">Académico & SaaS</span></h3>
           </div>
@@ -908,7 +929,7 @@
           </div>
         </article>
 
-        <article class="editorial-block" data-profile="data">
+        <article class="editorial-block" data-profile="data software">
           <div class="project-head">
             <h3 class="entry-title">HGF Repuestos — Inventario Predictivo <span class="project-tag">Producción Comercial</span></h3>
           </div>
@@ -929,7 +950,7 @@
           </div>
         </article>
 
-        <article class="editorial-block" data-profile="clinica data">
+        <article class="editorial-block" data-profile="clinica software">
           <div class="project-head">
             <h3 class="entry-title">Gestión de Flota Vehicular Autogestionada <span class="project-tag">Producción Institucional</span></h3>
           </div>
@@ -969,7 +990,7 @@
           </div>
         </article>
 
-        <article class="editorial-block" data-profile="data">
+        <article class="editorial-block" data-profile="data software">
           <div class="project-head">
             <h3 class="entry-title">PUCO — Analizador de Licitaciones Estatales <span class="project-tag">SaaS / Automatización</span></h3>
           </div>
@@ -990,7 +1011,7 @@
           </div>
         </article>
 
-        <article class="editorial-block" data-profile="ml hardware">
+        <article class="editorial-block" data-profile="ml hardware software">
           <div class="project-head">
             <h3 class="entry-title">Brazo Robótico 3-GDL con Visión Artificial <span class="project-tag">Robótica & Visión</span></h3>
           </div>
@@ -1011,7 +1032,7 @@
           </div>
         </article>
 
-        <article class="editorial-block" data-profile="clinica hardware">
+        <article class="editorial-block" data-profile="clinica hardware investigacion">
           <div class="project-head">
             <h3 class="entry-title">Robot Continuo Biomédico Exploratorio <span class="project-tag">Bioingeniería / Hardware</span></h3>
           </div>
@@ -1031,7 +1052,7 @@
           </div>
         </article>
 
-        <article class="editorial-block" data-profile="ml">
+        <article class="editorial-block" data-profile="ml investigacion">
           <div class="project-head">
             <h3 class="entry-title">Taller HMI por Reconocimiento de Gestos <span class="project-tag">Transferencia Tecnológica</span></h3>
           </div>
@@ -1042,7 +1063,7 @@
             <span class="tech-badge">Doc Científica</span>
           </div>
           <ul class="content-list">
-            <li>Diseño estructurado de interfaces Hombre-Máquina (<strong>HMI</strong>) no invasivas basadas en visión computacional.</li>
+            <li>Diseño de interfaces Hombre-Máquina (<strong>HMI</strong>) no invasivas basadas en visión computacional.</li>
             <li>Algoritmos base ligeros para procesamiento matricial de imágenes y mapeo cinemático de contornos de manos.</li>
           </ul>
           <div class="project-actions">
@@ -1050,7 +1071,7 @@
           </div>
         </article>
 
-        <article class="editorial-block" data-profile="clinica hardware">
+        <article class="editorial-block" data-profile="clinica hardware software">
           <div class="project-head">
             <h3 class="entry-title">Prototipo de Incubadora Neonatal con Lazos PID <span class="project-tag">Hardware Médico</span></h3>
           </div>
@@ -1084,7 +1105,7 @@
         </div>
       </div>
 
-      <div class="editorial-block" data-profile="ml data">
+      <div class="editorial-block" data-profile="ml data investigacion">
         <div class="entry-head">
           <div class="entry-title">Primera Escuela de Invierno iHEALTH</div>
           <time class="entry-date">Jul 2025</time>
@@ -1102,7 +1123,7 @@
         <p class="block-text">Galardón por el diseño de una infraestructura técnica de comunicación de emergencia y despliegue tecnológico ágil para la coordinación ante catástrofes y desastres geográficos.</p>
       </div>
 
-      <div class="editorial-block" data-profile="data">
+      <div class="editorial-block" data-profile="data investigacion">
         <div class="entry-head">
           <div class="entry-title">Datathon Make Health Latam</div>
           <time class="entry-date">Ene 2023</time>
@@ -1114,7 +1135,7 @@
       <h3 class="courses-heading" id="courses-title">Cursos de Especialización y Actualización</h3>
       <div class="courses-grid">
 
-        <div class="editorial-block course-card" data-profile="ml data">
+        <div class="editorial-block course-card" data-profile="ml data software">
           <div class="entry-head">
             <div class="entry-title">Copilot y GitHub</div>
             <time class="entry-date">Jun 2026</time>
@@ -1141,7 +1162,7 @@
           <p class="block-text">Gobernanza y dirección de proyectos ingenieriles complejos utilizando modelos predictivos inteligentes. Folio: 8334574810MG.</p>
         </div>
 
-        <div class="editorial-block course-card" data-profile="ml data">
+        <div class="editorial-block course-card" data-profile="ml data software">
           <div class="entry-head">
             <div class="entry-title">IA para Ejecutivos de TI</div>
             <time class="entry-date">Jun 2026</time>
@@ -1174,7 +1195,7 @@
             <time class="entry-date">Jun 2026</time>
           </div>
           <div class="award-org">Academia RED — Ciberseguridad</div>
-          <p class="block-text">Análisis preventivo de vectores de ataque informáticos y mitigación de riesgos perimetrales de red. Folio: 0391765378MG.</p>
+          <p class="block-text">Análisis preventivo de vectores de ataque informáticos y miitgación de riesgos perimetrales de red. Folio: 0391765378MG.</p>
         </div>
 
         <div class="editorial-block course-card" data-profile="ml">
@@ -1204,7 +1225,7 @@
           <p class="block-text">Arquitecturas analíticas para gestión de talento, auditoría predictiva y diseño organizacional optimizado. Folio: 5206747675MG.</p>
         </div>
 
-        <div class="editorial-block course-card" data-profile="ml">
+        <div class="editorial-block course-card" data-profile="ml investigacion">
           <div class="entry-head">
             <div class="entry-title">IA para Docentes</div>
             <time class="entry-date">Jun 2026</time>
@@ -1213,7 +1234,7 @@
           <p class="block-text">Diseño instruccional técnico, transferencia de conocimiento e ingeniería y talleres didácticos. Folio: 9394018456MG.</p>
         </div>
 
-        <div class="editorial-block course-card" data-profile="data">
+        <div class="editorial-block course-card" data-profile="data software">
           <div class="entry-head">
             <div class="entry-title">Organización Moderna</div>
             <time class="entry-date">Jun 2026</time>
@@ -1346,54 +1367,40 @@
       emailLink.addEventListener('click', (e) => {
         e.preventDefault();
         const email = "maximilianogaetepizza@gmail.com";
-        
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(email).then(() => {
             const originalText = emailLink.innerText;
             emailLink.innerText = '¡Copiado!';
             setTimeout(() => { emailLink.innerText = originalText; }, 1500);
-          }).catch(err => {
-            console.error('Fallo al copiar email: ', err);
           });
-        } else {
-          const textArea = document.createElement('textarea');
-          textArea.value = email;
-          textArea.style.position = 'fixed';
-          textArea.style.opacity = '0';
-          document.body.appendChild(textArea);
-          textArea.select();
-          try {
-            document.execCommand('copy');
-            const originalText = emailLink.innerText;
-            emailLink.innerText = '¡Copiado!';
-            setTimeout(() => { emailLink.innerText = originalText; }, 1500);
-          } catch (err) {
-            console.error('Fallo en fallback de copia: ', err);
-          }
-          document.body.removeChild(textArea);
         }
       });
     }
 
-    // 5. LÓGICA DE FILTRADO AVANZADO CON RETRASOS SECUENCIALES (STAGGER) Y CONTADORES
+    // 5. MOTOR DE FILTRADO AVANZADO CON SOPORTE MULTI-SELECCIÓN (LOGICA "OR")
     const filterButtons = document.querySelectorAll('.filter-btn');
     const editorialBlocks = document.querySelectorAll('.editorial-block[data-profile]');
     const profileLead = document.querySelector('.profile-lead');
     const coursesTitle = document.getElementById('courses-title');
 
+    // Estado local de filtros activos
+    let selectedProfiles = new Set(['all']);
+
     const profileTexts = {
-      all: "Estudiante de último año en Ingeniería Civil Biomédica con sólida formación técnica inicial en Electrónica Industrial y experiencia académica internacional en Inteligencia Artificial y Machine Learning aplicada al entorno médico mediante una estancia Erasmus+ en la Università di Bologna.",
-      data: "Estudiante de último año en Ingeniería Civil Biomédica con enfoque avanzado en Ciencia de Datos y Business Intelligence para el sector salud. Especializado en el diseño de arquitecturas de software (ETL, API REST), normalización de bases de datos clínicas heterogéneas y análisis de métricas asistenciales mediante Python y SQL.",
-      ml: "Estudiante de último año en Ingeniería Civil Biomédica con especialización internacional en IA y Machine Learning aplicado al entorno médico en la Università di Bologna. Experiencia práctica en el preprocesamiento automatizado de neuroimágenes masivas (fMRI, dTI) y la implementación de redes profundas para diagnóstico clínico.",
-      clinica: "Estudiante de último año en Ingeniería Civil Biomédica con una sólida base inicial en Electrónica Industrial. Orientado a la gestión de tecnologías sanitarias, planificación de mantenimiento predictivo/correctivo en infraestructura crítica, automatización de flotas de salud pública y cumplimiento de normativas de datos médicos.",
-      hardware: "Estudiante de último año en Ingeniería Civil Biomédica y Técnico en Electrónica Industrial. Especializado en el desarrollo de hardware médico, robótica de asistencia motora, instrumentación bioeléctrica (sensores EMG/ECG) y flujos avanzados de diseño paramétrico CAD/CAM en entornos FabLab."
+      all: "Estudiante de último año en Ingeniería Civil Biomédica con sólida formación técnica inicial en Electrónica Industrial y experiencia académica internacional en IA aplicada al entorno médico mediante una estancia en la Università di Bologna.",
+      data: "Estudiante de último año en Ingeniería Civil Biomédica con enfoque en Ciencia de Datos y BI para el sector salud. Especializado en pipelines analíticos complexes (ETL), normalización de bases de datos clínicas y reportería interactiva.",
+      ml: "Especialización internacional en IA y Machine Learning aplicado al entorno médico en la Università di Bologna. Experiencia en el preprocesamiento automatizado de neuroimágenes masivas (fMRI, dTI) y modelos neuronales profundos.",
+      software: "Desarrollador enfocado en arquitectura de software de salud, APIs REST robustas, sincronización en tiempo real vía WebSockets e integraciones seguras en entornos web distribuidos utilizando Python, TypeScript y bases de datos.",
+      clinica: "Orientado a la gestión de tecnologías sanitarias, planificación de mantenimiento predictivo/correctivo en infraestructura crítica y optimización sistémica de recursos operativos hospitalarios.",
+      hardware: "Especializado en el desarrollo de hardware médico, robótica de asistencia motora, instrumentación bioeléctrica (sensores EMG/ECG) y flujos avanzados de diseño paramétrico CAD/CAM en entornos FabLab.",
+      investigacion: "Enfoque científico e investigativo en el modelamiento de sistemas bioingenieriles complejos, conectividad estructural de redes neuronales, e ingeniería inversa aplicada al diseño de dispositivos médicos."
     };
 
+    // Inicializar contadores estáticos
     function initFilterCounters() {
       filterButtons.forEach(button => {
         const target = button.getAttribute('data-target');
         const badge = button.querySelector('.filter-count');
-        
         if (!badge) return;
 
         if (target === 'all') {
@@ -1409,56 +1416,92 @@
       });
     }
 
+    // Aplicar filtros dinámicamente según el Set actual
+    function applyFilters() {
+      // Si está vacío o contiene "all", forzar a restablecer a "Ver Todo"
+      if (selectedProfiles.size === 0 || selectedProfiles.has('all')) {
+        selectedProfiles.clear();
+        selectedProfiles.add('all');
+        
+        filterButtons.forEach(btn => {
+          if (btn.getAttribute('data-target') === 'all') btn.classList.add('active');
+          else btn.classList.remove('active');
+        });
+      }
+
+      // Actualizar texto dinámico del perfil (Muestra el último seleccionado o el global)
+      const currentArray = Array.from(selectedProfiles);
+      const lastSelected = currentArray[currentArray.length - 1];
+      if (profileLead && profileTexts[lastSelected]) {
+        profileLead.innerText = profileTexts[lastSelected];
+      }
+
+      // Renderizar y animar bloques secuencialmente (Staggered layout)
+      let visibleIndex = 0;
+      let visibleCoursesCount = 0;
+
+      editorialBlocks.forEach(block => {
+        const blockProfiles = block.getAttribute('data-profile').split(' ');
+        
+        // Un bloque es válido si estamos en "all" o si comparte al menos una etiqueta con los filtros seleccionados
+        const isMatch = selectedProfiles.has('all') || blockProfiles.some(p => selectedProfiles.has(p));
+
+        if (isMatch) {
+          block.classList.remove('is-filtered-out');
+          if (block.classList.contains('course-card')) {
+            visibleCoursesCount++;
+          }
+          block.style.transitionDelay = `${visibleIndex * 0.02}s`;
+          visibleIndex++;
+        } else {
+          block.classList.add('is-filtered-out');
+          block.style.transitionDelay = '0s';
+        }
+      });
+
+      // Manejar visibilidad del encabezado del sub-grid de constancias de Microsoft
+      if (coursesTitle) {
+        if (visibleCoursesCount === 0 && !selectedProfiles.has('all')) {
+          coursesTitle.classList.add('is-filtered-out');
+        } else {
+          coursesTitle.classList.remove('is-filtered-out');
+        }
+      }
+    }
+
+    // Manejador de eventos de clic en los botones de filtrado
     filterButtons.forEach(button => {
       button.addEventListener('click', () => {
-        filterButtons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
+        const target = button.getAttribute('data-target');
 
-        const targetProfile = button.getAttribute('data-target');
-
-        if (profileLead && profileTexts[targetProfile]) {
-          profileLead.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
-          profileLead.style.opacity = '0';
-          profileLead.style.transform = 'translateY(-4px)';
-          
-          setTimeout(() => {
-            profileLead.innerText = profileTexts[targetProfile];
-            profileLead.style.opacity = '1';
-            profileLead.style.transform = 'translateY(0)';
-          }, 250);
-        }
-
-        let visibleIndex = 0;
-        let visibleCoursesCount = 0;
-
-        editorialBlocks.forEach(block => {
-          const blockProfiles = block.getAttribute('data-profile').split(' ');
-          const isMatch = targetProfile === 'all' || blockProfiles.includes(targetProfile);
-
-          if (isMatch) {
-            block.classList.remove('is-filtered-out');
-            if (block.classList.contains('course-card')) {
-              visibleCoursesCount++;
-            }
-            block.style.transitionDelay = `${visibleIndex * 0.03}s`;
-            visibleIndex++;
-          } else {
-            block.classList.add('is-filtered-out');
-            block.style.transitionDelay = '0s';
+        if (target === 'all') {
+          selectedProfiles.clear();
+          selectedProfiles.add('all');
+        } else {
+          // Remover "all" si estaba activo para poder combinar filtros específicos
+          if (selectedProfiles.has('all')) {
+            selectedProfiles.delete('all');
+            document.querySelector('.filter-btn[data-target="all"]').classList.remove('active');
           }
-        });
 
-        if (coursesTitle) {
-          if (visibleCoursesCount === 0 && targetProfile !== 'all') {
-            coursesTitle.classList.add('is-filtered-out');
+          // Alternar el estado (Toggle) del filtro seleccionado
+          if (selectedProfiles.has(target)) {
+            selectedProfiles.delete(target);
+            button.classList.remove('active');
           } else {
-            coursesTitle.classList.remove('is-filtered-out');
+            selectedProfiles.add(target);
+            button.classList.add('active');
           }
         }
+
+        applyFilters();
       });
     });
 
-    document.addEventListener('DOMContentLoaded', initFilterCounters);
+    document.addEventListener('DOMContentLoaded', () => {
+      initFilterCounters();
+      applyFilters();
+    });
 
   })();
 </script>
