@@ -23,7 +23,6 @@
     --mute: #8e8e93;         /* Metadatos, organizaciones y fechas claras pero secundarias */
     --line-soft: rgba(255,255,255,0.05); /* Separadores ultra delgados para descanso visual */
     --accent: #00E0B6;       /* Color de enfoque para viñetas y enlaces */
-    --accent-glow: rgba(0, 224, 182, 0.15);
     --sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     --mono: 'JetBrains Mono', 'SF Mono', Monaco, Menlo, Consolas, monospace;
   }
@@ -45,54 +44,26 @@
     position: relative;
   }
 
-  /* --- CAPAS DE VECTOR Y DISEÑO DE FONDO AVANZADO --- */
+  /* --- CAPAS DE FONDO VECTORIAL TÉCNICO PROFESIONAL --- */
   
-  /* Capa 1: Textura de Ruido Sutil */
+  /* Capa 1: Textura de grano fino */
   body::before {
     content: "";
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    pointer-events: none; z-index: 3; opacity: 0.012;
+    pointer-events: none; z-index: 3; opacity: 0.01;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   }
 
-  /* Capa 2: Malla Geométrica Vectorial (Grid de Ingeniería) */
-  .vector-grid {
+  /* Capa 2: Malla Geométrica y Formas Vectoriales Estilo Blueprint/Plano Clínico */
+  .vector-blueprint-bg {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    pointer-events: none; z-index: 1; opacity: 0.4;
+    pointer-events: none; z-index: 1; opacity: 0.025;
     background-image: 
-      linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(circle at 50% 50%, white 30%, transparent 90%);
-    -webkit-mask-image: radial-gradient(circle at 50% 50%, white 30%, transparent 90%);
-  }
-
-  /* Capa 3: Nodos de Luz Fluida en Movimiento Orgánico (Efecto Biocelular/Red) */
-  .ambient-glow-container {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    pointer-events: none; z-index: 0; overflow: hidden;
-  }
-  .glow-blob {
-    position: absolute; border-radius: 50%; filter: blur(140px); opacity: 0.18;
-    animation: drift 25s infinite alternate ease-in-out;
-  }
-  .blob-primary {
-    top: -10%; left: 15%; width: 45vw; height: 45vw;
-    background: var(--accent);
-  }
-  .blob-secondary {
-    bottom: -15%; right: 10%; width: 50vw; height: 50vw;
-    background: #007aff; animation-duration: 35s; animation-delay: -7s; opacity: 0.12;
-  }
-  .blob-tertiary {
-    top: 40%; left: -20%; width: 35vw; height: 35vw;
-    background: #7a00ff; animation-duration: 30s; animation-delay: -12s; opacity: 0.08;
-  }
-
-  @keyframes drift {
-    0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-    50% { transform: translate(4vw, 8vh) scale(1.15) rotate(120deg); }
-    100% { transform: translate(-2vw, -4vh) scale(0.9) rotate(240deg); }
+      linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000' width='100%25' height='100%25'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1.5'%3E%3Ccircle cx='500' cy='500' r='350' stroke-dasharray='8 4'/%3E%3Ccircle cx='500' cy='500' r='180'/%3E%3Ccircle cx='500' cy='500' r='40'/%3E%3Cpath d='M500,50 L500,950 M50,500 L950,500' stroke-dasharray='20 10 5 10'/%3E%3Cpolygon points='500,200 760,350 760,650 500,800 240,650 240,350' stroke-dasharray='4 4'/%3E%3Ccircle cx='240' cy='350' r='8' fill='%23ffffff'/%3E%3Ccircle cx='760' cy='350' r='8' fill='%23ffffff'/%3E%3Ccircle cx='500' cy='800' r='8' fill='%23ffffff'/%3E%3Cline x1='100' y1='100' x2='300' y2='300' stroke-dasharray='12 6'/%3E%3Cline x1='900' y1='100' x2='700' y2='300' stroke-dasharray='12 6'/%3E%3Crect x='450' y='450' width='100' height='100' stroke-dasharray='2 2'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 50px 50px, 50px 50px, 900px 900px;
+    background-position: center;
   }
 
   /* Scroll Progress Bar */
@@ -122,13 +93,13 @@
   ::-webkit-scrollbar-thumb{background:var(--line-soft)}
 
   /* LAYOUT */
-  .shell{display:grid;grid-template-columns:260px 1fr;max-width:1240px;margin:0 auto;min-height:100vh;position:relative;z-index:5}
+  .shell{display:grid;grid-template-columns:280px 1fr;max-width:1240px;margin:0 auto;min-height:100vh;position:relative;z-index:5}
   @media (max-width:950px){.shell{grid-template-columns:1fr;display:block}}
 
-  /* SIDEBAR */
+  /* SIDEBAR DE NAVEGACIÓN Y CONTACTO FIJO */
   .sidebar{
     position:sticky;top:0;height:100vh;
-    padding:4rem 2rem 2rem 2.5rem;
+    padding:4rem 2rem 2rem 2rem;
     border-right:1px solid var(--line-soft);
     display:flex;flex-direction:column;justify-content:space-between;
     background: transparent;
@@ -140,19 +111,47 @@
   .brand-name{font-size:1.25rem;font-weight:700;color:var(--ink);letter-spacing:-0.02em;}
   .brand-role{margin-top:.5rem;font-family:var(--mono);font-size:11px;color:var(--mute);line-height:1.5;text-transform:uppercase;letter-spacing:0.1em;}
   
-  nav.toc{margin-top:3rem;}
+  /* Bloque de Información de Contacto Fijo en Barra Lateral */
+  .sidebar-contact-panel {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed var(--line-soft);
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--soft);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .sidebar-contact-item {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.4;
+  }
+  .sidebar-contact-item span:first-child {
+    color: var(--mute);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 2px;
+  }
+  .sidebar-contact-item a:hover {
+    color: var(--accent);
+  }
+
+  nav.toc{margin-top:2.5rem; flex-grow: 1;}
   nav.toc ol{list-style:none;counter-reset:toc}
-  nav.toc li{counter-increment:toc;font-size:14px;margin-bottom:10px;}
+  nav.toc li{counter-increment:toc;font-size:13px;margin-bottom:8px;}
   nav.toc li a{
-    display:flex;align-items:center;gap:1rem;
+    display:flex;align-items:center;gap:0.75rem;
     padding:.2rem 0; color:var(--mute);
     transition:color .2s ease, transform .2s ease;
     position: relative;
   }
-  nav.toc li a::before{content:"0" counter(toc);font-family:var(--mono);font-size:11px;color:rgba(255,255,255,0.15);transition:color .2s ease;}
+  nav.toc li a::before{content:"0" counter(toc);font-family:var(--mono);font-size:10px;color:rgba(255,255,255,0.15);transition:color .2s ease;}
   
   nav.toc li a::after {
-    content: ''; position: absolute; left: -2.5rem; top: 50%; height: 1px; width: 12px;
+    content: ''; position: absolute; left: -2rem; top: 50%; height: 1px; width: 12px;
     background: var(--accent); transform: scaleX(0); transform-origin: left;
     transition: transform 0.2s ease;
   }
@@ -164,16 +163,16 @@
   nav.toc li a.active::before{color:var(--accent)}
   nav.toc li a.active::after{transform: scaleX(1)}
 
-  .sidebar-foot{margin-top:2rem;font-family:var(--mono);font-size:11px;color:var(--mute);line-height:1.8;}
+  .sidebar-foot{margin-top:1.5rem; padding-top:1rem; border-top:1px solid var(--line-soft); font-family:var(--mono);font-size:11px;color:var(--mute);line-height:1.8;}
   .sidebar-foot a { position: relative; color: var(--soft); transition: color .2s; }
   .sidebar-foot a:hover { color: var(--accent); text-decoration: underline; }
 
   /* MAIN */
-  main{padding:4rem 4rem 6rem;max-width:980px; width:100%;}
+  main{padding:4rem 4rem 6rem;max-width:940px; width:100%;}
   @media (max-width:950px){main{padding:3rem 1.5rem 4rem}}
 
   /* HERO */
-  .hero{padding-bottom:2rem;}
+  .hero{padding-bottom:1.5rem;}
   .hero-eyebrow{
     font-family:var(--mono);font-size:11px;
     color:var(--accent);margin-bottom:1.5rem;
@@ -192,7 +191,7 @@
   @keyframes fadeUp { to { transform: translateY(0); opacity: 1; } }
 
   .hero h1{
-    font-size:clamp(2rem, 5vw, 2.75rem);
+    font-size:clamp(2rem, 5vw, 2.5rem);
     font-weight:700;line-height:1.15;letter-spacing:-0.03em;
     margin-bottom:1.5rem;color:var(--ink);
   }
@@ -205,16 +204,15 @@
     opacity: 0; animation: fadeUp 0.8s ease 0.8s forwards; transform: translateY(15px);
   }
 
-  .hero-meta{
-    margin-top:3rem;display:flex;flex-wrap:wrap;gap:1rem 2rem;
-    font-family:var(--mono);font-size:12px;color:var(--mute);
-    text-transform:uppercase;letter-spacing:0.05em;
-    opacity: 0; animation: fadeUp 0.8s ease 1s forwards; transform: translateY(15px);
-  }
-
-  /* CONTENEDOR DE FILTROS AVANZADOS */
+  /* CONTENEDOR DE FILTROS PERSISTENTES (STICKY) */
   .filter-container {
-    padding: 2rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(6, 6, 8, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 1.5rem 0;
     border-top: 1px solid var(--line-soft);
     border-bottom: 1px solid var(--line-soft);
     margin-top: 2.5rem;
@@ -222,16 +220,16 @@
   }
   .filter-label {
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 10px;
     color: var(--mute);
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
   }
   .filter-buttons {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
+    gap: 0.5rem;
   }
   .filter-btn {
     background: rgba(255, 255, 255, 0.02);
@@ -239,13 +237,13 @@
     color: var(--soft);
     font-family: var(--mono);
     font-size: 11px;
-    padding: 0.5rem 1.1rem;
+    padding: 0.45rem 1rem;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     border-radius: 6px;
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.5rem;
   }
   .filter-count {
     font-size: 9px;
@@ -257,7 +255,7 @@
     transition: all 0.3s ease;
   }
   .filter-btn:hover {
-    border-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.15);
     color: var(--ink);
     background: rgba(255, 255, 255, 0.04);
     transform: translateY(-1px);
@@ -267,7 +265,7 @@
     color: #060608;
     background: var(--accent);
     font-weight: 600;
-    box-shadow: 0 4px 20px rgba(0, 224, 182, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 224, 182, 0.15);
   }
   .filter-btn.active .filter-count {
     background: rgba(0, 0, 0, 0.12);
@@ -278,7 +276,7 @@
   section {
     padding-top: 5rem; 
     padding-bottom: 3rem; 
-    scroll-margin-top: 1rem;
+    scroll-margin-top: 5rem; /* Ajustado para que el sticky no tape el título de la sección */
   }
   .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);}
   .reveal.visible{opacity:1;transform:translateY(0);}
@@ -318,8 +316,8 @@
   /* GRID DE TARJETAS PARA PROYECTOS */
   .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 1.25rem;
     margin-top: 1rem;
   }
   @media (max-width: 768px) {
@@ -327,12 +325,12 @@
   }
 
   .projects-grid .editorial-block {
-    background: rgba(255, 255, 255, 0.015);
+    background: rgba(255, 255, 255, 0.01);
     border: 1px solid var(--line-soft);
-    padding: 1.75rem;
+    padding: 1.5rem;
     border-radius: 8px;
     margin-bottom: 0;
-    padding-bottom: 1.75rem;
+    padding-bottom: 1.5rem;
     border-bottom: 1px solid var(--line-soft);
     display: flex;
     flex-direction: column;
@@ -345,8 +343,8 @@
   .projects-grid .editorial-block:hover {
     transform: translateY(-4px) scale(1.01);
     border-color: rgba(0, 224, 182, 0.3);
-    background: rgba(255, 255, 255, 0.025);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 224, 182, 0.03);
+    background: rgba(255, 255, 255, 0.02);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
   }
 
   .projects-grid .project-head { margin-bottom: 0.75rem; }
@@ -355,7 +353,7 @@
   .project-stack {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem;
+    gap: 0.35rem;
     margin-bottom: 1.25rem;
     font-family: var(--mono);
   }
@@ -363,7 +361,7 @@
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.06);
     color: var(--soft);
-    padding: 0.15rem 0.55rem;
+    padding: 0.15rem 0.5rem;
     border-radius: 4px;
     font-size: 10px;
     letter-spacing: 0.02em;
@@ -411,7 +409,7 @@
     justify-content: space-between;
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
-    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, background 0.35s ease, opacity 0.35s, padding 0.35s;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, background 0.35s ease, opacity 0.35s;
   }
   .course-card:hover {
     transform: translateY(-2px);
@@ -519,19 +517,13 @@
     }
     .mask-text { transform: translateY(0); opacity: 1; }
     .sec-rule { width: 100%; }
-    .glow-blob { animation: none; }
   }
 </style>
 </head>
 <body>
 
-  <!-- ELEMENTOS COMPONENTES DEL FONDO VECTORIAL Y LUMÍNICO -->
-  <div class="ambient-glow-container">
-    <div class="glow-blob blob-primary"></div>
-    <div class="glow-blob blob-secondary"></div>
-    <div class="glow-blob blob-tertiary"></div>
-  </div>
-  <div class="vector-grid"></div>
+  <!-- CAPA DE FONDO GEOMÉTRICO/VECTORIAL -->
+  <div class="vector-blueprint-bg"></div>
 
   <div class="scroll-progress" id="scroll-progress"></div>
 
@@ -539,31 +531,47 @@
 
 <div class="shell">
 
-  <!-- SIDEBAR -->
+  <!-- SIDEBAR (Siempre visible en Desktop con datos de contacto permanentes) -->
   <aside class="sidebar">
     <div>
       <div class="brand-name">Maximiliano Gaete</div>
       <div class="brand-role">Estudiante de Ing. Civil Biomédica<br>Técnico Nivel Medio en Electrónica</div>
+
+      <!-- DATOS DE CONTACTO FIJOS EN LA BARRA LATERAL -->
+      <div class="sidebar-contact-panel">
+        <div class="sidebar-contact-item">
+          <span>Ubicación</span>
+          <div>Valparaíso, Chile</div>
+        </div>
+        <div class="sidebar-contact-item">
+          <span>Teléfono</span>
+          <div><a href="tel:+56936703492">+56 9 3670 3492</a></div>
+        </div>
+        <div class="sidebar-contact-item">
+          <span>Email Correo</span>
+          <div><a href="mailto:Maximilianogaetepizza@gmail.com">Maximilianogaetepizza@gmail.com</a></div>
+        </div>
+      </div>
 
       <nav class="toc" aria-label="Navegación principal" id="toc">
         <ol>
           <li><a href="#perfil">Perfil Profesional</a></li>
           <li><a href="#experiencia">Experiencia</a></li>
           <li><a href="#formacion">Formación Académica</a></li>
-          <li><a href="#certificaciones">Certificaciones Profesionales</a></li>
+          <li><a href="#certificaciones">Certificaciones</a></li>
           <li><a href="#proyectos">Proyectos Destacados</a></li>
-          <li><a href="#reconocimientos">Reconocimientos y Constancias</a></li>
-          <li><a href="#habilidades">Tech Stack & Habilidades Técnicas</a></li>
+          <li><a href="#reconocimientos">Reconocimientos</a></li>
+          <li><a href="#habilidades">Tech Stack & Skills</a></li>
           <li><a href="#adicional">Información</a></li>
         </ol>
       </nav>
     </div>
 
     <div class="sidebar-foot">
-      <a id="copy-email" href="#">Email</a> · 
+      <a id="copy-email" href="#">Copiar Email</a> · 
       <a href="https://www.linkedin.com/in/maxigaete/" target="_blank" rel="noopener noreferrer">LinkedIn</a> · 
       <a href="https://github.com/MaximilianoAntonio" target="_blank" rel="noopener noreferrer">GitHub</a><br>
-      Valparaíso, Chile
+      Portafolio © 2026
     </div>
   </aside>
 
@@ -581,23 +589,17 @@
       <p class="hero-lede">
         Especializado en la intersección entre ingeniería avanzada, arquitectura de software y salud, con experiencia práctica en el análisis de neuroimágenes funcionales, fabricación digital y despliegue de sistemas biomédicos inteligentes.
       </p>
-
-      <div class="hero-meta">
-        <span>Valparaíso, Chile</span>
-        <span>+56 9 3670 3492</span>
-        <span>Maximilianogaetepizza@gmail.com</span>
-      </div>
     </header>
 
-    <!-- FILTROS DE PERFIL (Vistas rápidas para Reclutadores) -->
+    <!-- FILTROS DE PERFIL PERSISTENTES (Te siguen al bajar scroll) -->
     <div class="filter-container">
       <div class="filter-label">Filtrar CV por perfil de interés:</div>
       <div class="filter-buttons" role="group" aria-label="Filtros de perfil profesional">
         <button class="filter-btn active" data-target="all">Ver Todo <span class="filter-count">0</span></button>
         <button class="filter-btn" data-target="data">Ciencia de Datos / BI <span class="filter-count">0</span></button>
         <button class="filter-btn" data-target="ml">Machine Learning e IA <span class="filter-count">0</span></button>
-        <button class="filter-btn" data-target="clinica">Ingeniería Biomédica y Clínica <span class="filter-count">0</span></button>
-        <button class="filter-btn" data-target="hardware">I+D / Fabricación Digital <span class="filter-count">0</span></button>
+        <button class="filter-btn" data-target="clinica">Ingeniería Clínica <span class="filter-count">0</span></button>
+        <button class="filter-btn" data-target="hardware">Fabricación Digital <span class="filter-count">0</span></button>
       </div>
     </div>
 
@@ -779,7 +781,6 @@
 
       <div class="entry-list-container">
         
-        <!-- FAB-D -->
         <div class="editorial-block" data-profile="hardware">
           <div class="entry-head">
             <div>
@@ -798,7 +799,6 @@
           </div>
         </div>
 
-        <!-- GOOGLE BUSINESS INTELLIGENCE -->
         <div class="editorial-block" data-profile="data">
           <div class="entry-head">
             <div>
@@ -817,7 +817,6 @@
           </div>
         </div>
 
-        <!-- GOOGLE DATA ANALYTICS -->
         <div class="editorial-block" data-profile="data">
           <div class="entry-head">
             <div>
@@ -836,7 +835,6 @@
           </div>
         </div>
 
-        <!-- GOOGLE DATA-DRIVEN DECISION MAKING -->
         <div class="editorial-block" data-profile="data ml">
           <div class="entry-head">
             <div>
@@ -855,7 +853,6 @@
           </div>
         </div>
 
-        <!-- GOOGLE AI ESSENTIALS -->
         <div class="editorial-block" data-profile="ml">
           <div class="entry-head">
             <div>
@@ -887,7 +884,6 @@
         </div>
       </div>
 
-      <!-- NUEVO CONTENEDOR GRID -->
       <div class="projects-grid">
 
         <article class="editorial-block" data-profile="data clinica">
@@ -1088,7 +1084,6 @@
         </div>
       </div>
 
-      <!-- Logros Principales (Texto completo para alto impacto) -->
       <div class="editorial-block" data-profile="ml data">
         <div class="entry-head">
           <div class="entry-title">Primera Escuela de Invierno iHEALTH</div>
@@ -1116,7 +1111,6 @@
         <p class="block-text">Participante destacado en la competencia de <strong>minería de datos médicos</strong> orientada a proponer arquitecturas clínicas escalables ante problemáticas demográficas complejas en América Latina.</p>
       </div>
 
-      <!-- NUEVA SECCIÓN GRUPAL COMPACTA: CURSOS ACADEMIA RED & MICROSOFT -->
       <h3 class="courses-heading" id="courses-title">Cursos de Especialización y Actualización</h3>
       <div class="courses-grid">
 
@@ -1198,7 +1192,7 @@
             <time class="entry-date">Jun 2026</time>
           </div>
           <div class="award-org">Academia RED & Microsoft</div>
-          <p class="block-text">Análisis predictivo del comportamiento de datos comerciales y segmentación algorítmica estructurada. Folio: 7265359589MG.</p>
+          <p class="block-text">Análisis predictivo del comportamiento de datos comerciales y segmentación algorítmica de bases. Folio: 7265359589MG.</p>
         </div>
 
         <div class="editorial-block course-card" data-profile="data">
@@ -1216,7 +1210,7 @@
             <time class="entry-date">Jun 2026</time>
           </div>
           <div class="award-org">Academia RED & Microsoft</div>
-          <p class="block-text">Diseño instruccional técnico, transferencia de conocimiento ingenieril y estructuración de talleres didácticos. Folio: 9394018456MG.</p>
+          <p class="block-text">Diseño instruccional técnico, transferencia de conocimiento e ingeniería y talleres didácticos. Folio: 9394018456MG.</p>
         </div>
 
         <div class="editorial-block course-card" data-profile="data">
@@ -1381,7 +1375,7 @@
       });
     }
 
-    // 5. NUEVA LÓGICA DE FILTRADO AVANZADO (CÁLCULO DE CONTADORES Y ANIMACIÓN ESCALONADA)
+    // 5. LÓGICA DE FILTRADO AVANZADO CON RETRASOS SECUENCIALES (STAGGER) Y CONTADORES
     const filterButtons = document.querySelectorAll('.filter-btn');
     const editorialBlocks = document.querySelectorAll('.editorial-block[data-profile]');
     const profileLead = document.querySelector('.profile-lead');
@@ -1395,7 +1389,6 @@
       hardware: "Estudiante de último año en Ingeniería Civil Biomédica y Técnico en Electrónica Industrial. Especializado en el desarrollo de hardware médico, robótica de asistencia motora, instrumentación bioeléctrica (sensores EMG/ECG) y flujos avanzados de diseño paramétrico CAD/CAM en entornos FabLab."
     };
 
-    // Función para calcular e inyectar contadores dinámicos al iniciar la página
     function initFilterCounters() {
       filterButtons.forEach(button => {
         const target = button.getAttribute('data-target');
@@ -1416,7 +1409,6 @@
       });
     }
 
-    // Ejecución del Filtrado con Transición Estaggeted (Escalonada)
     filterButtons.forEach(button => {
       button.addEventListener('click', () => {
         filterButtons.forEach(btn => btn.classList.remove('active'));
@@ -1424,7 +1416,6 @@
 
         const targetProfile = button.getAttribute('data-target');
 
-        // Transición del Lead Text
         if (profileLead && profileTexts[targetProfile]) {
           profileLead.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
           profileLead.style.opacity = '0';
@@ -1437,7 +1428,6 @@
           }, 250);
         }
 
-        // Animación de los bloques con retrasos secuenciales (Stagger)
         let visibleIndex = 0;
         let visibleCoursesCount = 0;
 
@@ -1447,14 +1437,10 @@
 
           if (isMatch) {
             block.classList.remove('is-filtered-out');
-            
-            // Si es una tarjeta de curso, contamos si quedan activas en el sub-grid
             if (block.classList.contains('course-card')) {
               visibleCoursesCount++;
             }
-
-            // Aplicamos un pequeño delay progresivo solo a los elementos que entran en la vista
-            block.style.transitionDelay = `${visibleIndex * 0.04}s`;
+            block.style.transitionDelay = `${visibleIndex * 0.03}s`;
             visibleIndex++;
           } else {
             block.classList.add('is-filtered-out');
@@ -1462,7 +1448,6 @@
           }
         });
 
-        // Ocultar dinámicamente el título del subgrid si no hay cursos que mostrar en ese filtro
         if (coursesTitle) {
           if (visibleCoursesCount === 0 && targetProfile !== 'all') {
             coursesTitle.classList.add('is-filtered-out');
@@ -1473,7 +1458,6 @@
       });
     });
 
-    // Iniciar contadores al cargar el DOM
     document.addEventListener('DOMContentLoaded', initFilterCounters);
 
   })();
