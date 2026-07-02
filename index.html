@@ -3,297 +3,359 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Maximiliano Gaete — Portafolio</title>
-<meta name="description" content="Ingeniería Civil Biomédica · Inteligencia Artificial aplicada a la salud · Fabricación digital">
+<title>Maximiliano Gaete — Portfolio & Tech Innovation</title>
+<meta name="description" content="Ingeniería Civil Biomédica · IA aplicada a la salud · Fabricación digital">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#ffffff;
-    --ink:#0a0a0a;
-    --text:#1a1a1a;
-    --soft:#555555;
-    --mute:#8a8a8a;
-    --faint:#b8b8b8;
-    --line:rgba(0,0,0,0.10);
-    --line-soft:rgba(0,0,0,0.05);
-    --serif:'Cormorant Garamond', 'Times New Roman', serif;
-    --sans:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --bg:#050813;
+    --surface:#0b1020;
+    --surface-2:#11172b;
+    --ink:#ffffff;
+    --text:#e2e8f0;
+    --soft:#94a3b8;
+    --mute:#64748b;
+    --line:rgba(255,255,255,0.08);
+    --line-soft:rgba(255,255,255,0.04);
+    --accent:#06b6d4; /* Cyan */
+    --accent-2:#8b5cf6; /* Violet */
+    --glow:0 0 20px rgba(6, 182, 212, 0.4);
+    --sans:'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono:'JetBrains Mono', monospace;
   }
+
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{
-    font-family:var(--serif);
+    font-family:var(--sans);
     background:var(--bg);
     color:var(--text);
-    font-size:17px;
-    line-height:1.65;
+    font-size:16px;
+    line-height:1.6;
     -webkit-font-smoothing:antialiased;
-    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
   }
   a{color:inherit;text-decoration:none}
-  ::selection{background:#000;color:#fff}
+  ::selection{background:var(--accent);color:var(--bg)}
 
-  /* ---------- LAYOUT ---------- */
-  .shell{display:grid;grid-template-columns:260px 1fr;max-width:1240px;margin:0 auto;min-height:100vh}
+  /* --- FONDO ANIMADO (GRID) --- */
+  .bg-grid{
+    position:fixed;top:0;left:0;width:100%;height:100%;
+    background-image: 
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    z-index:-2;
+    mask-image: radial-gradient(circle at 50% 0%, black 0%, transparent 80%);
+    -webkit-mask-image: radial-gradient(circle at 50% 0%, black 0%, transparent 80%);
+  }
+  .bg-glow{
+    position:fixed;top:-20%;left:20%;width:600px;height:600px;
+    background:radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+    z-index:-1;filter:blur(80px);
+    animation: float 12s ease-in-out infinite;
+  }
+  .bg-glow-2{
+    position:fixed;bottom:-10%;right:10%;width:500px;height:500px;
+    background:radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 70%);
+    z-index:-1;filter:blur(80px);
+    animation: float 15s ease-in-out infinite reverse;
+  }
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(50px, 30px); }
+  }
+
+  /* --- LAYOUT --- */
+  .shell{display:grid;grid-template-columns:280px 1fr;max-width:1280px;margin:0 auto;min-height:100vh}
   @media (max-width:900px){
     .shell{grid-template-columns:1fr;display:block}
   }
 
-  /* ---------- SIDEBAR ---------- */
+  /* --- SIDEBAR --- */
   .sidebar{
     position:sticky;top:0;height:100vh;
     padding:3rem 2rem 2rem 2.5rem;
     border-right:1px solid var(--line);
+    background:rgba(5, 8, 19, 0.7);
+    backdrop-filter:blur(12px);
     display:flex;flex-direction:column;justify-content:space-between;
-    background:var(--bg);
   }
   @media (max-width:900px){
-    .sidebar{position:relative;height:auto;border-right:none;border-bottom:1px solid var(--line);padding:2.5rem 1.5rem 1.5rem}
+    .sidebar{position:relative;height:auto;border-right:none;border-bottom:1px solid var(--line);padding:2.5rem 1.5rem}
   }
   .brand-mark{
-    font-family:var(--sans);
-    font-size:10px;letter-spacing:0.32em;text-transform:uppercase;
-    color:var(--mute);margin-bottom:1.5rem;
+    font-family:var(--mono);
+    font-size:11px;letter-spacing:0.1em;
+    color:var(--accent);margin-bottom:1rem;
+    display:inline-block;
+    padding:4px 8px;
+    border:1px solid var(--accent);
+    border-radius:4px;
+    background:rgba(6, 182, 212, 0.1);
+    width:fit-content;
   }
   .brand-name{
-    font-family:var(--serif);
-    font-size:1.7rem;line-height:1.1;font-weight:500;
-    color:var(--ink);letter-spacing:-0.01em;
+    font-family:var(--sans);
+    font-size:1.8rem;line-height:1.1;font-weight:700;
+    color:var(--ink);letter-spacing:-0.02em;
   }
-  .brand-name em{font-style:italic;font-weight:400;color:var(--soft)}
   .brand-role{
     margin-top:.6rem;
-    font-family:var(--sans);font-size:11.5px;letter-spacing:0.08em;
+    font-family:var(--mono);font-size:12px;
     color:var(--soft);line-height:1.5;
   }
   nav.toc{margin-top:2.5rem}
   nav.toc ol{list-style:none;counter-reset:toc}
   nav.toc li{
     counter-increment:toc;
-    font-family:var(--sans);font-size:12.5px;
+    font-family:var(--sans);font-size:14px;
     border-bottom:1px solid var(--line-soft);
   }
   nav.toc li a{
     display:flex;align-items:baseline;gap:.9rem;
-    padding:.6rem 0;color:var(--text);
-    transition:color .25s ease, padding-left .25s ease;
+    padding:.8rem 0;color:var(--soft);
+    transition:all .3s ease;
   }
   nav.toc li a::before{
-    content:counter(toc,decimal-leading-zero);
-    font-size:10px;color:var(--faint);letter-spacing:0.05em;
-    font-variant-numeric:tabular-nums;
+    content:"0" counter(toc);
+    font-family:var(--mono);font-size:11px;color:var(--mute);
   }
-  nav.toc li a:hover{color:#000;padding-left:.4rem}
-  nav.toc li a:hover::before{color:#000}
+  nav.toc li a:hover{color:var(--accent);padding-left:.8rem;text-shadow:var(--glow)}
+  nav.toc li a:hover::before{color:var(--accent)}
 
   .sidebar-foot{
     margin-top:2rem;
-    font-family:var(--sans);font-size:10.5px;
-    color:var(--mute);line-height:1.6;
+    font-family:var(--mono);font-size:11px;
+    color:var(--mute);line-height:1.8;
   }
-  .sidebar-foot a{color:var(--soft);border-bottom:1px solid var(--line)}
-  .sidebar-foot a:hover{color:#000;border-color:#000}
+  .sidebar-foot a{
+    color:var(--text);
+    border-bottom:1px solid var(--accent);
+    transition:all .2s;
+  }
+  .sidebar-foot a:hover{color:var(--accent);text-shadow:var(--glow)}
 
-  /* ---------- MAIN ---------- */
-  main{padding:5rem 4.5rem 8rem;max-width:820px}
+  /* --- MAIN --- */
+  main{padding:5rem 4rem 8rem;max-width:860px}
   @media (max-width:900px){main{padding:3rem 1.5rem 5rem}}
 
-  /* ---------- HERO ---------- */
-  .hero{padding-bottom:3rem;border-bottom:1px solid var(--line)}
+  /* --- HERO --- */
+  .hero{padding-bottom:4rem;border-bottom:1px solid var(--line)}
   .hero-eyebrow{
-    font-family:var(--sans);font-size:10.5px;
-    letter-spacing:0.32em;text-transform:uppercase;
-    color:var(--mute);margin-bottom:1.4rem;
+    font-family:var(--mono);font-size:12px;
+    color:var(--accent);margin-bottom:1.5rem;
+    display:flex;align-items:center;gap:10px;
+  }
+  .hero-eyebrow::before{
+    content:"";width:30px;height:1px;background:var(--accent);
   }
   .hero h1{
-    font-family:var(--serif);
-    font-size:clamp(2.6rem, 6vw, 4rem);
-    font-weight:500;line-height:1.02;
-    letter-spacing:-0.02em;color:var(--ink);
-    margin-bottom:1rem;
+    font-family:var(--sans);
+    font-size:clamp(2.8rem, 7vw, 4.5rem);
+    font-weight:700;line-height:1;
+    letter-spacing:-0.03em;
+    background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    margin-bottom:1.5rem;
   }
-  .hero h1 em{font-style:italic;font-weight:400;color:var(--soft)}
   .hero-lede{
-    font-size:1.15rem;color:var(--soft);
-    max-width:60ch;line-height:1.55;margin-top:1.5rem;
+    font-size:1.2rem;color:var(--soft);
+    max-width:60ch;line-height:1.6;margin-top:1.5rem;
+    font-weight:300;
   }
   .hero-meta{
-    margin-top:2.5rem;
-    display:flex;flex-wrap:wrap;gap:.4rem 2rem;
-    font-family:var(--sans);font-size:12px;color:var(--soft);
+    margin-top:3rem;
+    display:flex;flex-wrap:wrap;gap:1rem 2rem;
+    font-family:var(--mono);font-size:12px;color:var(--soft);
   }
-  .hero-meta span{display:inline-flex;align-items:center;gap:.5rem}
-  .hero-meta span::before{content:"";width:4px;height:4px;background:var(--ink);border-radius:50%;display:inline-block}
-  .hero-meta span:first-child::before{display:none}
+  .hero-meta span{
+    display:inline-flex;align-items:center;gap:.5rem;
+    padding:6px 12px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:20px;
+    transition:all .3s;
+  }
+  .hero-meta span:hover{border-color:var(--accent);color:var(--ink)}
 
-  /* ---------- SECTION ---------- */
-  section{padding-top:4rem}
+  /* --- SECTIONS --- */
+  section{padding-top:5rem}
+  .reveal{opacity:0;transform:translateY(30px);transition:all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)}
+  .reveal.visible{opacity:1;transform:translateY(0)}
+
   .sec-head{
-    display:grid;grid-template-columns:36px 1fr;
-    align-items:baseline;gap:1rem;margin-bottom:2.5rem;
+    display:grid;grid-template-columns:40px 1fr;
+    align-items:baseline;gap:1rem;margin-bottom:3rem;
   }
   .sec-num{
-    font-family:var(--sans);font-size:11px;letter-spacing:0.1em;
-    color:var(--faint);font-variant-numeric:tabular-nums;
+    font-family:var(--mono);font-size:14px;
+    color:var(--accent);
   }
   .sec-title{
-    font-family:var(--serif);font-size:1.85rem;font-weight:500;
-    color:var(--ink);letter-spacing:-0.01em;line-height:1.1;
+    font-family:var(--sans);font-size:2rem;font-weight:600;
+    color:var(--ink);letter-spacing:-0.02em;line-height:1.1;
   }
-  .sec-rule{grid-column:2;border-top:1px solid var(--ink);margin-top:.9rem}
+  .sec-rule{grid-column:2;border-top:1px solid var(--line);margin-top:1rem}
 
-  /* ---------- PROFILE ---------- */
-  .profile p{margin-bottom:1rem;color:var(--text)}
-  .profile p.lead{font-size:1.18rem;color:var(--ink);line-height:1.5}
-  .profile ul{list-style:none;margin:1.2rem 0 0;padding-left:0}
-  .profile ul li{
-    position:relative;padding-left:1.5rem;
-    color:var(--soft);font-size:1rem;margin-bottom:.45rem;
-  }
-  .profile ul li::before{
-    content:"—";position:absolute;left:0;color:var(--faint);
-  }
-
-  /* ---------- TIMELINE ---------- */
-  .entry{margin-bottom:2.6rem}
+  /* --- EXPERIENCIA / EDUCACIÓN --- */
+  .entry{margin-bottom:2.5rem}
   .entry:last-child{margin-bottom:0}
   .entry-head{
     display:flex;justify-content:space-between;align-items:baseline;
     gap:1.5rem;flex-wrap:wrap;margin-bottom:.3rem;
   }
   .entry-title{
-    font-family:var(--serif);font-size:1.32rem;font-weight:600;
-    color:var(--ink);letter-spacing:-0.005em;
+    font-family:var(--sans);font-size:1.25rem;font-weight:600;
+    color:var(--ink);letter-spacing:-0.01em;
   }
   .entry-org{
-    font-family:var(--sans);font-size:12.5px;color:var(--soft);
+    font-family:var(--mono);font-size:13px;color:var(--accent-2);
     margin-bottom:.3rem;
   }
-  .entry-org::before{content:"";display:inline-block;width:14px;height:1px;background:var(--soft);vertical-align:middle;margin-right:.5rem}
   .entry-date{
-    font-family:var(--sans);font-size:11px;letter-spacing:0.08em;
-    color:var(--mute);text-transform:uppercase;
-    font-variant-numeric:tabular-nums;white-space:nowrap;
+    font-family:var(--mono);font-size:12px;
+    color:var(--mute);white-space:nowrap;
+    padding:4px 8px;background:var(--surface);border-radius:4px;
+    border:1px solid var(--line);
   }
   .entry-list{list-style:none;margin-top:.7rem;padding-left:0}
   .entry-list li{
-    position:relative;padding-left:1.2rem;
-    color:var(--text);font-size:1rem;line-height:1.6;margin-bottom:.5rem;
+    position:relative;padding-left:1.5rem;
+    color:var(--soft);font-size:0.95rem;line-height:1.6;margin-bottom:.5rem;
   }
   .entry-list li::before{
-    content:"";position:absolute;left:0;top:.7em;
-    width:5px;height:1px;background:var(--ink);
+    content:"▹";position:absolute;left:0;color:var(--accent);
   }
   .entry-list b, .entry-list strong{font-weight:600;color:var(--ink)}
 
-  /* ---------- PROJECTS ---------- */
+  /* --- PROJECTS --- */
   .project{
-    border-top:1px solid var(--line);padding-top:1.8rem;margin-bottom:1.8rem;
+    border:1px solid var(--line);
+    background:var(--surface);
+    padding:1.8rem;
+    border-radius:8px;
+    margin-bottom:1.8rem;
+    transition:all .4s cubic-bezier(0.25, 0.1, 0.25, 1);
+    position:relative;
+    overflow:hidden;
   }
-  .project:last-child{border-bottom:1px solid var(--line);padding-bottom:1.8rem}
+  .project::before{
+    content:"";position:absolute;top:0;left:0;width:4px;height:100%;
+    background:linear-gradient(to bottom, var(--accent), var(--accent-2));
+    transform:scaleY(0);transform-origin:top;transition:transform .4s ease;
+  }
+  .project:hover{
+    border-color:rgba(6, 182, 212, 0.3);
+    transform:translateY(-3px);
+    box-shadow:0 10px 30px -10px rgba(6, 182, 212, 0.2);
+  }
+  .project:hover::before{transform:scaleY(1)}
+  
   .project-head{
     display:flex;justify-content:space-between;align-items:baseline;
     gap:1.5rem;flex-wrap:wrap;margin-bottom:.5rem;
   }
   .project-name{
-    font-family:var(--serif);font-size:1.35rem;font-weight:600;
-    color:var(--ink);letter-spacing:-0.005em;
+    font-family:var(--sans);font-size:1.35rem;font-weight:600;
+    color:var(--ink);letter-spacing:-0.01em;
   }
   .project-tag{
-    font-family:var(--sans);font-size:10.5px;letter-spacing:0.14em;
-    text-transform:uppercase;color:var(--mute);
-    border:1px solid var(--line);padding:.25rem .6rem;
+    font-family:var(--mono);font-size:10px;letter-spacing:0.05em;
+    text-transform:uppercase;color:var(--accent);
+    background:rgba(6, 182, 212, 0.1);
+    border:1px solid rgba(6, 182, 212, 0.2);
+    padding:.3rem .6rem;border-radius:4px;
   }
   .project-stack{
-    font-family:var(--sans);font-size:11.5px;
-    color:var(--soft);margin-bottom:.8rem;letter-spacing:0.01em;
+    font-family:var(--mono);font-size:12px;
+    color:var(--mute);margin-bottom:1rem;
   }
-  .project-stack::before{content:"Stack — ";color:var(--mute);font-style:italic}
+  .project-stack::before{content:"[ ";color:var(--accent-2)}
+  .project-stack::after{content:" ]";color:var(--accent-2)}
   .project-link{
-    display:inline-flex;align-items:center;gap:.4rem;
-    font-family:var(--sans);font-size:12px;
-    color:var(--ink);border-bottom:1px solid var(--ink);
-    padding-bottom:1px;margin-bottom:.9rem;
-    transition:gap .25s ease;
+    display:inline-flex;align-items:center;gap:.5rem;
+    font-family:var(--mono);font-size:13px;
+    color:var(--ink);border-bottom:1px solid var(--mute);
+    padding-bottom:2px;margin-bottom:1rem;
+    transition:all .25s ease;
   }
-  .project-link:hover{gap:.7rem}
+  .project-link:hover{color:var(--accent);border-color:var(--accent);gap:.8rem}
   .project-link svg{width:10px;height:10px}
   .project-list{list-style:none;padding-left:0}
   .project-list li{
-    position:relative;padding-left:1.2rem;
-    color:var(--text);font-size:1rem;line-height:1.6;margin-bottom:.5rem;
+    position:relative;padding-left:1.5rem;
+    color:var(--text);font-size:0.95rem;line-height:1.6;margin-bottom:.5rem;
   }
   .project-list li::before{
-    content:"";position:absolute;left:0;top:.7em;
-    width:5px;height:1px;background:var(--ink);
+    content:"▹";position:absolute;left:0;color:var(--accent-2);
   }
   .project-list b, .project-list strong{font-weight:600;color:var(--ink)}
 
-  /* ---------- SKILLS ---------- */
-  .skills-grid{display:grid;grid-template-columns:1fr;gap:1.2rem}
+  /* --- SKILLS --- */
+  .skills-grid{display:grid;grid-template-columns:1fr;gap:1.5rem}
   .skill-row{
-    display:grid;grid-template-columns:200px 1fr;
-    gap:1.5rem;padding-bottom:1rem;
+    display:grid;grid-template-columns:220px 1fr;
+    gap:2rem;padding-bottom:1.2rem;
     border-bottom:1px solid var(--line-soft);
   }
   .skill-row:last-child{border-bottom:none}
   .skill-label{
-    font-family:var(--sans);font-size:11.5px;
-    color:var(--mute);letter-spacing:0.08em;text-transform:uppercase;
+    font-family:var(--mono);font-size:13px;
+    color:var(--accent);letter-spacing:0.02em;
   }
-  .skill-value{font-size:1.02rem;color:var(--text);line-height:1.5}
+  .skill-value{font-size:1rem;color:var(--text);line-height:1.5}
   @media (max-width:600px){.skill-row{grid-template-columns:1fr;gap:.3rem}}
 
-  /* ---------- AWARDS ---------- */
+  /* --- AWARDS --- */
   .award{
     display:grid;grid-template-columns:1fr auto;gap:1rem;
-    padding:1.2rem 0;border-bottom:1px solid var(--line-soft);
+    padding:1.5rem 0;border-bottom:1px solid var(--line-soft);
   }
   .award:last-child{border-bottom:none}
-  .award-title{font-family:var(--serif);font-size:1.18rem;font-weight:600;color:var(--ink)}
-  .award-org{font-family:var(--sans);font-size:12px;color:var(--soft);margin-top:.2rem}
-  .award-desc{font-size:.95rem;color:var(--soft);margin-top:.5rem;line-height:1.5}
+  .award-title{font-family:var(--sans);font-size:1.15rem;font-weight:600;color:var(--ink)}
+  .award-org{font-family:var(--mono);font-size:12px;color:var(--soft);margin-top:.2rem}
+  .award-desc{font-size:.9rem;color:var(--soft);margin-top:.5rem;line-height:1.5}
   .award-year{
-    font-family:var(--sans);font-size:11px;letter-spacing:0.08em;
-    color:var(--mute);text-transform:uppercase;font-variant-numeric:tabular-nums;
+    font-family:var(--mono);font-size:12px;
+    color:var(--mute);white-space:nowrap;
   }
 
-  /* ---------- ADDITIONAL ---------- */
+  /* --- ADICIONAL --- */
   .add-block{margin-bottom:1.8rem}
   .add-label{
-    font-family:var(--sans);font-size:11px;letter-spacing:0.14em;
-    text-transform:uppercase;color:var(--mute);margin-bottom:.5rem;
+    font-family:var(--mono);font-size:12px;letter-spacing:0.02em;
+    color:var(--accent);margin-bottom:.5rem;
   }
-  .add-text{color:var(--text);font-size:1.05rem;line-height:1.6}
+  .add-text{color:var(--text);font-size:1rem;line-height:1.6}
 
-  /* ---------- FOOTER ---------- */
+  /* --- FOOTER --- */
   footer{
-    margin-top:5rem;padding-top:2rem;
+    margin-top:6rem;padding-top:2rem;
     border-top:1px solid var(--line);
-    font-family:var(--sans);font-size:11px;color:var(--mute);
+    font-family:var(--mono);font-size:12px;color:var(--mute);
     display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;
-  }
-
-  /* ---------- PRINT ---------- */
-  @media print{
-    .sidebar{display:none}
-    main{padding:0;max-width:100%}
-    body{font-size:11pt}
-    a{color:#000}
   }
 </style>
 </head>
 <body>
+
+  <!-- Fondos animados -->
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+  <div class="bg-glow-2"></div>
+
 <div class="shell">
 
   <!-- ============ SIDEBAR ============ -->
   <aside class="sidebar">
     <div>
-      <div class="brand-mark">Portafolio · 2025</div>
-      <div class="brand-name">Maximiliano<br>Gaete <em>Pizarro</em></div>
-      <div class="brand-role">Ing. Civil Biomédica<br>IA aplicada a la salud</div>
+      <div class="brand-mark">// SYSTEM_ONLINE</div>
+      <div class="brand-name">Maximiliano<br>Gaete Pizarro</div>
+      <div class="brand-role">Ing. Civil Biomédica<br>IA & Healthcare Tech</div>
 
       <nav class="toc">
         <ol>
@@ -303,8 +365,8 @@
           <li><a href="#certificaciones">Certificaciones</a></li>
           <li><a href="#proyectos">Proyectos</a></li>
           <li><a href="#reconocimientos">Reconocimientos</a></li>
-          <li><a href="#habilidades">Habilidades</a></li>
-          <li><a href="#adicional">Adicional</a></li>
+          <li><a href="#habilidades">Skills</a></li>
+          <li><a href="#adicional">Info</a></li>
         </ol>
       </nav>
     </div>
@@ -322,31 +384,31 @@
 
     <!-- HERO -->
     <header class="hero">
-      <div class="hero-eyebrow">Portafolio profesional</div>
-      <h1>Maximiliano Antonio<br>Gaete <em>Pizarro</em></h1>
+      <div class="hero-eyebrow">PORTAFOLIO_PROFESIONAL_V2.0</div>
+      <h1>Maximiliano Antonio<br>Gaete Pizarro</h1>
       <p class="hero-lede">
         Estudiante de último año de Ingeniería Civil Biomédica con formación técnica en Electrónica
-        Industrial e investigación en Inteligencia Artificial aplicada a la salud. Trabajo en la
-        intersección entre neuroimágenes, fabricación digital y desarrollo de software médico.
+        Industrial e investigación en IA aplicada a la salud. Trabajo en la intersección entre 
+        neuroimágenes, fabricación digital y desarrollo de software médico.
       </p>
       <div class="hero-meta">
-        <span>Valparaíso, Chile</span>
-        <span>+56 9 3670 3492</span>
-        <span>Erasmus+ · Università di Bologna</span>
+        <span>📍 Valparaíso, Chile</span>
+        <span>📱 +56 9 3670 3492</span>
+        <span>🌐 Erasmus+ · Unibo</span>
       </div>
     </header>
 
     <!-- PERFIL -->
-    <section id="perfil">
+    <section id="perfil" class="reveal">
       <div class="sec-head">
-        <div class="sec-num">01</div>
+        <div class="sec-num">01.</div>
         <div>
           <h2 class="sec-title">Perfil Profesional</h2>
           <div class="sec-rule"></div>
         </div>
       </div>
       <div class="profile">
-        <p class="lead">
+        <p style="font-size:1.1rem; color:var(--text); margin-bottom:1.2rem;">
           Estudiante de último año en Ingeniería Civil Biomédica con formación técnica en
           Electrónica Industrial y experiencia académica internacional en Inteligencia Artificial
           y Machine Learning (Erasmus+, Universidad de Bologna).
@@ -355,13 +417,13 @@
           Especializado en la intersección entre tecnología avanzada y salud, con experiencia
           práctica demostrable en:
         </p>
-        <ul>
-          <li>Investigación en neuroimágenes y análisis de redes funcionales cerebrales (iHEALTH)</li>
-          <li>Fabricación digital y prototipado rápido (FabLab UV)</li>
-          <li>Desarrollo de sistemas biomédicos: robótica, visión por computadora y telemetría</li>
-          <li>Análisis de datos y desarrollo de plataformas web con Python, C/C++ y SQL</li>
+        <ul style="list-style:none; margin-top:1.2rem; padding-left:0;">
+          <li style="margin-bottom:.5rem; color:var(--soft);">▹ Investigación en neuroimágenes y análisis de redes funcionales cerebrales (iHEALTH)</li>
+          <li style="margin-bottom:.5rem; color:var(--soft);">▹ Fabricación digital y prototipado rápido (FabLab UV)</li>
+          <li style="margin-bottom:.5rem; color:var(--soft);">▹ Desarrollo de sistemas biomédicos: robótica, visión por computadora y telemetría</li>
+          <li style="margin-bottom:.5rem; color:var(--soft);">▹ Análisis de datos y desarrollo de plataformas web con Python, C/C++ y SQL</li>
         </ul>
-        <p>
+        <p style="margin-top:1.2rem;">
           Orientado a la innovación tecnológica con enfoque en resolución de problemas complejos
           y desarrollo de soluciones de alto impacto social en el sector salud.
         </p>
@@ -369,9 +431,9 @@
     </section>
 
     <!-- EXPERIENCIA -->
-    <section id="experiencia">
+    <section id="experiencia" class="reveal">
       <div class="sec-head">
-        <div class="sec-num">02</div>
+        <div class="sec-num">02.</div>
         <div>
           <h2 class="sec-title">Experiencia Laboral</h2>
           <div class="sec-rule"></div>
@@ -409,8 +471,8 @@
       <div class="entry">
         <div class="entry-head">
           <div>
-            <div class="entry-title">Instructor de Laboratorio & Especialista en Mantenimiento de Equipos</div>
-            <div class="entry-org">FabLab UV — Universidad de Valparaíso · Valparaíso, Chile</div>
+            <div class="entry-title">Instructor de Laboratorio & Especialista en Mantenimiento</div>
+            <div class="entry-org">FabLab UV — Universidad de Valparaíso · Chile</div>
           </div>
           <div class="entry-date">Mar 2023 — Presente</div>
         </div>
@@ -425,7 +487,7 @@
         <div class="entry-head">
           <div>
             <div class="entry-title">Practicante — Departamento de Mantenimiento</div>
-            <div class="entry-org">Cámara de Diputadas y Diputados de Chile · Valparaíso, Chile</div>
+            <div class="entry-org">Cámara de Diputadas y Diputados de Chile</div>
           </div>
           <div class="entry-date">Ago 2024 — Sep 2024</div>
         </div>
@@ -452,9 +514,9 @@
     </section>
 
     <!-- FORMACIÓN -->
-    <section id="formacion">
+    <section id="formacion" class="reveal">
       <div class="sec-head">
-        <div class="sec-num">03</div>
+        <div class="sec-num">03.</div>
         <div>
           <h2 class="sec-title">Formación Académica</h2>
           <div class="sec-rule"></div>
@@ -465,12 +527,12 @@
         <div class="entry-head">
           <div>
             <div class="entry-title">Estudiante de Intercambio Erasmus+ — IA Aplicada a la Salud</div>
-            <div class="entry-org">Alma Mater Studiorum — Università di Bologna · Bologna, Italia</div>
+            <div class="entry-org">Alma Mater Studiorum — Università di Bologna · Italia</div>
           </div>
           <div class="entry-date">Sep 2025 — Feb 2026</div>
         </div>
         <ul class="entry-list">
-          <li><b>Cursos especializados:</b> Artificial Intelligence for Medicine, Bioimmagini e Ingegneria Clinica, Project Work in AI for Industry, Project Management and Soft Skills, Machine Learning and Data Mining.</li>
+          <li><b>Cursos especializados:</b> Artificial Intelligence for Medicine, Bioimmagini e Ingegneria Clinica, Project Work in AI for Industry, Machine Learning and Data Mining.</li>
           <li><b>Enfoque:</b> Aplicación de IA en diagnóstico médico, procesamiento de imágenes biomédicas y sistemas de apoyo clínico.</li>
         </ul>
       </div>
@@ -479,7 +541,7 @@
         <div class="entry-head">
           <div>
             <div class="entry-title">Licenciatura en Ciencias de la Ingeniería Biomédica</div>
-            <div class="entry-org">Universidad de Valparaíso · Valparaíso, Chile</div>
+            <div class="entry-org">Universidad de Valparaíso · Chile</div>
           </div>
           <div class="entry-date">2021 — Presente</div>
         </div>
@@ -493,7 +555,7 @@
         <div class="entry-head">
           <div>
             <div class="entry-title">Certificación en Fabricación Digital Avanzada (FAB-D)</div>
-            <div class="entry-org">Universidad de Valparaíso — FabLab UV · Valparaíso, Chile</div>
+            <div class="entry-org">Universidad de Valparaíso — FabLab UV</div>
           </div>
           <div class="entry-date">Jun 2023 — Dic 2023</div>
         </div>
@@ -507,47 +569,20 @@
         <div class="entry-head">
           <div>
             <div class="entry-title">Técnico de Nivel Medio en Electrónica Industrial</div>
-            <div class="entry-org">Colegio Salesiano de Valparaíso · Valparaíso, Chile</div>
+            <div class="entry-org">Colegio Salesiano de Valparaíso</div>
           </div>
           <div class="entry-date">2017 — 2020</div>
         </div>
         <ul class="entry-list">
           <li>Formación técnica integral en electrónica industrial, automatización y sistemas de control.</li>
-          <li>Proyecto de titulación: Diseño e implementación de sistemas electrónicos aplicados.</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- CERTIFICACIONES -->
-    <section id="certificaciones">
-      <div class="sec-head">
-        <div class="sec-num">04</div>
-        <div>
-          <h2 class="sec-title">Certificaciones Profesionales</h2>
-          <div class="sec-rule"></div>
-        </div>
-      </div>
-
-      <div class="entry">
-        <div class="entry-head">
-          <div>
-            <div class="entry-title">Programa de Especialización en Inteligencia Artificial</div>
-            <div class="entry-org">Academia RED & Microsoft — La Red por la Ciberseguridad</div>
-          </div>
-          <div class="entry-date">Jun 2026</div>
-        </div>
-        <ul class="entry-list">
-          <li><b>Gestión Estratégica:</b> IA para Directivos de PYMES, IA para Marketing y Ventas, IA para Recursos Humanos, IA para Líderes de Proyecto, IA para Ejecutivos de TI.</li>
-          <li><b>Herramientas y Productividad:</b> Copilot y GitHub, IA para Docentes, IA para la Vida y el Trabajo.</li>
-          <li><b>Ciberseguridad y Cumplimiento:</b> Ciberseguridad en el Trabajo, Protección de Datos Personales, Organización Moderna, Experiencia LATAM Microsoft.</li>
         </ul>
       </div>
     </section>
 
     <!-- PROYECTOS -->
-    <section id="proyectos">
+    <section id="proyectos" class="reveal">
       <div class="sec-head">
-        <div class="sec-num">05</div>
+        <div class="sec-num">04.</div>
         <div>
           <h2 class="sec-title">Proyectos Destacados</h2>
           <div class="sec-rule"></div>
@@ -557,152 +592,128 @@
       <article class="project">
         <div class="project-head">
           <h3 class="project-name">Biomedical DSP — Plataforma de Procesamiento de Señales</h3>
-          <span class="project-tag">Plataforma académica</span>
+          <span class="project-tag">Académico</span>
         </div>
-        <div class="project-stack">Python, JavaScript, Análisis de Señales, Visualización Interactiva</div>
+        <div class="project-stack">Python, JavaScript, DSP, Data Viz</div>
         <a class="project-link" href="https://biomedical-dsp-uv.vercel.app/" target="_blank" rel="noopener">
           biomedical-dsp-uv.vercel.app
           <svg viewBox="0 0 10 10"><path d="M1 9 L9 1 M3 1 H9 V7" stroke="currentColor" stroke-width="1" fill="none"/></svg>
         </a>
         <ul class="project-list">
-          <li><b>Desarrollo Web Técnico:</b> Creación de interfaz interactiva para el análisis y procesamiento digital de señales biomédicas (DSP).</li>
-          <li><b>Procesamiento de Datos:</b> Implementación de algoritmos de filtrado, transformadas y visualización de datos complejos en tiempo real.</li>
+          <li><b>Desarrollo Web Técnico:</b> Interfaz interactiva para el análisis y procesamiento digital de señales biomédicas.</li>
+          <li><b>Procesamiento:</b> Algoritmos de filtrado, transformadas y visualización de datos complejos en tiempo real.</li>
         </ul>
       </article>
 
       <article class="project">
         <div class="project-head">
-          <h3 class="project-name">HGF Repuestos — Plataforma Web de Analítica y Gestión de Inventario Inteligente</h3>
-          <span class="project-tag">En producción</span>
+          <h3 class="project-name">HGF Repuestos — Analítica e Inventario Inteligente</h3>
+          <span class="project-tag">Producción</span>
         </div>
-        <div class="project-stack">Python, Django, PostgreSQL, Data Analytics, Series Temporales</div>
+        <div class="project-stack">Python, Django, PostgreSQL, Data Analytics</div>
         <a class="project-link" href="https://hgf-repuestos.onrender.com/" target="_blank" rel="noopener">
           hgf-repuestos.onrender.com
           <svg viewBox="0 0 10 10"><path d="M1 9 L9 1 M3 1 H9 V7" stroke="currentColor" stroke-width="1" fill="none"/></svg>
         </a>
         <ul class="project-list">
-          <li>Desarrollé una plataforma web integral de analítica continua con módulos interconectados: Dashboard ejecutivo, gestión de bodega, historial de transacciones y generador de códigos QR para trazabilidad física.</li>
-          <li>Implementé un algoritmo predictivo de demanda para licitaciones utilizando series temporales mensuales, regresión lineal robusta (control de outliers), desviación estándar adaptativa y cálculo dinámico de stocks de seguridad.</li>
-          <li>Diseñé un sistema jerárquico de roles (Admin/Técnico) con semáforo visual automatizado para alertas de stock crítico, reposición urgente y contratos próximos a vencer, optimizando la toma de decisiones de compra.</li>
+          <li>Plataforma web integral con Dashboard ejecutivo, gestión de bodega, historial de transacciones y generador de códigos QR.</li>
+          <li>Algoritmo predictivo de demanda para licitaciones utilizando series temporales, regresión lineal robusta y cálculo dinámico de stocks de seguridad.</li>
+          <li>Sistema jerárquico de roles con semáforo visual automatizado para alertas de stock crítico.</li>
         </ul>
       </article>
 
       <article class="project">
         <div class="project-head">
-          <h3 class="project-name">GENCLA — Homologador y Visualizador de Ingeniería Clínica</h3>
-          <span class="project-tag">Plataforma académica</span>
+          <h3 class="project-name">GENCLA — Homologador de Ingeniería Clínica</h3>
+          <span class="project-tag">Académico</span>
         </div>
-        <div class="project-stack">Python, Normalización de Datos, Business Intelligence, Visualización Interactiva</div>
+        <div class="project-stack">Python, BI, Data Normalization</div>
         <a class="project-link" href="https://gencla.vercel.app/" target="_blank" rel="noopener">
           gencla.vercel.app
           <svg viewBox="0 0 10 10"><path d="M1 9 L9 1 M3 1 H9 V7" stroke="currentColor" stroke-width="1" fill="none"/></svg>
         </a>
         <ul class="project-list">
-          <li>Creé una plataforma académica orientada a ingeniería clínica que normaliza, limpia y procesa bases de datos heterogéneas (Excel/CSV) manteniendo trazabilidad completa de transformaciones aplicadas.</li>
-          <li>Integré herramientas avanzadas de BI: rankings multidimensionales por categorías clínicas, editores visuales (diagramas Ishikawa, flujos Mermaid) enfocados en calidad asistencial y generación de informes de trazabilidad.</li>
+          <li>Plataforma que normaliza, limpia y procesa bases de datos heterogéneas (Excel/CSV) manteniendo trazabilidad completa.</li>
+          <li>Herramientas de BI: rankings multidimensionales, editores visuales (Ishikawa, Mermaid) y generación de informes.</li>
         </ul>
       </article>
 
       <article class="project">
         <div class="project-head">
-          <h3 class="project-name">PUCO — Analizador Inteligente de Mercado Público</h3>
-          <span class="project-tag">Herramienta SaaS</span>
+          <h3 class="project-name">PUCO — Analizador Mercado Público</h3>
+          <span class="project-tag">SaaS</span>
         </div>
-        <div class="project-stack">Python, API REST, Automatización, Web Scraping, Data Processing</div>
+        <div class="project-stack">Python, API REST, ETL, Web Scraping</div>
         <a class="project-link" href="https://puco.onrender.com/" target="_blank" rel="noopener">
           puco.onrender.com
           <svg viewBox="0 0 10 10"><path d="M1 9 L9 1 M3 1 H9 V7" stroke="currentColor" stroke-width="1" fill="none"/></svg>
         </a>
         <ul class="project-list">
-          <li>Desarrollé una aplicación web para levantamiento estratégico, filtrado automatizado y análisis avanzado de licitaciones públicas mediante consumo directo de la API oficial de Mercado Público Chile.</li>
-          <li>Implementé pipelines de ETL para procesamiento masivo de datos de contratación pública con métricas de oportunidad y competitividad.</li>
+          <li>App web para levantamiento estratégico y filtrado automatizado de licitaciones mediante API oficial de Mercado Público.</li>
+          <li>Pipelines de ETL para procesamiento masivo con métricas de oportunidad y competitividad.</li>
         </ul>
       </article>
 
       <article class="project">
         <div class="project-head">
           <h3 class="project-name">Sistema de Gestión Vehicular — SSVQ</h3>
-          <span class="project-tag">En producción</span>
+          <span class="project-tag">Producción</span>
         </div>
-        <div class="project-stack">Python, Django REST Framework, Preact.js, JavaScript, Notificaciones en Tiempo Real</div>
-        <div class="entry-date" style="margin-bottom:.6rem">Abr 2025 — Jul 2025</div>
+        <div class="project-stack">Django REST, Preact.js, WebSockets</div>
+        <div class="entry-date" style="margin-bottom:.6rem; display:inline-block">Abr 2025 — Jul 2025</div>
         <ul class="project-list">
-          <li>Lideré el desarrollo de una plataforma digital completa para automatizar la asignación de vehículos administrativos en un servicio de salud público.</li>
-          <li>Arquitectura: Frontend SPA con Preact, API REST escalable con Django, sistema de notificaciones push y dashboard de administración en tiempo real.</li>
+          <li>Plataforma para automatizar asignación de vehículos en salud pública.</li>
+          <li>Frontend SPA, API REST escalable, notificaciones push y dashboard en tiempo real.</li>
         </ul>
       </article>
 
       <article class="project">
         <div class="project-head">
-          <h3 class="project-name">Prototipo de Incubadora Neonatal con Control PID Inteligente</h3>
-          <span class="project-tag">Prototipo funcional</span>
+          <h3 class="project-name">Incubadora Neonatal con Control PID</h3>
+          <span class="project-tag">Hardware</span>
         </div>
-        <div class="project-stack">Python, Arduino, Sensores de Temperatura/Humedad, Control PID, MySQL, IoT</div>
-        <div class="entry-date" style="margin-bottom:.6rem">Jul 2024 — Dic 2024</div>
+        <div class="project-stack">Python, Arduino, PID, IoT, MySQL</div>
+        <div class="entry-date" style="margin-bottom:.6rem; display:inline-block">Jul 2024 — Dic 2024</div>
         <ul class="project-list">
-          <li>Diseñé y construí un prototipo de incubadora neonatal con control preciso de temperatura y ventilación mediante algoritmos PID adaptativos.</li>
-          <li>Integración de sensores médicos-grade, interfaz de monitoreo en tiempo real y sistema de alertas para desviaciones de parámetros fisiológicos.</li>
+          <li>Prototipo con control preciso de temperatura y ventilación mediante PID adaptativos.</li>
+          <li>Interfaz de monitoreo en tiempo real y alertas para desviaciones fisiológicas.</li>
         </ul>
       </article>
 
       <article class="project">
         <div class="project-head">
-          <h3 class="project-name">Brazo Robótico 3-GDL con Visión por Computadora</h3>
-          <span class="project-tag">Sistema operativo</span>
+          <h3 class="project-name">Brazo Robótico 3-GDL con Visión Artificial</h3>
+          <span class="project-tag">Robótica</span>
         </div>
-        <div class="project-stack">Arduino, Python, OpenCV, Dynamixel AX-12A, Impresión 3D, Computer Vision</div>
-        <div class="entry-date" style="margin-bottom:.6rem">Jul 2024 — Dic 2024</div>
+        <div class="project-stack">Arduino, Python, OpenCV, Dynamixel, 3D Print</div>
+        <div class="entry-date" style="margin-bottom:.6rem; display:inline-block">Jul 2024 — Dic 2024</div>
         <ul class="project-list">
-          <li>Fabricación completa mediante impresión 3D de un brazo robótico de 3 grados de libertad controlado por Python.</li>
-          <li>Implementación de pipeline de visión por computadora (OpenCV) para detección y clasificación de objetos por color y forma usando servomotores inteligentes Dynamixel AX-12A.</li>
+          <li>Brazo robótico de 3 grados de libertad fabricado en 3D y controlado por Python.</li>
+          <li>Pipeline de visión por computadora (OpenCV) para clasificación de objetos por color y forma.</li>
         </ul>
       </article>
 
       <article class="project">
         <div class="project-head">
-          <h3 class="project-name">Robot Continuo de Exploración Controlado por Señales EMG</h3>
-          <span class="project-tag">Investigación aplicada</span>
+          <h3 class="project-name">Robot Continuo Controlado por EMG</h3>
+          <span class="project-tag">Bioingeniería</span>
         </div>
-        <div class="project-stack">Arduino UNO, Sensores EMG (OYMotion), Servomotores, Modelado 3D CAD, Impresión 3D</div>
-        <div class="entry-date" style="margin-bottom:.6rem">Mar 2024 — Ago 2024</div>
+        <div class="project-stack">Arduino, Sensores EMG, CAD, 3D Print</div>
+        <div class="entry-date" style="margin-bottom:.6rem; display:inline-block">Mar 2024 — Ago 2024</div>
         <ul class="project-list">
-          <li>Diseñé y construí un robot flexible de exploración controlado mediante señales electromiográficas (EMG) de superficie para aplicaciones de rehabilitación asistida.</li>
-          <li>Desarrollo de interfaz hardware-software para adquisición y procesamiento de señales biosensores en tiempo real.</li>
+          <li>Robot flexible de exploración controlado mediante señales electromiográficas.</li>
+          <li>Interfaz hardware-software para adquisición y procesamiento de biosensores en tiempo real.</li>
         </ul>
       </article>
 
-      <article class="project">
-        <div class="project-head">
-          <h3 class="project-name">Sistema de Monitoreo Telemétrico de Signos Vitales</h3>
-          <span class="project-tag">Sistema completo</span>
-        </div>
-        <div class="project-stack">Arduino, Python, PyQt5, MySQL, Sensores Biomédicos, IoT Healthcare</div>
-        <div class="entry-date" style="margin-bottom:.6rem">Mar 2023 — Jun 2023</div>
-        <ul class="project-list">
-          <li>Desarrollé un sistema de monitoreo en tiempo real de frecuencia cardíaca y temperatura corporal con almacenamiento de datos históricos y visualización mediante interfaz gráfica PyQt5.</li>
-          <li>Arquitectura cliente-servidor para telemedicina con alertas automáticas de parámetros fuera de rango fisiológico.</li>
-        </ul>
-      </article>
-
-      <article class="project">
-        <div class="project-head">
-          <h3 class="project-name">Órtesis Personalizadas Mediante Fabricación Digital</h3>
-          <span class="project-tag">Prototipado médico</span>
-        </div>
-        <div class="project-stack">Escaneo 3D, Meshmixer, Blender, Cura Slicer, Impresión 3D FDM</div>
-        <div class="entry-date" style="margin-bottom:.6rem">Mar 2023 — Abr 2023</div>
-        <ul class="project-list">
-          <li>Implementé un workflow completo de escaneo 3D anatómico, diseño paramétrico de órtesis personalizadas y fabricación mediante impresión 3D para aplicaciones de rehabilitación.</li>
-        </ul>
-      </article>
     </section>
 
     <!-- RECONOCIMIENTOS -->
-    <section id="reconocimientos">
+    <section id="reconocimientos" class="reveal">
       <div class="sec-head">
-        <div class="sec-num">06</div>
+        <div class="sec-num">05.</div>
         <div>
-          <h2 class="sec-title">Reconocimientos y Premios</h2>
+          <h2 class="sec-title">Reconocimientos</h2>
           <div class="sec-rule"></div>
         </div>
       </div>
@@ -710,17 +721,17 @@
       <div class="award">
         <div>
           <div class="award-title">Primera Escuela de Invierno iHEALTH</div>
-          <div class="award-org">Instituto Milenio iHEALTH — Aplicación de IA en Salud</div>
-          <div class="award-desc">Selección competitiva para programa intensivo en tecnologías de Inteligencia Artificial aplicadas al área médica y neurociencias.</div>
+          <div class="award-org">Instituto Milenio iHEALTH — IA en Salud</div>
+          <div class="award-desc">Selección competitiva para programa intensivo en tecnologías de IA aplicadas al área médica.</div>
         </div>
         <div class="award-year">Jul 2025</div>
       </div>
 
       <div class="award">
         <div>
-          <div class="award-title">Rally Latinoamericano de Innovación 2024 — 3er Lugar</div>
-          <div class="award-org">Universidad de Valparaíso — Categoría Impacto Social (Equipo "Evacuatech")</div>
-          <div class="award-desc">Reconocimiento por desarrollo de solución tecnológica con alto impacto social en contextos de emergencia y desastres naturales.</div>
+          <div class="award-title">Rally Latinoamericano de Innovación — 3er Lugar</div>
+          <div class="award-org">Universidad de Valparaíso — Categoría Impacto Social</div>
+          <div class="award-desc">Reconocimiento por desarrollo de solución tecnológica en contextos de emergencia.</div>
         </div>
         <div class="award-year">Oct 2024</div>
       </div>
@@ -728,59 +739,55 @@
       <div class="award">
         <div>
           <div class="award-title">Datathon Make Health Latam</div>
-          <div class="award-org">CENS (Chile) & MIT (EE.UU.) — Participación Destacada</div>
-          <div class="award-desc">Competencia internacional enfocada en desarrollo de soluciones basadas en datos para desafíos de salud en América Latina.</div>
+          <div class="award-org">CENS (Chile) & MIT (EE.UU.)</div>
+          <div class="award-desc">Competencia internacional enfocada en soluciones basadas en datos para salud.</div>
         </div>
         <div class="award-year">Ene 2023</div>
       </div>
     </section>
 
     <!-- HABILIDADES -->
-    <section id="habilidades">
+    <section id="habilidades" class="reveal">
       <div class="sec-head">
-        <div class="sec-num">07</div>
+        <div class="sec-num">06.</div>
         <div>
-          <h2 class="sec-title">Habilidades Técnicas y Competencias</h2>
+          <h2 class="sec-title">Tech Stack & Skills</h2>
           <div class="sec-rule"></div>
         </div>
       </div>
 
       <div class="skills-grid">
         <div class="skill-row">
-          <div class="skill-label">Lenguajes de Programación</div>
-          <div class="skill-value">Python (avanzado), C/C++, SQL, JavaScript, Arduino IDE</div>
+          <div class="skill-label">// Lenguajes</div>
+          <div class="skill-value">Python (Avanzado), C/C++, SQL, JavaScript, Arduino IDE</div>
         </div>
         <div class="skill-row">
-          <div class="skill-label">Frameworks y Web</div>
+          <div class="skill-label">// Frameworks & Web</div>
           <div class="skill-value">Django, Flask, React/Preact, HTML5, CSS3, REST APIs</div>
         </div>
         <div class="skill-row">
-          <div class="skill-label">Data Science & ML</div>
-          <div class="skill-value">Pandas, NumPy, Scikit-learn, OpenCV, Power BI, Looker Studio</div>
+          <div class="skill-label">// Data Science & ML</div>
+          <div class="skill-value">Pandas, NumPy, Scikit-learn, OpenCV, Power BI</div>
         </div>
         <div class="skill-row">
-          <div class="skill-label">Hardware & Electrónica</div>
-          <div class="skill-value">Arduino, Raspberry Pi, Sensores Biomédicos, Impresión 3D, PCB Design</div>
+          <div class="skill-label">// Hardware & IoT</div>
+          <div class="skill-value">Arduino, Raspberry Pi, Sensores Biomédicos, 3D Print, PCB</div>
         </div>
         <div class="skill-row">
-          <div class="skill-label">Diseño y Fabricación</div>
-          <div class="skill-value">AutoCAD/Fusion 360, SolidWorks, Cura, Meshmixer, Blender</div>
+          <div class="skill-label">// DevOps & Tools</div>
+          <div class="skill-value">Git/GitHub, Docker, Metodologías Ágiles, Fusion 360</div>
         </div>
         <div class="skill-row">
-          <div class="skill-label">DevOps & Colaboración</div>
-          <div class="skill-value">Git/GitHub, Docker (básico), Metodologías Ágiles</div>
-        </div>
-        <div class="skill-row">
-          <div class="skill-label">Idiomas</div>
-          <div class="skill-value">Español (Nativo), Inglés (B1–B2 Conversacional), Italiano (B1 Conversacional)</div>
+          <div class="skill-label">// Idiomas</div>
+          <div class="skill-value">Español (Nativo), Inglés (B1-B2), Italiano (B1)</div>
         </div>
       </div>
     </section>
 
     <!-- ADICIONAL -->
-    <section id="adicional">
+    <section id="adicional" class="reveal">
       <div class="sec-head">
-        <div class="sec-num">08</div>
+        <div class="sec-num">07.</div>
         <div>
           <h2 class="sec-title">Información Adicional</h2>
           <div class="sec-rule"></div>
@@ -788,16 +795,16 @@
       </div>
 
       <div class="add-block">
-        <div class="add-label">Disponibilidad</div>
+        <div class="add-label">[STATUS] Disponibilidad</div>
         <div class="add-text">
           Disponible para prácticas profesionales, proyectos de investigación colaborativos
-          y oportunidades laborales en áreas de ingeniería biomédica, inteligencia artificial
-          aplicada a la salud, desarrollo de software médico o fabricación digital.
+          y oportunidades laborales en áreas de ingeniería biomédica, IA aplicada a la salud,
+          desarrollo de software médico o fabricación digital.
         </div>
       </div>
 
       <div class="add-block">
-        <div class="add-label">Intereses de Investigación</div>
+        <div class="add-label">[FOCUS] Intereses de Investigación</div>
         <div class="add-text">
           Neuroimagen y conectividad cerebral, dispositivos médicos inteligentes (IoMT),
           análisis de datos clínicos, robótica rehabilitadora, y sistemas de soporte clínico
@@ -807,11 +814,27 @@
     </section>
 
     <footer>
-      <div>© 2025 Maximiliano Antonio Gaete Pizarro</div>
-      <div>Valparaíso, Chile · Última actualización: 2025</div>
+      <div>/* SISTEMA DISEÑADO Y DESARROLLADO POR MAXIMILIANO GAETE */</div>
+      <div>VALPARAÍSO, CL · 2025</div>
     </footer>
 
   </main>
 </div>
+
+<script>
+  // Script para animaciones de entrada al hacer scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach((el) => {
+    observer.observe(el);
+  });
+</script>
+
 </body>
 </html>
