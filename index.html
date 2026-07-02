@@ -19,10 +19,10 @@
     --bg: #0a0a0c;           /* Negro orgánico profundo para mitigar la radiación de la pantalla */
     --ink: #ffffff;          /* Títulos en blanco puro para jerarquía inmediata */
     --text: #e4e4e7;         /* Texto de lectura principal (Zinc-200) de alta legibilidad */
-    --soft: #d4d4d8;         /* Descripciones y viñetas con contraste suavizado */
+    --soft: #d4d4d8;         /* Descripciones con contraste suavizado */
     --mute: #a1a1aa;         /* Metadatos, organizaciones y fechas claras pero secundarias */
     --line-soft: rgba(255,255,255,0.06); /* Separadores ultra delgados para descanso visual */
-    --accent: #00E0B6;       /* Color de enfoque para enlaces y números de sección */
+    --accent: #00E0B6;       /* Color de enfoque para viñetas y enlaces */
     --sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     --mono: 'JetBrains Mono', 'SF Mono', Monaco, Menlo, Consolas, monospace;
   }
@@ -95,7 +95,7 @@
   .brand-name{font-size:1.25rem;font-weight:700;color:var(--ink);letter-spacing:-0.02em;}
   .brand-role{margin-top:.5rem;font-family:var(--mono);font-size:11px;color:var(--mute);line-height:1.5;text-transform:uppercase;letter-spacing:0.1em;}
   
-  nav.toc{margin-top:3.5rem;}
+  nav.toc{margin-top:3rem;}
   nav.toc ol{list-style:none;counter-reset:toc}
   nav.toc li{counter-increment:toc;font-size:14px;margin-bottom:10px;}
   nav.toc li a{
@@ -183,10 +183,10 @@
   .sec-rule{grid-column:2;border-top:1px solid var(--line-soft);margin-top:1rem; width:0%; transition: width 1s ease;}
   .reveal.visible .sec-rule { width: 100%; }
 
-  /* BLOQUES EDITORIALES (Adiós pastillas/tarjetas, hola aire y tipografía) */
+  /* BLOQUES EDITORIALES */
   .editorial-block {
     position: relative;
-    margin-bottom: 4rem;      /* Alta separación física para que el ojo descanse */
+    margin-bottom: 4rem;      /* Alta separación física para descanso visual */
     padding-bottom: 3rem;
     border-bottom: 1px solid var(--line-soft);
   }
@@ -196,12 +196,7 @@
     border-bottom: none;
   }
 
-  /* TIMELINE SUTIL */
-  .entry-list-container {
-    position: relative; 
-    padding-left: 4px;
-  }
-  
+  /* ESTRUCTURA DE TEXTOS */
   .entry-head{display:grid;grid-template-columns:1fr auto;align-items:start;gap:2rem;margin-bottom:1rem;}
   @media (max-width:650px) {
     .entry-head{grid-template-columns:1fr;gap:0.5rem;}
@@ -211,7 +206,6 @@
   .entry-title{font-size:1.25rem;font-weight:600;color:var(--ink);letter-spacing:-0.01em;line-height:1.3;}
   .entry-org{font-family:var(--mono);font-size:12px;color:var(--accent);margin-top:0.4rem;text-transform:uppercase;letter-spacing:0.05em;font-weight:500;}
   
-  /* Fechas tipográficas sin envoltorios */
   .entry-date {
     font-family:var(--mono);font-size:12px;
     color:var(--mute);white-space:nowrap;
@@ -221,7 +215,7 @@
   }
   @media (max-width:650px){.entry-date{justify-self: start; padding-top: 0;}}
 
-  /* TEXTO DE LISTAS */
+  /* REESTRUCTURACIÓN DE LISTAS (Puntos limpios anti-fatiga) */
   .content-list { list-style:none; margin-top:1rem; padding-left:0; }
   .content-list li {
     position:relative; padding-left:1.5rem; color:var(--soft);
@@ -229,15 +223,20 @@
     text-align: left;
   }
   .content-list li::before {
-    content:"—"; position:absolute; left:0; top:0;
-    color:var(--mute); font-weight: 300;
+    content:"•"; position:absolute; left:0; top:0;
+    color:var(--accent); font-weight: bold;
   }
   .content-list b, .content-list strong { font-weight:600; color:var(--ink); }
 
-  /* PARRAFOS GENERALES */
+  /* ESTILOS DEL PERFIL */
+  .profile { display: flex; flex-direction: column; gap: 1.2rem; }
+  .profile-lead { font-size:1.15rem; color:var(--ink); font-weight: 500; text-align: left; line-height: 1.7; }
+  .profile-text { color: var(--text); font-size: 1rem; text-align: left; }
+  .profile-tail { color: var(--soft); font-size: 1rem; text-align: left; }
   .block-text { color: var(--soft); font-size: 1rem; line-height: 1.75; text-align: left; }
 
-  /* PROYECTOS Y CERTIFICADOS: ENLACES TIPOGRÁFICOS PURE TEXT */
+  /* PROYECTOS Y CERTIFICADOS: ENLACES TIPOGRÁFICOS */
+  .project-tag { font-family:var(--mono); font-size:11px; text-transform:uppercase; color:var(--mute); letter-spacing:0.05em; margin-left: 0.75rem; font-weight: 400; }
   .project-stack{font-family:var(--mono);font-size:12px;color:var(--mute);margin-bottom:1rem; letter-spacing: 0.02em;}
   
   .project-actions { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 1rem; margin-top: 0.5rem;}
@@ -253,11 +252,8 @@
   }
   .project-link .arrow { display: inline-block; font-size: 10px; }
 
-  /* GRID DE SKILLS TRANSPARENTE CON LÍNEAS HORIZONTALES */
-  .skills-list {
-    display: flex;
-    flex-direction: column;
-  }
+  /* GRID DE SKILLS TRANSPARENTE */
+  .skills-list { display: flex; flex-direction: column; }
   .skill-row-item {
     display: grid;
     grid-template-columns: 220px 1fr;
@@ -272,7 +268,6 @@
   .skill-value{font-size:1rem;color:var(--text);line-height:1.7;}
   
   @media (max-width:650px){
-    .skills-list { gap: 0; }
     .skill-row-item { grid-template-columns: 1fr; gap: 0.4rem; padding: 1.2rem 0; }
   }
 
@@ -364,19 +359,19 @@
         </div>
       </div>
       <div class="profile">
-        <p class="profile-lead" style="margin-bottom: 1rem;">
+        <p class="profile-lead">
           Estudiante de último año en Ingeniería Civil Biomédica con sólida formación técnica inicial en Electrónica Industrial y experiencia académica internacional en Inteligencia Artificial y Machine Learning aplicada al entorno médico mediante una estancia Erasmus+ en la Università di Bologna.
         </p>
-        <p class="block-text" style="margin-bottom: 1.5rem;">
+        <p class="profile-text">
           Especializado en el diseño e implementación de tecnologías sanitarias críticas, demostrando capacidades avanzadas en:
         </p>
-        <ul class="content-list" style="margin-bottom: 1.5rem;">
+        <ul class="content-list">
           <li>Investigación de neuroimágenes estructurales/funcionales y conectividad de redes cerebrales.</li>
           <li>Fabricación digital avanzada, ingeniería inversa y prototipado rápido en entornos FabLab.</li>
           <li>Desarrollo de robótica médica, instrumentación biomédica, telemetría y visión artificial.</li>
           <li>Diseño de arquitecturas de software robustas (ETL, API REST, Dashboards) utilizando Python, TypeScript y SQL.</li>
         </ul>
-        <p class="block-text">
+        <p class="profile-tail">
           Enfoque proactivo orientado al desarrollo de sistemas bioingenieriles con alta escalabilidad, optimización algorítmica y un profundo impacto social en la asistencia clínica y de investigación.
         </p>
       </div>
@@ -411,7 +406,7 @@
         <div class="editorial-block">
           <div class="entry-head">
             <div>
-              <div class="entry-title">Operario Especialista en Mantenimiento — Congreso Nacional</div>
+              <div class="entry-title">Operario en Mantenimiento — Congreso Nacional</div>
               <div class="entry-org">Cooperativa De Trabajo SVA · Valparaíso, Chile</div>
             </div>
             <time class="entry-date" datetime="2025-01">Ene 2025 — Feb 2025</time>
@@ -482,7 +477,7 @@
         <div class="editorial-block">
           <div class="entry-head">
             <div>
-              <div class="entry-title">Estudiante de Intercambio Erasmus+ — IA Aplicada a la Salud</div>
+              <div class="entry-title">Estudiante de Intercambio Erasmus+</div>
               <div class="entry-org">Alma Mater Studiorum — Università di Bologna · Italia</div>
             </div>
             <time class="entry-date" datetime="2025-09">Sep 2025 — Feb 2026</time>
@@ -624,8 +619,7 @@
 
       <article class="editorial-block">
         <div class="project-head">
-          <h3 class="entry-title">Biomedical DSP — Suite de Procesamiento de Señales</h3>
-          <span class="project-tag">Académico & SaaS</span>
+          <h3 class="entry-title">Biomedical DSP — Suite de Procesamiento de Señales <span class="project-tag">Académico & SaaS</span></h3>
         </div>
         <div class="project-stack">Python, JavaScript, TypeScript, DSP Core, Tailwind CSS</div>
         <ul class="content-list">
@@ -647,8 +641,7 @@
 
       <article class="editorial-block">
         <div class="project-head">
-          <h3 class="entry-title">HGF Repuestos — Analítica Continua e Inventario Predictivo</h3>
-          <span class="project-tag">Producción Comercial</span>
+          <h3 class="entry-title">HGF Repuestos — Analítica Continua e Inventario Predictivo <span class="project-tag">Producción Comercial</span></h3>
         </div>
         <div class="project-stack">Python, Django Framework, TypeScript, PostgreSQL, Render Nube</div>
         <ul class="content-list">
@@ -667,8 +660,7 @@
 
       <article class="editorial-block">
         <div class="project-head">
-          <h3 class="entry-title">Sistema de Gestión de Flota Vehicular Autogestionada</h3>
-          <span class="project-tag">Producción Institucional</span>
+          <h3 class="entry-title">Sistema de Gestión de Flota Vehicular Autogestionada <span class="project-tag">Producción Institucional</span></h3>
         </div>
         <div class="project-stack">Django REST Framework, Preact.js, JavaScript, WebSockets, HTML5/CSS3</div>
         <ul class="content-list">
@@ -693,8 +685,7 @@
 
       <article class="editorial-block">
         <div class="project-head">
-          <h3 class="entry-title">GENCLA — Homologador Inteligente de Ingeniería Clínica</h3>
-          <span class="project-tag">Académico & BI</span>
+          <h3 class="entry-title">GENCLA — Homologador Inteligente de Ingeniería Clínica <span class="project-tag">Académico & BI</span></h3>
         </div>
         <div class="project-stack">Python, Vercel Core, Business Intelligence, Data Engineering</div>
         <ul class="content-list">
@@ -710,8 +701,7 @@
 
       <article class="editorial-block">
         <div class="project-head">
-          <h3 class="entry-title">PUCO — Analizador de Licitaciones Estatales</h3>
-          <span class="project-tag">SaaS / Automatización</span>
+          <h3 class="entry-title">PUCO — Analizador de Licitaciones Estatales <span class="project-tag">SaaS / Automatización</span></h3>
         </div>
         <div class="project-stack">Python, TypeScript, API REST, Web Scraping, ETL Pipelines</div>
         <ul class="content-list">
@@ -730,8 +720,7 @@
 
       <article class="editorial-block">
         <div class="project-head">
-          <h3 class="entry-title">Brazo Robótico 3-GDL con Visión Artificial</h3>
-          <span class="project-tag">Robótica & Visión</span>
+          <h3 class="entry-title">Brazo Robótico 3-GDL con Visión Artificial <span class="project-tag">Robótica & Visión</span></h3>
         </div>
         <div class="project-stack">Python, OpenCV, Arduino, Dynamixel AX-12A servos, Impresión 3D</div>
         <ul class="content-list">
@@ -750,8 +739,7 @@
 
       <article class="editorial-block">
         <div class="project-head">
-          <h3 class="entry-title">Robot Continuo Biomédico Exploratorio</h3>
-          <span class="project-tag">Bioingeniería / Hardware</span>
+          <h3 class="entry-title">Robot Continuo Biomédico Exploratorio <span class="project-tag">Bioingeniería / Hardware</span></h3>
         </div>
         <div class="project-stack">Arduino IDE, Sensores EMG Semicondutores, CAD Mecánico, MATLAB</div>
         <ul class="content-list">
@@ -773,8 +761,7 @@
 
       <article class="editorial-block">
         <div class="project-head">
-          <h3 class="entry-title">Taller HMI por Reconocimiento de Gestos — FabLab UV 2026</h3>
-          <span class="project-tag">Transferencia Tecnológica</span>
+          <h3 class="entry-title">Taller HMI por Reconocimiento de Gestos — FabLab UV 2026 <span class="project-tag">Transferencia Tecnológica</span></h3>
         </div>
         <div class="project-stack">Python, OpenCV Core, Computer Vision, Documentación Científica</div>
         <ul class="content-list">
@@ -790,11 +777,10 @@
 
       <article class="editorial-block">
         <div class="project-head">
-          <h3 class="entry-title">Prototipo de Incubadora Neonatal con Lazos PID</h3>
-          <span class="project-tag">Hardware Médico</span>
+          <h3 class="entry-title">Prototipo de Incubadora Neonatal con Lazos PID <span class="project-tag">Hardware Médico</span></h3>
+          <time class="entry-date">Jul 2024 — Dic 2024</time>
         </div>
         <div class="project-stack">Python, Arduino Core, Control Automático, MySQL, IoT Architecture</div>
-        <time class="entry-date" style="display: block; margin-bottom: 0.8rem;">Jul 2024 — Dic 2024</time>
         <ul class="content-list">
           <li>Diseño e implementación de un chasis termo-regulado controlado computacionalmente mediante algoritmos Proporcional-Integral-Derivativo (PID) adaptativos para la estabilización estricta de temperatura y flujo de aire.</li>
           <li>Desarrollo del firmware de sensado de variables biomédicas acoplado a bases de datos relacionales locales para el almacenamiento continuo de logs metabólicos históricos.</li>
@@ -823,7 +809,7 @@
 
       <div class="editorial-block">
         <div class="entry-head">
-          <div class="award-title" class="entry-title" style="font-size: 1.25rem; font-weight: 600;">Primera Escuela de Invierno iHEALTH</div>
+          <div class="entry-title">Primera Escuela de Invierno iHEALTH</div>
           <time class="entry-date">Jul 2025</time>
         </div>
         <div class="award-org">Instituto Milenio iHEALTH — IA aplicada en Salud</div>
@@ -832,7 +818,7 @@
 
       <div class="editorial-block">
         <div class="entry-head">
-          <div class="award-title" class="entry-title" style="font-size: 1.25rem; font-weight: 600;">Rally Latinoamericano de Innovación — 3er Lugar Regional</div>
+          <div class="entry-title">Rally Latinoamericano de Innovación — 3er Lugar Regional</div>
           <time class="entry-date">Oct 2024</time>
         </div>
         <div class="award-org">Comité Organizador Regional — Categoría Impacto Social</div>
@@ -841,7 +827,7 @@
 
       <div class="editorial-block">
         <div class="entry-head">
-          <div class="award-title" class="entry-title" style="font-size: 1.25rem; font-weight: 600;">Datathon Make Health Latam</div>
+          <div class="entry-title">Datathon Make Health Latam</div>
           <time class="entry-date">Ene 2023</time>
         </div>
         <div class="award-org">CENS (Chile) & Massachusetts Institute of Technology (MIT)</div>
