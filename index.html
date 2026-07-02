@@ -8,7 +8,7 @@
 
 <!-- SEO & Social Sharing -->
 <meta property="og:title" content="Maximiliano Gaete — Portfolio">
-<meta property="og:description" content="Maximiliano Gaete — Portfolio">
+<meta property="og:description" content="Ingeniería Civil Biomédica · IA aplicada a la salud · Fabricación digital">
 <meta property="og:type" content="website">
 
 <!-- Favicon (SVG Inline) -->
@@ -45,16 +45,6 @@
   }
 
   /* --- CAPAS DE ENTORNO VECTORIAL EN MOVIMIENTO CONTINUO --- */
-  
-  /* Capa 1: Grano Fino Fijo */
-  body::before {
-    content: "";
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    pointer-events: none; z-index: 3; opacity: 0.01;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  }
-
-  /* Capa 2: Malla Técnica de Coordenadas con Desplazamiento Lineal Suave */
   .blueprint-grid-mesh {
     position: fixed; top: -10%; left: -10%; width: 120%; height: 120%;
     pointer-events: none; z-index: 1; opacity: 0.02;
@@ -65,7 +55,6 @@
     animation: blueprintDrift 60s linear infinite;
   }
 
-  /* Capa 3: Formas Geométricas y Planos Paramétricos con Rotación Orbital Lenta */
   .vector-blueprint-bg {
     position: fixed; top: calc(50% - 750px); left: calc(50% - 750px); width: 1500px; height: 1500px;
     pointer-events: none; z-index: 1; opacity: 0.045;
@@ -130,7 +119,6 @@
   .brand-name{font-size:1.25rem;font-weight:700;color:var(--ink);letter-spacing:-0.02em;}
   .brand-role{margin-top:.5rem;font-family:var(--mono);font-size:11px;color:var(--mute);line-height:1.5;text-transform:uppercase;letter-spacing:0.1em;}
   
-  /* Bloque de Información de Contacto Fijo en Barra Lateral */
   .sidebar-contact-panel {
     margin-top: 2rem;
     padding-top: 1.25rem;
@@ -154,9 +142,7 @@
     letter-spacing: 0.05em;
     margin-bottom: 2px;
   }
-  .sidebar-contact-item a:hover {
-    color: var(--accent);
-  }
+  .sidebar-contact-item a:hover { color: var(--accent); }
 
   nav.toc{margin-top:2rem; flex-grow: 1;}
   nav.toc ol{list-style:none;counter-reset:toc}
@@ -292,27 +278,65 @@
     color: #040406;
   }
 
-  /* SECTIONS */
+  /* --- SISTEMA DE SEPARACIÓN EXPLICITA DE SECCIONES AL HACER SCROLL --- */
   section {
-    padding-top: 5rem; 
-    padding-bottom: 3rem; 
+    padding-top: 5.5rem; 
+    padding-bottom: 4rem; 
     scroll-margin-top: 5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.03); /* Línea de contención perimetral de bloque */
+    position: relative;
   }
-  .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);}
-  .reveal.visible{opacity:1;transform:translateY(0);}
-
-  .sec-head{display:grid;grid-template-columns:35px 1fr;align-items:baseline;gap:1rem;margin-bottom:3.5rem;}
-  .sec-num{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--accent);}
-  .sec-title{font-size:1.5rem;font-weight:700;color:var(--ink);letter-spacing:-0.02em;}
+  section:first-of-type {
+    border-top: none;
+    padding-top: 4rem;
+  }
   
-  .sec-rule{grid-column:2;border-top:1px solid var(--line-soft);margin-top:1rem; width:0%; transition: width 1s ease;}
-  .reveal.visible .sec-rule { width: 100%; }
+  /* Indicadores vectoriales de cota técnica en las esquinas superiores */
+  section::before {
+    content: "[ sec . 0" var(--num, "1") " ]";
+    position: absolute; top: 1.5rem; left: 0;
+    font-family: var(--mono); font-size: 10px; color: rgba(255, 255, 255, 0.15);
+    text-transform: uppercase; letter-spacing: 0.1ch;
+  }
+  #perfil { --num: "1"; }
+  #experiencia { --num: "2"; }
+  #formacion { --num: "3"; }
+  #certificaciones { --num: "4"; }
+  #proyectos { --num: "5"; }
+  #reconocimientos { --num: "6"; }
+  #habilidades { --num: "7"; }
+  #adicional { --num: "8"; }
+
+  .sec-head{
+    display:flex;
+    align-items:center;
+    gap:1.5rem;
+    margin-bottom:3.5rem;
+    width: 100%;
+  }
+  .sec-num{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--accent); white-space: nowrap;}
+  .sec-title{font-size:1.4rem;font-weight:700;color:var(--ink);letter-spacing:-0.02em; white-space: nowrap;}
+  
+  /* La línea de cota ahora cruza el ancho completo de forma fluida */
+  .sec-rule {
+    flex-grow: 1;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+    height: 1px;
+    margin-top: 2px;
+  }
+  .sec-rule::after {
+    content: ''; position: absolute; right: 0; top: -3px;
+    width: 6px; height: 6px; background: var(--accent);
+    transform: rotate(45deg);
+    box-shadow: 0 0 8px var(--accent);
+  }
 
   /* BLOQUES EDITORIALES GENERALES */
   .editorial-block {
     position: relative;
-    margin-bottom: 4rem;
-    padding-bottom: 3rem;
+    margin-bottom: 3.5rem;
+    padding-bottom: 2.5rem;
     border-bottom: 1px solid var(--line-soft);
     transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
@@ -332,7 +356,7 @@
     height: 0; padding: 0; margin: 0; border: none;
   }
 
-  /* REESTRUCTURACIÓN: GRID SIMÉTRICO PARA CERTIFICACIONES (SIN LÍNEA BOILERPLATE) */
+  /* GRID SIMÉTRICO PARA CERTIFICACIONES */
   .certs-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
@@ -356,8 +380,6 @@
     -webkit-backdrop-filter: blur(8px);
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease;
   }
-  
-  /* Efecto de enfoque técnico premium perimetral al pasar el cursor */
   .certs-grid .editorial-block:hover {
     transform: translateY(-4px);
     border-color: rgba(0, 224, 182, 0.35);
@@ -564,7 +586,6 @@
       transition-duration: 0.01ms !important; scroll-behavior: auto !important;
     }
     .mask-text { transform: translateY(0); opacity: 1; }
-    .sec-rule { width: 100%; }
     .blueprint-grid-mesh, .vector-blueprint-bg { animation: none; }
   }
 </style>
@@ -659,10 +680,8 @@
     <section id="perfil" class="reveal" aria-labelledby="perfil-title">
       <div class="sec-head">
         <div class="sec-num">01</div>
-        <div>
-          <h2 class="sec-title" id="perfil-title">Perfil Profesional</h2>
-          <div class="sec-rule"></div>
-        </div>
+        <h2 class="sec-title" id="perfil-title">Perfil Profesional</h2>
+        <div class="sec-rule"></div>
       </div>
       <div class="profile">
         <p class="profile-lead">
@@ -687,10 +706,8 @@
     <section id="experiencia" class="reveal" aria-labelledby="exp-title">
       <div class="sec-head">
         <div class="sec-num">02</div>
-        <div>
-          <h2 class="sec-title" id="exp-title">Experiencia Laboral</h2>
-          <div class="sec-rule"></div>
-        </div>
+        <h2 class="sec-title" id="exp-title">Experiencia Laboral</h2>
+        <div class="sec-rule"></div>
       </div>
 
       <div class="entry-list-container">
@@ -761,7 +778,7 @@
             <time class="entry-date" datetime="2022-01">2022 — 2023</time>
           </div>
           <ul class="content-list">
-            <li>Procesamiento de datos de campo and soporte operativo en levantamientos geodésicos y topográficos destinados a obras civiles masivas.</li>
+            <li>Procesamiento de datos de campo y soporte operativo en levantamientos geodésicos y topográficos destinados a obras civiles masivas.</li>
             <li>Responsable de la calibración preventiva e inspección de estaciones totales, receptores GNSS y software de posicionamiento geográfico.</li>
           </ul>
         </div>
@@ -772,10 +789,8 @@
     <section id="formacion" class="reveal" aria-labelledby="form-title">
       <div class="sec-head">
         <div class="sec-num">03</div>
-        <div>
-          <h2 class="sec-title" id="form-title">Formación Académica</h2>
-          <div class="sec-rule"></div>
-        </div>
+        <h2 class="sec-title" id="form-title">Formación Académica</h2>
+        <div class="sec-rule"></div>
       </div>
 
       <div class="entry-list-container">
@@ -789,7 +804,7 @@
           </div>
           <ul class="content-list">
             <li><b>Asignaturas de Postgrado aprobadas:</b> Artificial Intelligence for Medicine, Bioimmagini e Ingegneria Clinica, Project Work in AI for Industry, Project Management and Soft Skills, Machine Learning and Data Mining.</li>
-            <li><b>Área de Especialización:</b> Implementación de <strong>Redes Neuronales Convolucionales (CNN)</strong> en diagnóstico por imagen médica, gestión de Big Data clínico y modelos predictivos hospitalarios.</li>
+            <li><b>Área de Especialización:</b> Implementación de <strong>Redes Neuronales Convolucionales (CNN)</strong> en diagnóstico por imagen médica, gestión de Big Data clínico y models predictivos hospitalarios.</li>
           </ul>
         </div>
 
@@ -821,14 +836,12 @@
       </div>
     </section>
 
-    <!-- CERTIFICACIONES REDISEÑADAS SIMÉTRICAS (SIN LÍNEA IA SLOOP) -->
+    <!-- CERTIFICACIONES -->
     <section id="certificaciones" class="reveal" aria-labelledby="cert-title">
       <div class="sec-head">
         <div class="sec-num">04</div>
-        <div>
-          <h2 class="sec-title" id="cert-title">Certificaciones Profesionales</h2>
-          <div class="sec-rule"></div>
-        </div>
+        <h2 class="sec-title" id="cert-title">Certificaciones Profesionales</h2>
+        <div class="sec-rule"></div>
       </div>
 
       <div class="certs-grid">
@@ -920,17 +933,16 @@
     <section id="proyectos" class="reveal" aria-labelledby="proj-title">
       <div class="sec-head">
         <div class="sec-num">05</div>
-        <div>
-          <h2 class="sec-title" id="proj-title">Proyectos Destacados</h2>
-          <div class="sec-rule"></div>
-        </div>
+        <h2 class="sec-title" id="proj-title">Proyectos Destacados</h2>
+        <div class="sec-rule"></div>
       </div>
 
       <div class="projects-grid">
 
+        <!-- CORE CORREGIDO: BIOMEDICAL DSP PLATAFORMA EDUCATIVA UNIVERSITARIA -->
         <article class="editorial-block" data-profile="data clinica software">
           <div class="project-head">
-            <h3 class="entry-title">Biomedical DSP — Suite de Procesamiento <span class="project-tag">Académico & SaaS</span></h3>
+            <h3 class="entry-title">Biomedical DSP — Suite de Procesamiento <span class="project-tag">Educativo Universitario & SaaS</span></h3>
           </div>
           <div class="project-stack">
             <span class="tech-badge">Python</span>
@@ -940,8 +952,8 @@
             <span class="tech-badge">Tailwind CSS</span>
           </div>
           <ul class="content-list">
-            <li>Plataforma web para Procesamiento Digital de Señales (<strong>DSP</strong>) biomédicas (ECG, EEG, EMG).</li>
-            <li>Pipelines en tiempo real: Filtros <strong>IIR/FIR</strong>, eliminación de ruido (Notch) y <strong>FFT</strong> interactiva.</li>
+            <li><strong>Plataforma educativa universitaria</strong> web dedicada al Procesamiento Digital de Señales (<strong>DSP</strong>) biomédicas (ECG, EEG, EMG).</li>
+            <li>Pipelines analíticos en tiempo real: Filtros <strong>IIR/FIR</strong>, eliminación adaptativa de ruido (Notch) y <strong>FFT</strong> interactiva.</li>
           </ul>
           <div class="project-actions">
             <a class="project-link" href="https://biomedical-dsp-uv.vercel.app/" target="_blank" rel="noopener noreferrer">Despliegue <span class="arrow">↗</span></a>
@@ -1120,10 +1132,8 @@
     <section id="reconocimientos" class="reveal" aria-labelledby="rec-title">
       <div class="sec-head">
         <div class="sec-num">06</div>
-        <div>
-          <h2 class="sec-title" id="rec-title">Reconocimientos y Constancias</h2>
-          <div class="sec-rule"></div>
-        </div>
+        <h2 class="sec-title" id="rec-title">Reconocimientos y Constancias</h2>
+        <div class="sec-rule"></div>
       </div>
 
       <div class="editorial-block" data-profile="ml data investigacion">
@@ -1271,10 +1281,8 @@
     <section id="habilidades" class="reveal" aria-labelledby="skills-title">
       <div class="sec-head">
         <div class="sec-num">07</div>
-        <div>
-          <h2 class="sec-title" id="skills-title">Tech Stack & Habilidades Técnicas</h2>
-          <div class="sec-rule"></div>
-        </div>
+        <h2 class="sec-title" id="skills-title">Tech Stack & Habilidades Técnicas</h2>
+        <div class="sec-rule"></div>
       </div>
 
       <div class="skills-list">
@@ -1309,10 +1317,8 @@
     <section id="adicional" class="reveal" aria-labelledby="add-title">
       <div class="sec-head">
         <div class="sec-num">08</div>
-        <div>
-          <h2 class="sec-title" id="add-title">Información Adicional</h2>
-          <div class="sec-rule"></div>
-        </div>
+        <h2 class="sec-title" id="add-title">Información Adicional</h2>
+        <div class="sec-rule"></div>
       </div>
 
       <div class="editorial-block">
@@ -1404,7 +1410,6 @@
     const profileLead = document.querySelector('.profile-lead');
     const coursesTitle = document.getElementById('courses-title');
 
-    // Estado local de filtros activos
     let selectedProfiles = new Set(['all']);
 
     const profileTexts = {
@@ -1417,7 +1422,6 @@
       investigacion: "Enfoque científico e investigativo en el modelamiento de sistemas bioingenieriles complejos, conectividad estructural de redes neuronales, e ingeniería inversa aplicada al diseño de dispositivos médicos."
     };
 
-    // Inicializar contadores estáticos
     function initFilterCounters() {
       filterButtons.forEach(button => {
         const target = button.getAttribute('data-target');
@@ -1437,7 +1441,6 @@
       });
     }
 
-    // Aplicar filtros dinámicamente según el Set actual
     function applyFilters() {
       if (selectedProfiles.size === 0 || selectedProfiles.has('all')) {
         selectedProfiles.clear();
