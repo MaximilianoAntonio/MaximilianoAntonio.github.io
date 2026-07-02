@@ -16,17 +16,17 @@
 
 <style>
   :root{
-    --bg:#060606;
-    --surface:#0d0d0d;
-    --surface-2:#141414;
-    --ink:#ffffff;
-    --text:#e5e5e5;
-    --soft:#a3a3a3;
-    --mute:#737373; 
-    --line:rgba(255,255,255,0.08);
-    --line-soft:rgba(255,255,255,0.03);
+    --bg:#0a0a0c;        /* Negro atenuado para reducir el estrés ocular */
+    --surface:#121215;
+    --surface-2:#1a1a1f;
+    --ink:#f4f4f5;        /* Blanco roto anti-deslumbramiento */
+    --text:#d4d4d8;       /* Gris claro de alto confort visual */
+    --soft:#a1a1aa;
+    --mute:#71717a; 
+    --line:rgba(255,255,255,0.06);
+    --line-soft:rgba(255,255,255,0.02);
     --accent:#00E0B6; 
-    --sans:'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; /* Stack moderno optimizado para lectura */
     --mono:'JetBrains Mono', 'SF Mono', Monaco, Menlo, Consolas, monospace;
   }
 
@@ -38,12 +38,12 @@
     background:var(--bg);
     color:var(--text);
     font-size:16px;
-    line-height:1.6;
+    line-height:1.75;    /* Mayor espacio entre líneas para que el ojo descanse */
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
-    text-rendering:geometricPrecision;
+    text-rendering:optimizeLegibility; /* Optimizado para procesar texto de forma fluida */
     overflow-x:hidden;
-    letter-spacing:-0.01em;
+    letter-spacing:0.01em; /* Tracking ligeramente positivo para mejorar la distinción de caracteres */
     cursor: auto;
   }
 
@@ -51,7 +51,7 @@
   body::before {
     content: "";
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    pointer-events: none; z-index: 1; opacity: 0.025;
+    pointer-events: none; z-index: 1; opacity: 0.02;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   }
 
@@ -97,7 +97,7 @@
     .sidebar{position:relative;height:auto;border-right:none;border-bottom:1px solid var(--line);padding:2.5rem 1.5rem}
   }
   
-  .brand-name{font-size:1.25rem;font-weight:700;color:var(--ink);letter-spacing:-0.03em;}
+  .brand-name{font-size:1.25rem;font-weight:700;color:var(--ink);letter-spacing:-0.02em;}
   .brand-role{margin-top:.5rem;font-family:var(--mono);font-size:10px;color:var(--mute);line-height:1.5;text-transform:uppercase;letter-spacing:0.1em;}
   
   nav.toc{margin-top:2.5rem;}
@@ -160,15 +160,15 @@
 
   .hero h1{
     font-size:clamp(2rem, 5vw, 2.75rem);
-    font-weight:700;line-height:1.1;letter-spacing:-0.04em;
+    font-weight:700;line-height:1.1;letter-spacing:-0.03em;
     margin-bottom:1rem;color:var(--ink);
   }
   .hero-subtitle{
-    font-size:1.1rem;color:var(--soft);font-weight:500;margin-bottom:1.5rem;
+    font-size:1.15rem;color:var(--soft);font-weight:500;margin-bottom:1.5rem;
     opacity: 0; animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards; transform: translateY(20px);
   }
   .hero-lede{
-    font-size:1rem;color:var(--soft);max-width:65ch;line-height:1.6;font-weight:400;text-align: justify;
+    font-size:1.02rem;color:var(--soft);max-width:65ch;line-height:1.7;font-weight:400;text-align: left;
     opacity: 0; animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards; transform: translateY(20px);
   }
 
@@ -185,18 +185,18 @@
   .reveal.visible{opacity:1;transform:translateY(0);}
 
   .sec-head{display:grid;grid-template-columns:30px 1fr;align-items:baseline;gap:1rem;margin-bottom:2.5rem;}
-  .sec-num{font-family:var(--mono);font-size:11px;color:var(--accent);text-shadow: 0 0 10px rgba(0, 224, 182, 0.4);}
+  .sec-num{font-family:var(--mono);font-size:11px;color:var(--accent);text-shadow: 0 0 10px rgba(0, 224, 182, 0.3);}
   .sec-title{font-size:1.4rem;font-weight:700;color:var(--ink);letter-spacing:-0.02em;line-height:1.1;}
   
   .sec-rule{grid-column:2;border-top:1px solid var(--line);margin-top:.8rem; width:0%; transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);}
   .reveal.visible .sec-rule { width: 100%; }
 
-  /* TIMELINE & ENTRIES (Fijas y Alineadas) */
+  /* TIMELINE & ENTRIES */
   .entry-list-container {
     position: relative; padding-left: 24px;
     border-left: 1px solid var(--line);
   }
-  .entry{margin-bottom:3rem;position:relative;}
+  .entry{margin-bottom:3.5rem;position:relative;}
   .entry:last-child{margin-bottom:0}
   .entry::before {
     content: ''; position: absolute;
@@ -212,10 +212,10 @@
   }
   .entry:hover .entry-title { color: var(--accent); }
   
-  .entry-head{display:grid;grid-template-columns:1fr auto;align-items:start;gap:1.5rem;margin-bottom:.5rem;}
+  .entry-head{display:grid;grid-template-columns:1fr auto;align-items:start;gap:1.5rem;margin-bottom:.6rem;}
   @media (max-width:650px){.entry-head{grid-template-columns:1fr;gap:0.5rem;}}
   
-  .entry-title{font-size:1.1rem;font-weight:600;color:var(--ink);letter-spacing:-0.01em;transition: color 0.3s ease;}
+  .entry-title{font-size:1.15rem;font-weight:600;color:var(--ink);letter-spacing:-0.01em;transition: color 0.3s ease;}
   .entry-org{font-family:var(--mono);font-size:11px;color:var(--soft);margin-top:0.2rem;text-transform:uppercase;letter-spacing:0.05em;}
   
   .entry-date{
@@ -229,22 +229,23 @@
   @media (max-width:650px){.entry-date{justify-self: start;}}
 
   .entry-list, .project-list, .profile-list {
-    list-style:none; margin-top:.5rem; padding-left:0;
+    list-style:none; margin-top:.6rem; padding-left:0;
   }
   .entry-list li, .project-list li, .profile-list li{
-    position:relative; padding-left:1.2rem; color:var(--soft);
-    font-size:0.9rem; line-height:1.6; margin-bottom:.5rem;
-    text-align: justify;
+    position:relative; padding-left:1.4rem; color:var(--soft);
+    font-size:0.95rem; line-height:1.7; margin-bottom:.65rem; /* Más espacio para evitar el choque de líneas visuales */
+    text-align: left; /* Alineado a la izquierda para un ritmo natural de lectura */
   }
   .entry-list li::before, .project-list li::before, .profile-list li::before{
-    content:""; position:absolute; left:0; top:10px;
-    width:4px; height:1px; background:var(--mute);
+    content:""; position:absolute; left:0; top:11px;
+    width:5px; height:1px; background:var(--mute);
   }
-  .entry-list b, .entry-list strong, .project-list b, .project-list strong{font-weight:600;color:var(--text)}
+  .entry-list b, .entry-list strong, .project-list b, .project-list strong{font-weight:600;color:var(--ink)}
 
   /* PROFILE */
-  .profile-lead {font-size:1.05rem;color:var(--text);margin-bottom:1.2rem;text-align: justify;}
-  .profile-tail {margin-top:1.2rem;text-align: justify;}
+  .profile-lead {font-size:1.08rem;color:var(--text);margin-bottom:1.2rem;text-align: left;}
+  .profile p { text-align: left; }
+  .profile-tail {margin-top:1.2rem;text-align: left;}
 
   /* PROJECTS */
   .project{
@@ -261,10 +262,10 @@
   .project:hover::before { width: 100%; }
   .project:hover { transform: translateX(8px); }
   
-  .project-head{display:grid;grid-template-columns:1fr auto;align-items:start;gap:1.5rem;margin-bottom:.4rem;}
+  .project-head{display:grid;grid-template-columns:1fr auto;align-items:start;gap:1.5rem;margin-bottom:.5rem;}
   @media (max-width:650px){.project-head{grid-template-columns:1fr;gap:0.5rem;}}
   
-  .project-name{font-size:1.1rem;font-weight:600;color:var(--ink);letter-spacing:-0.01em;transition:color .3s ease;}
+  .project-name{font-size:1.15rem;font-weight:600;color:var(--ink);letter-spacing:-0.01em;transition:color .3s ease;}
   .project:hover .project-name { color:var(--accent); }
   
   .project-tag{font-family:var(--mono);font-size:10px;text-transform:uppercase;color:var(--mute);letter-spacing:0.1em;justify-self:end;}
@@ -273,7 +274,7 @@
   .project-stack{font-family:var(--mono);font-size:11px;color:var(--mute);margin-bottom:.8rem;}
   
   /* Enlaces de proyecto estilo "Chip" */
-  .project-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+  .project-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.2rem; }
   .project-link{
     display:inline-flex;align-items:center;gap:.5rem;
     font-family:var(--mono);font-size:11px;color:var(--soft);
@@ -293,7 +294,7 @@
   .skills-grid{display:grid;grid-template-columns:180px 1fr;gap:1.5rem 2rem;padding:1rem 0;}
   .skill-row{padding-bottom:1rem;border-bottom:1px solid var(--line-soft); display: contents;}
   .skill-label{font-family:var(--mono);font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;padding-bottom: 1rem; border-bottom:1px solid var(--line-soft);}
-  .skill-value{font-size:0.9rem;color:var(--text);line-height:1.5;padding-bottom: 1rem; border-bottom:1px solid var(--line-soft);}
+  .skill-value{font-size:0.95rem;color:var(--text);line-height:1.6;padding-bottom: 1rem; border-bottom:1px solid var(--line-soft);}
   @media (max-width:600px){
     .skills-grid{grid-template-columns:1fr;gap:0;}
     .skill-label{border-bottom:none; padding-bottom:0.2rem; margin-top:1rem;}
@@ -303,15 +304,15 @@
   /* AWARDS */
   .award{display:grid;grid-template-columns:1fr auto;gap:1rem;padding:1.5rem 0;border-bottom:1px solid var(--line-soft);}
   .award:last-child{border-bottom:none}
-  .award-title{font-size:1rem;font-weight:600;color:var(--ink)}
+  .award-title{font-size:1.05rem;font-weight:600;color:var(--ink)}
   .award-org{font-family:var(--mono);font-size:11px;color:var(--soft);margin-top:.2rem;text-transform:uppercase;letter-spacing:0.05em;}
-  .award-desc{font-size:.9rem;color:var(--soft);margin-top:.5rem;line-height:1.5;text-align: justify;}
+  .award-desc{font-size:.95rem;color:var(--soft);margin-top:.5rem;line-height:1.6;text-align: left;}
   .award-year{font-family:var(--mono);font-size:11px;color:var(--mute);white-space:nowrap;text-transform:uppercase;justify-self:end;}
 
   /* ADICIONAL */
-  .add-block{margin-bottom:2rem}
+  .add-block{margin-bottom:2.5rem}
   .add-label{font-family:var(--mono);font-size:11px;color:var(--accent);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:0.1em;}
-  .add-text{color:var(--soft);font-size:0.95rem;line-height:1.6;text-align: justify;}
+  .add-text{color:var(--soft);font-size:0.95rem;line-height:1.7;text-align: left;}
 
   /* FOOTER */
   footer{margin-top:6rem;padding:2rem 0;border-top:1px solid var(--line);font-family:var(--mono);font-size:10px;color:var(--mute);display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;text-transform:uppercase;letter-spacing:0.1em;}
@@ -782,25 +783,25 @@
       </article>
 
       <article class="project">
-              <div class="project-head">
-                <h3 class="project-name">Prototipo de Incubadora Neonatal con Lazos PID</h3>
-                <span class="project-tag">Hardware Médico</span>
-              </div>
-              <div class="project-stack">Python, Arduino Core, Control Automático, MySQL, IoT Architecture</div>
-              <div class="project-actions">
-                <a class="project-link" href="https://github.com/MaximilianoAntonio/incubator-prototype/blob/main/Reporte%20Final%20Incubadora.pdf" target="_blank" rel="noopener noreferrer">
-                  Reporte Final (PDF) <span class="arrow">↗</span>
-                </a>
-                <a class="project-link" href="https://github.com/MaximilianoAntonio/incubator-prototype" target="_blank" rel="noopener noreferrer">
-                  GitHub Repositorio <span class="arrow">↗</span>
-                </a>
-              </div>
-              <time class="project-inline-date" datetime="2024-07">Jul 2024 — Dic 2024</time>
-              <ul class="project-list">
-                <li>Diseño e implementación de un chasis termo-regulado controlado computacionalmente mediante algoritmos Proporcional-Integral-Derivativo (PID) adaptativos para la estabilización estricta de temperatura y flujo de aire.</li>
-                <li>Desarrollo del firmware de sensado de variables biomédicas acoplado a bases de datos relacionales locales para el almacenamiento continuo de logs metabólicos históricos.</li>
-              </ul>
-            </article>
+        <div class="project-head">
+          <h3 class="project-name">Prototipo de Incubadora Neonatal con Lazos PID</h3>
+          <span class="project-tag">Hardware Médico</span>
+        </div>
+        <div class="project-stack">Python, Arduino Core, Control Automático, MySQL, IoT Architecture</div>
+        <div class="project-actions">
+          <a class="project-link" href="https://github.com/MaximilianoAntonio/incubator-prototype/blob/main/Reporte%20Final%20Incubadora.pdf" target="_blank" rel="noopener noreferrer">
+            Reporte Final (PDF) <span class="arrow">↗</span>
+          </a>
+          <a class="project-link" href="https://github.com/MaximilianoAntonio/incubator-prototype" target="_blank" rel="noopener noreferrer">
+            GitHub Repositorio <span class="arrow">↗</span>
+          </a>
+        </div>
+        <time class="project-inline-date" datetime="2024-07">Jul 2024 — Dic 2024</time>
+        <ul class="project-list">
+          <li>Diseño e implementación de un chasis termo-regulado controlado computacionalmente mediante algoritmos Proporcional-Integral-Derivativo (PID) adaptativos para la estabilización estricta de temperatura y flujo de aire.</li>
+          <li>Desarrollo del firmware de sensado de variables biomédicas acoplado a bases de datos relacionales locales para el almacenamiento continuo de logs metabólicos históricos.</li>
+        </ul>
+      </article>
 
     </section>
 
