@@ -8,7 +8,7 @@
 
 <!-- SEO & Social Sharing -->
 <meta property="og:title" content="Maximiliano Gaete — Portfolio">
-<meta property="og:description" content="Ingeniería Civil Biomédica · IA aplicada a la salud · Fabricación digital">
+<meta property="og:description" content="Maximiliano Gaete — Portfolio">
 <meta property="og:type" content="website">
 
 <!-- Favicon (SVG Inline) -->
@@ -16,12 +16,12 @@
 
 <style>
   :root {
-    --bg: #060608;           /* Fondo ultra oscuro profundo y orgánico */
+    --bg: #040406;           /* Fondo absoluto de ingeniería profundo */
     --ink: #ffffff;          /* Títulos en blanco puro para jerarquía inmediata */
     --text: #e4e4e7;         /* Texto de lectura principal (Zinc-200) de alta legibilidad */
     --soft: #d4d4d8;         /* Descripciones con contraste suavizado */
-    --mute: #8e8e93;         /* Metadatos, organizaciones y fechas claras pero secundarias */
-    --line-soft: rgba(255,255,255,0.05); /* Separadores ultra delgados para descanso visual */
+    --mute: #71717a;         /* Metadatos, organizaciones y fechas claras pero secundarias */
+    --line-soft: rgba(255,255,255,0.04); /* Separadores ultra delgados para descanso visual */
     --accent: #00E0B6;       /* Color de enfoque para viñetas y enlaces */
     --sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     --mono: 'JetBrains Mono', 'SF Mono', Monaco, Menlo, Consolas, monospace;
@@ -44,26 +44,45 @@
     position: relative;
   }
 
-  /* --- CAPAS DE FONDO VECTORIAL TÉCNICO MEJORADO --- */
+  /* --- CAPAS DE ENTORNO VECTORIAL EN MOVIMIENTO CONTINUO --- */
   
-  /* Capa 1: Textura de grano fino */
+  /* Capa 1: Grano Fino Fijo */
   body::before {
     content: "";
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    pointer-events: none; z-index: 3; opacity: 0.012;
+    pointer-events: none; z-index: 3; opacity: 0.01;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   }
 
-  /* Capa 2: Malla Geométrica Vectorial Optimizada con Mayor Visibilidad */
-  .vector-blueprint-bg {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    pointer-events: none; z-index: 1; opacity: 0.055; /* Visibilidad aumentada */
+  /* Capa 2: Malla Técnica de Coordenadas con Desplazamiento Lineal Suave */
+  .blueprint-grid-mesh {
+    position: fixed; top: -10%; left: -10%; width: 120%; height: 120%;
+    pointer-events: none; z-index: 1; opacity: 0.02;
     background-image: 
-      linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px),
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000' width='100%25' height='100%25'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1.5'%3E%3Ccircle cx='500' cy='500' r='360' stroke-dasharray='8 4' stroke='%2300E0B6' stroke-opacity='0.4'/%3E%3Ccircle cx='500' cy='500' r='220'/%3E%3Ccircle cx='500' cy='500' r='60' stroke='%2300E0B6' stroke-opacity='0.4'/%3E%3Cpath d='M500,20 L500,980 M20,500 L980,500' stroke-dasharray='15 10 5 10'/%3E%3Cpolygon points='500,150 803,325 803,675 500,850 197,675 197,325' stroke-dasharray='6 6'/%3E%3Ccircle cx='197' cy='325' r='10' fill='%2300E0B6'/%3E%3Ccircle cx='803' cy='325' r='10' fill='%2300E0B6'/%3E%3Ccircle cx='500' cy='850' r='10' fill='%2300E0B6'/%3E%3Cline x1='50' y1='50' x2='350' y2='350' stroke-dasharray='10 5'/%3E%3Cline x1='950' y1='50' x2='650' y2='350' stroke-dasharray='10 5'/%3E%3Crect x='420' y='420' width='160' height='160' stroke-dasharray='4 4'/%3E%3C/g%3E%3C/svg%3E");
-    background-size: 80px 80px, 80px 80px, 1000px 1000px;
+      linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: blueprintDrift 60s linear infinite;
+  }
+
+  /* Capa 3: Formas Geométricas y Planos Paramétricos con Rotación Orbital Lenta */
+  .vector-blueprint-bg {
+    position: fixed; top: calc(50% - 750px); left: calc(50% - 750px); width: 1500px; height: 1500px;
+    pointer-events: none; z-index: 1; opacity: 0.045;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000' width='100%25' height='100%25'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1.2'%3E%3Ccircle cx='500' cy='500' r='420' stroke-dasharray='12 6' stroke='%2300E0B6' stroke-opacity='0.5'/%3E%3Ccircle cx='500' cy='500' r='280'/%3E%3Ccircle cx='500' cy='500' r='140' stroke-dasharray='4 4'/%3E%3Ccircle cx='500' cy='500' r='40' stroke='%2300E0B6'/%3E%3Cpath d='M500,10 L500,990 M10,500 L990,500' stroke-dasharray='20 10 5 10' stroke-opacity='0.7'/%3E%3Cpolygon points='500,100 846,300 846,700 500,900 154,700 154,300' stroke-dasharray='8 8'/%3E%3Ccircle cx='154' cy='300' r='8' fill='%2300E0B6'/%3E%3Ccircle cx='846' cy='300' r='8' fill='%2300E0B6'/%3E%3Ccircle cx='500' cy='900' r='8' fill='%2300E0B6'/%3E%3Crect x='380' y='380' width='240' height='240' stroke-dasharray='3 3'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: contain;
     background-position: center;
+    transform-origin: center center;
+    animation: blueprintRotate 140s linear infinite;
+  }
+
+  @keyframes blueprintDrift {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(50px, 50px); }
+  }
+  @keyframes blueprintRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 
   /* Scroll Progress Bar */
@@ -209,7 +228,7 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(6, 6, 8, 0.85);
+    background: rgba(4, 4, 6, 0.85);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     padding: 1.5rem 0;
@@ -232,7 +251,7 @@
     gap: 0.5rem;
   }
   .filter-btn {
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(255, 255, 255, 0.01);
     border: 1px solid var(--line-soft);
     color: var(--soft);
     font-family: var(--mono);
@@ -257,21 +276,20 @@
   .filter-btn:hover {
     border-color: rgba(255, 255, 255, 0.15);
     color: var(--ink);
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(255, 255, 255, 0.03);
     transform: translateY(-1px);
   }
   
-  /* Estado seleccionado mutiple */
   .filter-btn.active {
     border-color: var(--accent);
-    color: #060608;
+    color: #040406;
     background: var(--accent);
     font-weight: 600;
     box-shadow: 0 4px 15px rgba(0, 224, 182, 0.15);
   }
   .filter-btn.active .filter-count {
     background: rgba(0, 0, 0, 0.12);
-    color: #060608;
+    color: #040406;
   }
 
   /* SECTIONS */
@@ -304,7 +322,6 @@
     border-bottom: none;
   }
 
-  /* ESTADOS ANIMADOS DE FILTRADO ESCALONADO (STAGGERED) */
   .editorial-block.is-filtered-out {
     opacity: 0 !important;
     transform: scale(0.96) translateY(12px) !important;
@@ -315,7 +332,7 @@
     height: 0; padding: 0; margin: 0; border: none;
   }
 
-  /* NUEVA ARQUITECTURA: GRID DE CERTIFICACIONES DESTACADAS */
+  /* REESTRUCTURACIÓN: GRID SIMÉTRICO PARA CERTIFICACIONES (SIN LÍNEA BOILERPLATE) */
   .certs-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
@@ -327,7 +344,6 @@
   .certs-grid .editorial-block {
     background: rgba(255, 255, 255, 0.012);
     border: 1px solid var(--line-soft);
-    border-left: 3px solid var(--accent); /* Resaltado de credencial */
     padding: 1.75rem;
     border-radius: 8px;
     margin-bottom: 0;
@@ -340,12 +356,15 @@
     -webkit-backdrop-filter: blur(8px);
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease;
   }
+  
+  /* Efecto de enfoque técnico premium perimetral al pasar el cursor */
   .certs-grid .editorial-block:hover {
     transform: translateY(-4px);
-    border-color: rgba(0, 224, 182, 0.3);
+    border-color: rgba(0, 224, 182, 0.35);
     background: rgba(255, 255, 255, 0.02);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 224, 182, 0.05);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 25px rgba(0, 224, 182, 0.04);
   }
+  
   .cert-platform {
     font-family: var(--mono); font-size: 10px; color: var(--accent);
     text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-top: 0.25rem;
@@ -377,7 +396,7 @@
   }
   .projects-grid .editorial-block:hover {
     transform: translateY(-4px) scale(1.01);
-    border-color: rgba(0, 224, 182, 0.3);
+    border-color: rgba(0, 224, 182, 0.35);
     background: rgba(255, 255, 255, 0.02);
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
   }
@@ -546,12 +565,14 @@
     }
     .mask-text { transform: translateY(0); opacity: 1; }
     .sec-rule { width: 100%; }
+    .blueprint-grid-mesh, .vector-blueprint-bg { animation: none; }
   }
 </style>
 </head>
 <body>
 
-  <!-- CAPA DE FONDO GEOMÉTRICO/VECTORIAL INTENSIFICADO -->
+  <!-- ELEMENTOS DE FONDO TÉCNICO COMPLEJO CON ANIMACIÓN INTERACTIVA -->
+  <div class="blueprint-grid-mesh"></div>
   <div class="vector-blueprint-bg"></div>
 
   <div class="scroll-progress" id="scroll-progress"></div>
@@ -740,7 +761,7 @@
             <time class="entry-date" datetime="2022-01">2022 — 2023</time>
           </div>
           <ul class="content-list">
-            <li>Procesamiento de datos de campo y soporte operativo en levantamientos geodésicos y topográficos destinados a obras civiles masivas.</li>
+            <li>Procesamiento de datos de campo and soporte operativo en levantamientos geodésicos y topográficos destinados a obras civiles masivas.</li>
             <li>Responsable de la calibración preventiva e inspección de estaciones totales, receptores GNSS y software de posicionamiento geográfico.</li>
           </ul>
         </div>
@@ -800,7 +821,7 @@
       </div>
     </section>
 
-    <!-- CERTIFICACIONES REDISEÑADAS EN CUADRÍCULA -->
+    <!-- CERTIFICACIONES REDISEÑADAS SIMÉTRICAS (SIN LÍNEA IA SLOOP) -->
     <section id="certificaciones" class="reveal" aria-labelledby="cert-title">
       <div class="sec-head">
         <div class="sec-num">04</div>
@@ -1388,7 +1409,7 @@
 
     const profileTexts = {
       all: "Estudiante de último año en Ingeniería Civil Biomédica con sólida formación técnica inicial en Electrónica Industrial y experiencia académica internacional en IA aplicada al entorno médico mediante una estancia en la Università di Bologna.",
-      data: "Estudiante de último año en Ingeniería Civil Biomédica con enfoque en Ciencia de Datos y BI para el sector salud. Especializado en pipelines analíticos complexes (ETL), normalización de bases de datos clínicas y reportería interactiva.",
+      data: "Estudiante de último año en Ingeniería Civil Biomédica con enfoque en Ciencia de Datos y BI para el sector salud. Especializado en pipelines analísticos complexes (ETL), normalización de bases de datos clínicas y reportería interactiva.",
       ml: "Especialización internacional en IA y Machine Learning aplicado al entorno médico en la Università di Bologna. Experiencia en el preprocesamiento automatizado de neuroimágenes masivas (fMRI, dTI) y modelos neuronales profundos.",
       software: "Desarrollador enfocado en arquitectura de software de salud, APIs REST robustas, sincronización en tiempo real vía WebSockets e integraciones seguras en entornos web distribuidos utilizando Python, TypeScript y bases de datos.",
       clinica: "Orientado a la gestión de tecnologías sanitarias, planificación de mantenimiento predictivo/correctivo en infraestructura crítica y optimización sistémica de recursos operativos hospitalarios.",
@@ -1418,7 +1439,6 @@
 
     // Aplicar filtros dinámicamente según el Set actual
     function applyFilters() {
-      // Si está vacío o contiene "all", forzar a restablecer a "Ver Todo"
       if (selectedProfiles.size === 0 || selectedProfiles.has('all')) {
         selectedProfiles.clear();
         selectedProfiles.add('all');
@@ -1429,21 +1449,17 @@
         });
       }
 
-      // Actualizar texto dinámico del perfil (Muestra el último seleccionado o el global)
       const currentArray = Array.from(selectedProfiles);
       const lastSelected = currentArray[currentArray.length - 1];
       if (profileLead && profileTexts[lastSelected]) {
         profileLead.innerText = profileTexts[lastSelected];
       }
 
-      // Renderizar y animar bloques secuencialmente (Staggered layout)
       let visibleIndex = 0;
       let visibleCoursesCount = 0;
 
       editorialBlocks.forEach(block => {
         const blockProfiles = block.getAttribute('data-profile').split(' ');
-        
-        // Un bloque es válido si estamos en "all" o si comparte al menos una etiqueta con los filtros seleccionados
         const isMatch = selectedProfiles.has('all') || blockProfiles.some(p => selectedProfiles.has(p));
 
         if (isMatch) {
@@ -1459,7 +1475,6 @@
         }
       });
 
-      // Manejar visibilidad del encabezado del sub-grid de constancias de Microsoft
       if (coursesTitle) {
         if (visibleCoursesCount === 0 && !selectedProfiles.has('all')) {
           coursesTitle.classList.add('is-filtered-out');
@@ -1469,7 +1484,6 @@
       }
     }
 
-    // Manejador de eventos de clic en los botones de filtrado
     filterButtons.forEach(button => {
       button.addEventListener('click', () => {
         const target = button.getAttribute('data-target');
@@ -1478,13 +1492,11 @@
           selectedProfiles.clear();
           selectedProfiles.add('all');
         } else {
-          // Remover "all" si estaba activo para poder combinar filtros específicos
           if (selectedProfiles.has('all')) {
             selectedProfiles.delete('all');
             document.querySelector('.filter-btn[data-target="all"]').classList.remove('active');
           }
 
-          // Alternar el estado (Toggle) del filtro seleccionado
           if (selectedProfiles.has(target)) {
             selectedProfiles.delete(target);
             button.classList.remove('active');
