@@ -103,8 +103,8 @@
   /* LAYOUT */
   .shell{display:grid;grid-template-columns:290px 1fr;max-width:1280px;margin:0 auto;min-height:100vh;position:relative;z-index:5}
   
-  /* BOTÓN MENÚ MÓVIL (Oculto en Escritorio) */
-  .menu-toggle {
+  /* CONTROLES DEL SIDEBAR (Menú Móvil y Selector Idioma) */
+  .sidebar-controls {
     display: none;
   }
 
@@ -115,6 +115,30 @@
     border-right:1px solid var(--line-soft);
     display:flex;flex-direction:column;justify-content:space-between;
     background: transparent;
+  }
+
+  /* Botón Selector de Idioma Estilizado */
+  .lang-toggle {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--line-soft);
+    color: var(--soft);
+    padding: 0.35rem 0.75rem;
+    font-family: var(--mono);
+    font-size: 11px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 1.5rem;
+  }
+  .lang-toggle:hover {
+    border-color: var(--accent);
+    color: var(--ink);
+    background: rgba(0, 224, 182, 0.05);
   }
   
   @media (max-width:950px){
@@ -134,12 +158,24 @@
       display: block;
     }
 
-    /* Botón desplegable dinámico */
-    .menu-toggle {
-      display: block;
+    .sidebar-controls {
+      display: flex;
       position: absolute;
       top: 2rem;
       right: 1.5rem;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .lang-toggle {
+      margin-bottom: 0;
+      padding: 0.4rem 0.6rem;
+      font-size: 11px;
+    }
+
+    /* Botón desplegable dinámico */
+    .menu-toggle {
+      display: block;
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--line-soft);
       color: var(--accent);
@@ -158,6 +194,7 @@
     }
 
     /* Ocultar elementos del menú por defecto en móvil */
+    .sidebar-brand-wrapper + .lang-toggle,
     .sidebar-contact-panel,
     nav.toc,
     .sidebar-foot {
@@ -174,6 +211,13 @@
     .sidebar.open .sidebar-foot {
       display: block !important;
       margin-top: 2rem;
+    }
+    .sidebar:not(.open) .sidebar-brand-wrapper .lang-toggle-desktop {
+      display: none !important;
+    }
+    .sidebar.open .lang-toggle-desktop {
+      display: inline-flex !important;
+      margin-top: 1.5rem;
     }
 
     /* Eliminación absoluta de la barra superior de filtros en móvil */
@@ -244,11 +288,12 @@
 
   /* HERO */
   .hero{padding-bottom:1.5rem;}
-  .hero-eyebrow{
+  .hero-eyebrow {
     font-family:var(--mono);font-size:11px;
     color:var(--accent);margin-bottom:1.5rem;
     text-transform:uppercase;letter-spacing:0.15em;
-    opacity: 0; animation: fadeUp 0.8s ease 0.2s forwards;
+    transform: translateY(10px);
+    animation: fadeUp 0.8s ease 0.2s forwards;
   }
   
   .mask-wrap { overflow: hidden; display: block; padding-bottom: 0.1em; margin-bottom: -0.1em; }
@@ -664,27 +709,33 @@
 
   <div class="scroll-progress" id="scroll-progress"></div>
 
-  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+  <a href="#main-content" class="skip-link" id="txt-skip-link">Saltar al contenido principal</a>
 
 <div class="shell">
 
   <!-- SIDEBAR (Navegación y Contacto Fijo) -->
   <aside class="sidebar">
-    <!-- Botón Toggle de Control de Menú Móvil -->
-    <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">Menú</button>
+    <!-- Controles en Móvil (Selector de Idioma + Hamburguesa alineados a la derecha) -->
+    <div class="sidebar-controls">
+      <button class="lang-toggle global-lang-btn" aria-label="Change language">EN</button>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">Menú</button>
+    </div>
     
-    <div>
+    <div class="sidebar-brand-wrapper">
       <div class="brand-name">Maximiliano Gaete</div>
-      <div class="brand-role">Estudiante de Ing. Civil Biomédica<br>Técnico Nivel Medio en Electrónica</div>
+      <div class="brand-role" id="txt-brand-role">Estudiante de Ing. Civil Biomédica<br>Técnico Nivel Medio en Electrónica</div>
+
+      <!-- Selector de Idioma en Escritorio -->
+      <button class="lang-toggle global-lang-btn lang-toggle-desktop" style="margin-top: 1.5rem;" aria-label="Change language">EN</button>
 
       <!-- CONTACTO PERMANENTE -->
       <div class="sidebar-contact-panel">
         <div class="sidebar-contact-item">
-          <span>Ubicación</span>
+          <span id="txt-lbl-location">Ubicación</span>
           <div>Valparaíso, Chile</div>
         </div>
         <div class="sidebar-contact-item">
-          <span>Teléfono</span>
+          <span id="txt-lbl-phone">Teléfono</span>
           <div><a href="tel:+56936703492">+56 9 3670 3492</a></div>
         </div>
         <div class="sidebar-contact-item">
@@ -695,14 +746,14 @@
 
       <nav class="toc" aria-label="Navegación principal" id="toc">
         <ol>
-          <li><a href="#perfil">Perfil Profesional</a></li>
-          <li><a href="#experiencia">Experiencia</a></li>
-          <li><a href="#formacion">Formación Académica</a></li>
-          <li><a href="#certificaciones">Certificaciones</a></li>
-          <li><a href="#proyectos">Proyectos Destacados</a></li>
-          <li><a href="#reconocimientos">Reconocimientos</a></li>
-          <li><a href="#habilidades">Tech Stack & Skills</a></li>
-          <li><a href="#adicional">Información</a></li>
+          <li><a href="#perfil" id="nav-perfil">Perfil Profesional</a></li>
+          <li><a href="#experiencia" id="nav-experiencia">Experiencia</a></li>
+          <li><a href="#formacion" id="nav-formacion">Formación Académica</a></li>
+          <li><a href="#certificaciones" id="nav-certificaciones">Certificaciones</a></li>
+          <li><a href="#proyectos" id="nav-proyectos">Proyectos Destacados</a></li>
+          <li><a href="#reconocimientos" id="nav-reconocimientos">Reconocimientos</a></li>
+          <li><a href="#habilidades" id="nav-habilidades">Tech Stack & Skills</a></li>
+          <li><a href="#adicional" id="nav-adicional">Información</a></li>
         </ol>
       </nav>
     </div>
@@ -711,7 +762,7 @@
       <a id="copy-email" href="#">Copiar Email</a> · 
       <a href="https://www.linkedin.com/in/maxigaete/" target="_blank" rel="noopener noreferrer">LinkedIn</a> · 
       <a href="https://github.com/MaximilianoAntonio" target="_blank" rel="noopener noreferrer">GitHub</a><br>
-      Portafolio © 2026
+      <span id="txt-foot-copy">Portafolio © 2026</span>
     </div>
   </aside>
 
@@ -720,28 +771,22 @@
 
     <!-- HERO -->
     <header class="hero">
-      <div class="hero-eyebrow">Portafolio Profesional</div>
+      <div class="hero-eyebrow" id="txt-hero-eyebrow">Portafolio Profesional</div>
       <h1>
         <div class="mask-wrap"><span class="mask-text" style="animation-delay: 0.2s;">Maximiliano Antonio</span></div>
         <div class="mask-wrap"><span class="mask-text" style="animation-delay: 0.4s;">Gaete Pizarro</span></div>
       </h1>
-      <p class="hero-subtitle">Estudiante de Ingeniería Civil Biomédica y Técnico de Nivel Medio en Electrónica Industrial</p>
-      <p class="hero-lede">
+      <p class="hero-subtitle" id="txt-hero-subtitle">Estudiante de Ingeniería Civil Biomédica y Técnico de Nivel Medio en Electrónica Industrial</p>
+      <p class="hero-lede" id="txt-hero-lede">
         Especializado en la intersección entre ingeniería avanzada, arquitectura de software y salud, con experiencia práctica en el análisis de neuroimágenes funcionales, fabricación digital y despliegue de sistemas biomédicos inteligentes.
       </p>
     </header>
 
     <!-- FILTROS DE PERFIL STICKY MULTI-SELECCIÓN -->
     <div class="filter-container">
-      <div class="filter-label">Filtrar CV (Selecciona uno o varios perfiles en simultáneo):</div>
-      <div class="filter-buttons" role="group" aria-label="Filtros de perfil profesional">
-        <button class="filter-btn active" data-target="all">Ver Todo <span class="filter-count">0</span></button>
-        <button class="filter-btn" data-target="data">Ciencia de Datos / BI <span class="filter-count">0</span></button>
-        <button class="filter-btn" data-target="ml">Machine Learning e IA <span class="filter-count">0</span></button>
-        <button class="filter-btn" data-target="software">Software / Backend <span class="filter-count">0</span></button>
-        <button class="filter-btn" data-target="clinica">Ingeniería Clínica <span class="filter-count">0</span></button>
-        <button class="filter-btn" data-target="hardware">Fabricación Digital <span class="filter-count">0</span></button>
-        <button class="filter-btn" data-target="investigacion">Investigación / I+D <span class="filter-count">0</span></button>
+      <div class="filter-label" id="txt-filter-label">Filtrar CV (Selecciona uno o varios perfiles en simultáneo):</div>
+      <div class="filter-buttons" role="group" aria-label="Filtros de perfil profesional" id="filter-buttons-container">
+        <!-- Generados dinámicamente para cambiar etiquetas e índices conservando contadores -->
       </div>
     </div>
 
@@ -753,19 +798,16 @@
         <div class="sec-rule"></div>
       </div>
       <div class="profile">
-        <p class="profile-lead">
-          Estudiante de último año en Ingeniería Civil Biomédica con sólida formación técnica inicial en Electrónica Industrial y experiencia académica internacional en Inteligencia Artificial y Machine Learning aplicada al entorno médico mediante una estancia Erasmus+ en la Università di Bologna.
+        <p class="profile-lead" id="txt-profile-lead">
+          <!-- Inyectado dinámicamente por el motor de filtros e idioma -->
         </p>
-        <p class="profile-text">
+        <p class="profile-text" id="txt-profile-text">
           Especializado en el diseño e implementación de tecnologías sanitarias críticas, demostrando capacidades avanzadas en:
         </p>
-        <ul class="content-list">
-          <li>Investigación de <strong>neuroimágenes estructurales/funcionales</strong> y conectividad de redes cerebrales.</li>
-          <li><strong>Fabricación digital avanzada</strong>, ingeniería inversa y prototipado rápido en entornos FabLab.</li>
-          <li>Desarrollo de robótica médica, instrumentación biomédica, telemetría y visión artificial.</li>
-          <li>Diseño de <strong>architecturas de software robustas</strong> (ETL, API REST, Dashboards) utilizando Python, TypeScript y SQL.</li>
+        <ul class="content-list" id="txt-profile-list">
+          <!-- Inyectado dinámicamente -->
         </ul>
-        <p class="profile-tail">
+        <p class="profile-tail" id="txt-profile-tail">
           Enfoque proactivo orientado al desarrollo de sistemas bioingenieriles con alta escalabilidad, optimización algorítmica y un profundo impacto social en la asistencia clínica y de investigación.
         </p>
       </div>
@@ -778,79 +820,8 @@
         <h2 class="sec-title" id="exp-title">Experiencia Laboral</h2>
         <div class="sec-rule"></div>
       </div>
-
-      <div class="entry-list-container">
-        
-        <div class="editorial-block" data-profile="data ml investigacion">
-          <div class="entry-head">
-            <div>
-              <div class="entry-title">Practicante en Ingeniería de Desarrollo e Investigación</div>
-              <div class="entry-org">Instituto Milenio iHEALTH · Chile</div>
-            </div>
-            <time class="entry-date" datetime="2026-01">Ene 2026 — Mar 2026</time>
-          </div>
-          <ul class="content-list">
-            <li>Investigador adjunto en Stream 4: Evaluación de disrupción de <strong>redes funcionales cerebrales</strong> en pacientes oncológicos mediante técnicas avanzadas de neuroimagen (<strong>fMRI, dTI</strong>) y análisis matemático de conectividad cerebral.</li>
-            <li>Diseño e implementación de scripts y <strong>flujos de Machine Learning</strong> para el preprocesamiento y limpieza automatizada de datos neuroimagológicos masivos.</li>
-          </ul>
-        </div>
-
-        <div class="editorial-block" data-profile="clinica">
-          <div class="entry-head">
-            <div>
-              <div class="entry-title">Operario en Mantenimiento — Congreso Nacional</div>
-              <div class="entry-org">Cooperativa De Trabajo SVA · Valparaíso, Chile</div>
-            </div>
-            <time class="entry-date" datetime="2025-01">Ene 2025 — Feb 2025</time>
-          </div>
-          <ul class="content-list">
-            <li>Gestión integral del mantenimiento preventivo, predictivo y correctivo de <strong>sistemas de CCTV complejos</strong>, redes de detección temprana de incendios y cableado estructurado dentro de la infraestructura crítica del Congreso Nacional.</li>
-            <li>Actualización técnica avanzada de planos eléctricos y diagramas de redes; resolución de incidencias en tiempo real bajo estrictos protocolos de seguridad institucional.</li>
-          </ul>
-        </div>
-
-        <div class="editorial-block" data-profile="hardware investigacion">
-          <div class="entry-head">
-            <div>
-              <div class="entry-title">Instructor de Laboratorio & Especialista de Equipos</div>
-              <div class="entry-org">FabLab UV — Universidad de Valparaíso · Chile</div>
-            </div>
-            <time class="entry-date" datetime="2023-03">Mar 2023 — Presente</time>
-          </div>
-          <ul class="content-list">
-            <li>Encargado técnico del mantenimiento correctivo y <strong>calibración micrométrica</strong> de maquinaria industrial: impresoras 3D (FDM/SLA), fresadoras CNC, cortadoras láser CO2 y enrutadores.</li>
-            <li>Líder de capacitación técnica y metodológica a estudiantes en diseño paramétrico y <strong>flujos avanzados de fabricación digital</strong>.</li>
-            <li>Desarrollador de proyectos de <strong>ingeniería inversa</strong> aplicados al diseño de carcasas, fijaciones y chasis para hardware biomédico.</li>
-          </ul>
-        </div>
-
-        <div class="editorial-block" data-profile="clinica">
-          <div class="entry-head">
-            <div>
-              <div class="entry-title">Practicante — Departamento de Mantenimiento</div>
-              <div class="entry-org">Cámara de Diputadas y Diputados de Chile · Valparaíso, Chile</div>
-            </div>
-            <time class="entry-date" datetime="2024-08">Ago 2024 — Sep 2024</time>
-          </div>
-          <ul class="content-list">
-            <li>Planificación técnica y supervisión de los planes de mantenimiento preventivo aplicados al equipamiento audiovisual y de climatización en las salas legislativas principales.</li>
-            <li>Gestión administrativa técnica y licitación de insumos de ingeniería mediante la plataforma oficial de compras públicas del Estado chileno (<strong>Mercado Público</strong>).</li>
-          </ul>
-        </div>
-
-        <div class="editorial-block" data-profile="data clinica">
-          <div class="entry-head">
-            <div>
-              <div class="entry-title">Asistente Topográfico & Mantenimiento de Equipos</div>
-              <div class="entry-org">Incigeo SPA · Chile</div>
-            </div>
-            <time class="entry-date" datetime="2022-01">2022 — 2023</time>
-          </div>
-          <ul class="content-list">
-            <li>Procesamiento de datos de campo y soporte operativo en levantamientos geodésicos y topográficos destinados a obras civiles masivas.</li>
-            <li>Responsable de la calibración preventiva e inspección de estaciones totales, receptores GNSS y software de posicionamiento geográfico.</li>
-          </ul>
-        </div>
+      <div class="entry-list-container" id="experiencia-container">
+        <!-- Contenido Inyectado dinámicamente -->
       </div>
     </section>
 
@@ -861,47 +832,8 @@
         <h2 class="sec-title" id="form-title">Formación Académica</h2>
         <div class="sec-rule"></div>
       </div>
-
-      <div class="entry-list-container">
-        <div class="editorial-block">
-          <div class="entry-head">
-            <div>
-              <div class="entry-title">Estudiante de Intercambio Erasmus+</div>
-              <div class="entry-org">Alma Mater Studiorum — Università di Bologna · Italia</div>
-            </div>
-            <time class="entry-date" datetime="2025-09">Sep 2025 — Feb 2026</time>
-          </div>
-          <ul class="content-list">
-            <li><b>Asignaturas de Postgrado aprobadas:</b> Artificial Intelligence for Medicine, Bioimmagini e Ingegneria Clinica, Project Work in AI for Industry, Project Management and Soft Skills, Machine Learning and Data Mining.</li>
-            <li><b>Área de Especialización:</b> Implementación de <strong>Redes Neuronales Convolucionales (CNN)</strong> en diagnóstico por imagen médica, gestión de Big Data clínico y models predictivos hospitalarios.</li>
-          </ul>
-        </div>
-
-        <div class="editorial-block">
-          <div class="entry-head">
-            <div>
-              <div class="entry-title">Licenciatura en Ciencias de la Ingeniería Biomédica</div>
-              <div class="entry-org">Universidad de Valparaíso · Chile</div>
-            </div>
-            <time class="entry-date" datetime="2021-01">2021 — Presente</time>
-          </div>
-          <ul class="content-list">
-            <li><b>Estatus actual:</b> Alumno regular de último año en el programa integrado de Ingeniería Civil Biomédica. Foco directo en <strong>Bioinstrumentación avanzada</strong>, Sistemas de Información de Salud (HIS) y Procesamiento Digital de Señales (DSP).</li>
-          </ul>
-        </div>
-
-        <div class="editorial-block">
-          <div class="entry-head">
-            <div>
-              <div class="entry-title">Técnico de Nivel Medio en Electrónica Industrial</div>
-              <div class="entry-org">Colegio Salesiano de Valparaíso · Chile</div>
-            </div>
-            <time class="entry-date" datetime="2017-01">2017 — 2020</time>
-          </div>
-          <ul class="content-list">
-            <li>Formación de especialización en automatización secuencial, <strong>lógica cableada y programada (PLC)</strong>, diseño de circuitos impresos (PCB) y control electrónico de potencia industrial.</li>
-          </ul>
-        </div>
+      <div class="entry-list-container" id="formacion-container">
+        <!-- Contenido Inyectado dinámicamente -->
       </div>
     </section>
 
@@ -912,89 +844,8 @@
         <h2 class="sec-title" id="cert-title">Certificaciones Profesionales</h2>
         <div class="sec-rule"></div>
       </div>
-
-      <div class="certs-grid">
-        
-        <!-- FAB-D -->
-        <div class="editorial-block" data-profile="hardware investigacion">
-          <div class="project-head">
-            <span class="cert-platform">Universidad de Valparaíso</span>
-            <h3 class="entry-title">Fabricación Digital Avanzada (FAB-D)</h3>
-          </div>
-          <p class="block-text" style="font-size: 14px;">
-            90 horas acreditadas en metodologías globales FabLab. Entornos <strong>CAD/CAM paramétricos</strong>, optimización CNC y encapsulamiento de hardware electrónico médico.
-          </p>
-          <div class="project-actions">
-            <a class="project-link" href="https://drive.google.com/file/d/1evt4FpQzL9LuA9la4xAQsxKdmMFZgI60/view?usp=sharing" target="_blank" rel="noopener noreferrer">
-              Ver credencial original <span class="arrow">↗</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- GOOGLE BUSINESS INTELLIGENCE -->
-        <div class="editorial-block" data-profile="data software">
-          <div class="project-head">
-            <span class="cert-platform">Google — Coursera</span>
-            <h3 class="entry-title">Google Business Intelligence</h3>
-          </div>
-          <p class="block-text" style="font-size: 14px;">
-            Diseño de arquitecturas de almacenamiento de datos, estructuración de <strong>pipelines analíticos complejos (ETL)</strong> y optimización de dashboards a gran escala.
-          </p>
-          <div class="project-actions">
-            <a class="project-link" href="https://www.coursera.org/account/accomplishments/specialization/G8S1T4CKDO53" target="_blank" rel="noopener noreferrer">
-              Ver credencial en línea <span class="arrow">↗</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- GOOGLE DATA ANALYTICS -->
-        <div class="editorial-block" data-profile="data">
-          <div class="project-head">
-            <span class="cert-platform">Google — Coursera</span>
-            <h3 class="entry-title">Google Data Analytics</h3>
-          </div>
-          <p class="block-text" style="font-size: 14px;">
-            Ciclo analítico completo de datos. Dominio práctico avanzado en bases de datos relacionales <strong>SQL</strong>, programación analítica en <strong>R Core</strong> y minería estructurada.
-          </p>
-          <div class="project-actions">
-            <a class="project-link" href="https://www.coursera.org/account/accomplishments/specialization/96B4VBQYHBBP" target="_blank" rel="noopener noreferrer">
-              Ver credencial en línea <span class="arrow">↗</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- GOOGLE DATA-DRIVEN DECISION MAKING -->
-        <div class="editorial-block" data-profile="data ml">
-          <div class="project-head">
-            <span class="cert-platform">Google — Coursera</span>
-            <h3 class="entry-title">Data-Driven Decision Making</h3>
-          </div>
-          <p class="block-text" style="font-size: 14px;">
-            Formulación de hipótesis estadísticas analíticas robustas, modelado y gobernanza de datos en arquitecturas e infraestructuras de TI complejas.
-          </p>
-          <div class="project-actions">
-            <a class="project-link" href="https://www.coursera.org/account/accomplishments/specialization/WVEPE3UG3EEE" target="_blank" rel="noopener noreferrer">
-              Ver credencial en línea <span class="arrow">↗</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- GOOGLE AI ESSENTIALS -->
-        <div class="editorial-block" data-profile="ml investigacion">
-          <div class="project-head">
-            <span class="cert-platform">Google — Coursera</span>
-            <h3 class="entry-title">Google AI Essentials</h3>
-          </div>
-          <p class="block-text" style="font-size: 14px;">
-            Aplicación avanzada de Inteligencia Artificial Generativa, <strong>ingeniería de instrucciones (prompt engineering)</strong> y despliegue ético de modelos fundacionales.
-          </p>
-          <div class="project-actions">
-            <a class="project-link" href="https://www.coursera.org/account/accomplishments/specialization/Y62SPQVRY19Z" target="_blank" rel="noopener noreferrer">
-              Ver credencial en línea <span class="arrow">↗</span>
-            </a>
-          </div>
-        </div>
-
+      <div class="certs-grid" id="certificaciones-container">
+        <!-- Contenido Inyectado dinámicamente -->
       </div>
     </section>
 
@@ -1005,195 +856,8 @@
         <h2 class="sec-title" id="proj-title">Proyectos Destacados</h2>
         <div class="sec-rule"></div>
       </div>
-
-      <div class="projects-grid">
-
-        <!-- CORE CORREGIDO: BIOMEDICAL DSP PLATAFORMA EDUCATIVA UNIVERSITARIA -->
-        <article class="editorial-block" data-profile="data clinica software">
-          <div class="project-head">
-            <h3 class="entry-title">Biomedical DSP — Suite de Procesamiento <span class="project-tag">Educativo Universitario & SaaS</span></h3>
-          </div>
-          <div class="project-stack">
-            <span class="tech-badge">Python</span>
-            <span class="tech-badge">JavaScript</span>
-            <span class="tech-badge">TypeScript</span>
-            <span class="tech-badge">DSP Core</span>
-            <span class="tech-badge">Tailwind CSS</span>
-          </div>
-          <ul class="content-list">
-            <li><strong>Plataforma educativa universitaria</strong> web dedicada al Procesamiento Digital de Señales (<strong>DSP</strong>) biomédicas (ECG, EEG, EMG).</li>
-            <li>Pipelines analíticos en tiempo real: Filtros <strong>IIR/FIR</strong>, eliminación adaptativa de ruido (Notch) y <strong>FFT</strong> interactiva.</li>
-          </ul>
-          <div class="project-actions">
-            <a class="project-link" href="https://biomedical-dsp-uv.vercel.app/" target="_blank" rel="noopener noreferrer">Despliegue <span class="arrow">↗</span></a>
-            <a class="project-link" href="https://github.com/MaximilianoAntonio/Biomedical-DSP" target="_blank" rel="noopener noreferrer">Backend <span class="arrow">↗</span></a>
-            <a class="project-link" href="https://github.com/MaximilianoAntonio/Biomedical-DSP-UV" target="_blank" rel="noopener noreferrer">Frontend <span class="arrow">↗</span></a>
-          </div>
-        </article>
-
-        <article class="editorial-block" data-profile="data software">
-          <div class="project-head">
-            <h3 class="entry-title">HGF Repuestos — Inventario Predictivo <span class="project-tag">Producción Comercial</span></h3>
-          </div>
-          <div class="project-stack">
-            <span class="tech-badge">Python</span>
-            <span class="tech-badge">Django</span>
-            <span class="tech-badge">TypeScript</span>
-            <span class="tech-badge">PostgreSQL</span>
-            <span class="tech-badge">Render Nube</span>
-          </div>
-          <ul class="content-list">
-            <li>Sistema ERP con dashboard analítico, gestión transaccional y generador dinámico de <strong>etiquetas QR</strong> vectoriales.</li>
-            <li>Predicción de demanda basada en modelos de <strong>series temporales</strong> y regresión lineal robusta.</li>
-          </ul>
-          <div class="project-actions">
-            <a class="project-link" href="https://hgf-repuestos.onrender.com/" target="_blank" rel="noopener noreferrer">Producción <span class="arrow">↗</span></a>
-            <a class="project-link" href="https://github.com/MaximilianoAntonio/HGF_Repuestos" target="_blank" rel="noopener noreferrer">Código <span class="arrow">↗</span></a>
-          </div>
-        </article>
-
-        <article class="editorial-block" data-profile="clinica software">
-          <div class="project-head">
-            <h3 class="entry-title">Gestión de Flota Vehicular Autogestionada <span class="project-tag">Producción Institucional</span></h3>
-          </div>
-          <div class="project-stack">
-            <span class="tech-badge">Django REST</span>
-            <span class="tech-badge">Preact.js</span>
-            <span class="tech-badge">WebSockets</span>
-            <span class="tech-badge">HTML5/CSS3</span>
-          </div>
-          <ul class="content-list">
-            <li>Arquitectura distribuida para el SSVQ, automatizando asignaciones críticas de vehículos de salud pública.</li>
-            <li>Construcción de SPA fluida sincronizada mediante canales asíncronos bidireccionales y control en tiempo real.</li>
-          </ul>
-          <div class="project-actions">
-            <a class="project-link" href="https://youtu.be/SWLqz3MG5k4" target="_blank" rel="noopener noreferrer">Demo <span class="arrow">↗</span></a>
-            <a class="project-link" href="https://github.com/MaximilianoAntonio/Asignacion-vehiculos" target="_blank" rel="noopener noreferrer">Monolito <span class="arrow">↗</span></a>
-            <a class="project-link" href="https://github.com/MaximilianoAntonio/frontflota" target="_blank" rel="noopener noreferrer">Front <span class="arrow">↗</span></a>
-          </div>
-        </article>
-
-        <article class="editorial-block" data-profile="data clinica">
-          <div class="project-head">
-            <h3 class="entry-title">GENCLA — Homologador de Ingeniería Clínica <span class="project-tag">Académico & BI</span></h3>
-          </div>
-          <div class="project-stack">
-            <span class="tech-badge">Python</span>
-            <span class="tech-badge">Vercel Core</span>
-            <span class="tech-badge">BI Intelligence</span>
-            <span class="tech-badge">Data Engineering</span>
-          </div>
-          <ul class="content-list">
-            <li>Unificación, limpieza y normalización de bases de datos clínicas heterogéneas desde sistemas legacy.</li>
-            <li>Módulos de inteligencia de negocio (BI) con rankings multidimensionales de <strong>criticidad de dispositivos médicos</strong>.</li>
-          </ul>
-          <div class="project-actions">
-            <a class="project-link" href="https://gencla.vercel.app/" target="_blank" rel="noopener noreferrer">Acceso Herramienta <span class="arrow">↗</span></a>
-          </div>
-        </article>
-
-        <article class="editorial-block" data-profile="data software">
-          <div class="project-head">
-            <h3 class="entry-title">PUCO — Analizador de Licitaciones Estatales <span class="project-tag">SaaS / Automatización</span></h3>
-          </div>
-          <div class="project-stack">
-            <span class="tech-badge">Python</span>
-            <span class="tech-badge">TypeScript</span>
-            <span class="tech-badge">API REST</span>
-            <span class="tech-badge">Web Scraping</span>
-            <span class="tech-badge">ETL Pipelines</span>
-          </div>
-          <ul class="content-list">
-            <li>Ingesta estratégica, filtrado semántico y preprocesamiento masivo de datos de licitaciones públicas chilenas.</li>
-            <li>Tuberías de datos (<strong>ETL</strong>) para consolidar información financiera e índices de competitividad comercial.</li>
-          </ul>
-          <div class="project-actions">
-            <a class="project-link" href="https://puco.onrender.com/" target="_blank" rel="noopener noreferrer">Despliegue <span class="arrow">↗</span></a>
-            <a class="project-link" href="https://github.com/MaximilianoAntonio/PuCo" target="_blank" rel="noopener noreferrer">Código <span class="arrow">↗</span></a>
-          </div>
-        </article>
-
-        <article class="editorial-block" data-profile="ml hardware software">
-          <div class="project-head">
-            <h3 class="entry-title">Brazo Robótico 3-GDL con Visión Artificial <span class="project-tag">Robótica & Visión</span></h3>
-          </div>
-          <div class="project-stack">
-            <span class="tech-badge">Python</span>
-            <span class="tech-badge">OpenCV</span>
-            <span class="tech-badge">Arduino</span>
-            <span class="tech-badge">Dynamixel AX-12A</span>
-            <span class="tech-badge">Impresión 3D</span>
-          </div>
-          <ul class="content-list">
-            <li>Manipulador antropomórfico controlado por hardware embebido y lógica cinemática paramétrica en Python.</li>
-            <li>Pipeline de <strong>visión artificial</strong> para segmentación espacial, extracción geométrica y clasificación en tiempo real.</li>
-          </ul>
-          <div class="project-actions">
-            <a class="project-link" href="https://www.youtube.com/watch?v=Cd75hz88lqM" target="_blank" rel="noopener noreferrer">Demo <span class="arrow">↗</span></a>
-            <a class="project-link" href="https://github.com/MaximilianoAntonio/ur3e" target="_blank" rel="noopener noreferrer">Cinemática <span class="arrow">↗</span></a>
-          </div>
-        </article>
-
-        <article class="editorial-block" data-profile="clinica hardware investigacion">
-          <div class="project-head">
-            <h3 class="entry-title">Robot Continuo Biomédico Exploratorio <span class="project-tag">Bioingeniería / Hardware</span></h3>
-          </div>
-          <div class="project-stack">
-            <span class="tech-badge">Arduino IDE</span>
-            <span class="tech-badge">Sensores EMG</span>
-            <span class="tech-badge">CAD Mecánico</span>
-            <span class="tech-badge">MATLAB</span>
-          </div>
-          <ul class="content-list">
-            <li>Co-desarrollo de dispositivo hiper-redundante flexible para exploración interna quirúrgica o rehabilitación motora.</li>
-            <li>Acondicionamiento de señal para <strong>sensores electromiográficos (EMG)</strong> de superficie acoplados a vectores cinemáticos.</li>
-          </ul>
-          <div class="project-actions">
-            <a class="project-link" href="https://github.com/FabLab-Projects/ProyectoRobotContinuo3" target="_blank" rel="noopener noreferrer">Repo FabLab <span class="arrow">↗</span></a>
-            <a class="project-link" href="https://github.com/Erj5/Continuum-Robot" target="_blank" rel="noopener noreferrer">Core <span class="arrow">↗</span></a>
-          </div>
-        </article>
-
-        <article class="editorial-block" data-profile="ml investigacion">
-          <div class="project-head">
-            <h3 class="entry-title">Taller HMI por Reconocimiento de Gestos <span class="project-tag">Transferencia Tecnológica</span></h3>
-          </div>
-          <div class="project-stack">
-            <span class="tech-badge">Python</span>
-            <span class="tech-badge">OpenCV Core</span>
-            <span class="tech-badge">Computer Vision</span>
-            <span class="tech-badge">Doc Científica</span>
-          </div>
-          <ul class="content-list">
-            <li>Diseño de interfaces Hombre-Máquina (<strong>HMI</strong>) no invasivas basadas en visión computacional.</li>
-            <li>Algoritmos base ligeros para procesamiento matricial de imágenes y mapeo cinemático de contornos de manos.</li>
-          </ul>
-          <div class="project-actions">
-            <a class="project-link" href="https://github.com/fablab-UV/Taller-HMI-por-Gestos-FABLAB-UV-2026-" target="_blank" rel="noopener noreferrer">Repo Oficial <span class="arrow">↗</span></a>
-          </div>
-        </article>
-
-        <article class="editorial-block" data-profile="clinica hardware software">
-          <div class="project-head">
-            <h3 class="entry-title">Prototipo de Incubadora Neonatal con Lazos PID <span class="project-tag">Hardware Médico</span></h3>
-          </div>
-          <div class="project-stack">
-            <span class="tech-badge">Python</span>
-            <span class="tech-badge">Arduino Core</span>
-            <span class="tech-badge">Control PID</span>
-            <span class="tech-badge">MySQL</span>
-            <span class="tech-badge">IoT Architecture</span>
-          </div>
-          <ul class="content-list">
-            <li>Implementación de un chasis termo-regulado controlado computacionalmente mediante algoritmos <strong>PID adaptativos</strong>.</li>
-            <li>Firmware de sensado de variables biomédicas para almacenamiento continuo de logs metabólicos históricos.</li>
-          </ul>
-          <div class="project-actions">
-            <a class="project-link" href="https://github.com/MaximilianoAntonio/incubator-prototype/blob/main/Reporte%20Final%20Incubadora.pdf" target="_blank" rel="noopener noreferrer">Reporte (PDF) <span class="arrow">↗</span></a>
-            <a class="project-link" href="https://github.com/MaximilianoAntonio/incubator-prototype" target="_blank" rel="noopener noreferrer">Repositorio <span class="arrow">↗</span></a>
-          </div>
-        </article>
-
+      <div class="projects-grid" id="proyectos-container">
+        <!-- Contenido Inyectado dinámicamente -->
       </div>
     </section>
 
@@ -1204,181 +868,25 @@
         <h2 class="sec-title" id="rec-title">Reconocimientos y Constancias</h2>
         <div class="sec-rule"></div>
       </div>
-
-      <div class="editorial-block" data-profile="ml data investigacion">
-        <div class="entry-head">
-          <div class="entry-title">Primera Escuela de Invierno iHEALTH</div>
-          <time class="entry-date">Jul 2025</time>
-        </div>
-        <div class="award-org">Instituto Milenio iHEALTH — IA aplicada en Salud</div>
-        <p class="block-text">Seleccionado nacional mediante concurso competitivo cerrado para cursar la formación avanzada en <strong>análisis matricial médico de datos</strong>, redes profundas neuronales y neurociencia computacional.</p>
-      </div>
-
-      <div class="editorial-block" data-profile="clinica">
-        <div class="entry-head">
-          <div class="entry-title">Rally Latinoamericano de Innovación — 3er Lugar Regional</div>
-          <time class="entry-date">Oct 2024</time>
-        </div>
-        <div class="award-org">Comité Organizador Regional — Categoría Impacto Social</div>
-        <p class="block-text">Galardón por el diseño de una infraestructura técnica de comunicación de emergencia y despliegue tecnológico ágil para la coordinación ante catástrofes y desastres geográficos.</p>
-      </div>
-
-      <div class="editorial-block" data-profile="data investigacion">
-        <div class="entry-head">
-          <div class="entry-title">Datathon Make Health Latam</div>
-          <time class="entry-date">Ene 2023</time>
-        </div>
-        <div class="award-org">CENS (Chile) & Massachusetts Institute of Technology (MIT)</div>
-        <p class="block-text">Participante destacado en la competencia de <strong>minería de datos médicos</strong> orientada a proponer arquitecturas clínicas escalables ante problemáticas demográficas complejas en América Latina.</p>
+      <div id="reconocimientos-container">
+        <!-- Contenido Inyectado dinámicamente -->
       </div>
 
       <h3 class="courses-heading" id="courses-title">Cursos de Especialización y Actualización</h3>
-      <div class="courses-grid">
-
-        <div class="editorial-block course-card" data-profile="ml data software">
-          <div class="entry-head">
-            <div class="entry-title">Copilot y GitHub</div>
-            <time class="entry-date">Jun 2026</time>
-          </div>
-          <div class="award-org">Academia RED & Microsoft</div>
-          <p class="block-text">Integración de herramientas de IA generativa para aceleración de software y control de versiones distribuido. Folio: 9095932737MG.</p>
-        </div>
-
-        <div class="editorial-block course-card" data-profile="ml">
-          <div class="entry-head">
-            <div class="entry-title">ExperiencIA LATAM</div>
-            <time class="entry-date">Jun 2026</time>
-          </div>
-          <div class="award-org">Academia RED & Microsoft</div>
-          <p class="block-text">Impacto socioeconómico de la Inteligencia Artificial, despliegue en la nube y adopción de arquitecturas cognitivas. Folio: 3553359018MG.</p>
-        </div>
-
-        <div class="editorial-block course-card" data-profile="ml data">
-          <div class="entry-head">
-            <div class="entry-title">IA para Líderes de Proyecto</div>
-            <time class="entry-date">Jun 2026</time>
-          </div>
-          <div class="award-org">Academia RED & Microsoft</div>
-          <p class="block-text">Gobernanza y dirección de proyectos ingenieriles complejos utilizando modelos predictivos inteligentes. Folio: 8334574810MG.</p>
-        </div>
-
-        <div class="editorial-block course-card" data-profile="ml data software">
-          <div class="entry-head">
-            <div class="entry-title">IA para Ejecutivos de TI</div>
-            <time class="entry-date">Jun 2026</time>
-          </div>
-          <div class="award-org">Academia RED & Microsoft</div>
-          <p class="block-text">Modernización de infraestructuras tecnológicas, escalabilidad y orquestación de servicios cloud. Folio: 7866165207MG.</p>
-        </div>
-
-        <div class="editorial-block course-card" data-profile="data">
-          <div class="entry-head">
-            <div class="entry-title">IA para Directores de PYMES</div>
-            <time class="entry-date">Jun 2026</time>
-          </div>
-          <div class="award-org">Academia RED & Microsoft</div>
-          <p class="block-text">Flujos ágiles de transformación digital e integración de herramientas analíticas predictivas operativas. Folio: 0877919322MG.</p>
-        </div>
-
-        <div class="editorial-block course-card" data-profile="clinica data">
-          <div class="entry-head">
-            <div class="entry-title">Protección de Datos Personales</div>
-            <time class="entry-date">Jun 2026</time>
-          </div>
-          <div class="award-org">Academia RED — Ciberseguridad</div>
-          <p class="block-text">Marcos éticos y regulatorios aplicables a la gobernanza de datos clínicos e historiales médicos privados. Folio: 3078213461MG.</p>
-        </div>
-
-        <div class="editorial-block course-card" data-profile="clinica data">
-          <div class="entry-head">
-            <div class="entry-title">Ciberseguridad en el Trabajo</div>
-            <time class="entry-date">Jun 2026</time>
-          </div>
-          <div class="award-org">Academia RED — Ciberseguridad</div>
-          <p class="block-text">Análisis preventivo de vectores de ataque informáticos y miitgación de riesgos perimetrales de red. Folio: 0391765378MG.</p>
-        </div>
-
-        <div class="editorial-block course-card" data-profile="ml">
-          <div class="entry-head">
-            <div class="entry-title">IA para la Vida y el Trabajo</div>
-            <time class="entry-date">Jun 2026</time>
-          </div>
-          <div class="award-org">Academia RED & Microsoft</div>
-          <p class="block-text">Fundamentos computacionales de inteligencia artificial y optimización de flujos de valor cognitivos. Folio: 5744337648MG.</p>
-        </div>
-
-        <div class="editorial-block course-card" data-profile="data">
-          <div class="entry-head">
-            <div class="entry-title">IA para Marketing y Ventas</div>
-            <time class="entry-date">Jun 2026</time>
-          </div>
-          <div class="award-org">Academia RED & Microsoft</div>
-          <p class="block-text">Análisis predictivo del comportamiento de datos comerciales y segmentación algorítmica de bases. Folio: 7265359589MG.</p>
-        </div>
-
-        <div class="editorial-block course-card" data-profile="data">
-          <div class="entry-head">
-            <div class="entry-title">IA para Recursos Humanos</div>
-            <time class="entry-date">Jun 2026</time>
-          </div>
-          <div class="award-org">Academia RED & Microsoft</div>
-          <p class="block-text">Arquitecturas analíticas para gestión de talento, auditoría predictiva y diseño organizacional optimizado. Folio: 5206747675MG.</p>
-        </div>
-
-        <div class="editorial-block course-card" data-profile="ml investigacion">
-          <div class="entry-head">
-            <div class="entry-title">IA para Docentes</div>
-            <time class="entry-date">Jun 2026</time>
-          </div>
-          <div class="award-org">Academia RED & Microsoft</div>
-          <p class="block-text">Diseño instruccional técnico, transferencia de conocimiento e ingeniería y talleres didácticos. Folio: 9394018456MG.</p>
-        </div>
-
-        <div class="editorial-block course-card" data-profile="data software">
-          <div class="entry-head">
-            <div class="entry-title">Organización Moderna</div>
-            <time class="entry-date">Jun 2026</time>
-          </div>
-          <div class="award-org">Academia RED — Ciberseguridad</div>
-          <p class="block-text">Optimización sistémica de procesos informáticos, marcos ágiles e integración de pipelines de datos. Folio: 7010164484MG.</p>
-        </div>
-
+      <div class="courses-grid" id="courses-container">
+        <!-- Contenido Inyectado dinámicamente -->
       </div>
     </section>
 
-    <!-- HABILIDADES -->
+    <!-- HABILITIES -->
     <section id="habilidades" class="reveal" aria-labelledby="skills-title">
       <div class="sec-head">
         <div class="sec-num">07</div>
         <h2 class="sec-title" id="skills-title">Tech Stack & Habilidades Técnicas</h2>
         <div class="sec-rule"></div>
       </div>
-
-      <div class="skills-list">
-        <div class="skill-row-item">
-          <div class="skill-label">Lenguajes Core</div>
-          <div class="skill-value">Python (DSP & Data Science), C/C++, SQL (PostgreSQL/MySQL), JavaScript, TypeScript, Arduino C++</div>
-        </div>
-        <div class="skill-row-item">
-          <div class="skill-label">Frameworks & Backend</div>
-          <div class="skill-value">Django Web Framework, Flask, Preact.js, React, HTML5, CSS3, WebSockets, REST APIs</div>
-        </div>
-        <div class="skill-row-item">
-          <div class="skill-label">Ciencia de Datos & IA</div>
-          <div class="skill-value">Pandas, NumPy, Scikit-learn, OpenCV (Procesamiento Numérico y Visión), Power BI, Looker Studio</div>
-        </div>
-        <div class="skill-row-item">
-          <div class="skill-label">Hardware & Fabricación</div>
-          <div class="skill-value">CNC, Impresión 3D FDM/SLA avanzada, Instrumentación Biomédica (EMG, ECG), Raspberry Pi, ATMega</div>
-        </div>
-        <div class="skill-row-item">
-          <div class="skill-label">Diseño CAD/CAM & DevOps</div>
-          <div class="skill-value">Autodesk Fusion 360, SolidWorks, AutoCAD, Git/GitHub, Vercel Deployments, Docker básico</div>
-        </div>
-        <div class="skill-row-item">
-          <div class="skill-label">Competencias Idiomas</div>
-          <div class="skill-value">Español (Nativo), Inglés (Intermedio B1-B2 fluido), Italiano (Intermedio B1 conversacional)</div>
-        </div>
+      <div class="skills-list" id="skills-container">
+        <!-- Contenido Inyectado dinámicamente -->
       </div>
     </section>
 
@@ -1389,24 +897,13 @@
         <h2 class="sec-title" id="add-title">Información Adicional</h2>
         <div class="sec-rule"></div>
       </div>
-
-      <div class="editorial-block">
-        <div class="add-label">Disponibilidad Profesional</div>
-        <div class="add-text">
-          Disponibilidad inmediata para la inserción en prácticas profesionales requeridas para la titulación, incorporación a laboratorios de investigación neurocientífica avanzada, desarrollo de dispositivos biomédicos inteligentes (IoMT), o programación de software clínico robusto.
-        </div>
-      </div>
-
-      <div class="editorial-block">
-        <div class="add-label">Vectores de Interés Técnico</div>
-        <div class="add-text">
-          Procesamiento avanzado de neuroimágenes de conectividad estructural, diseño modular de exoesqueletos y robótica de asistencia motora, arquitectura e ingeniería de datos de salud en la nube, y automatización de procesos de ingeniería clínica a nivel hospitalario.
-        </div>
+      <div id="adicional-container">
+        <!-- Contenido Inyectado dinámicamente -->
       </div>
     </section>
 
     <footer>
-      <div>© 2026 Maximiliano Antonio Gaete Pizarro</div>
+      <div id="txt-foot-name">© 2026 Maximiliano Antonio Gaete Pizarro</div>
       <div>Valparaíso, Chile</div>
     </footer>
 
@@ -1416,6 +913,1102 @@
 <script>
   (function() {
     "use strict";
+
+    // --- BASE DE DATOS INTERNACIONALIZADA (I18N) ---
+    const I18N_DATA = {
+      es: {
+        skipLink: "Saltar al contenido principal",
+        brandRole: "Estudiante de Ing. Civil Biomédica<br>Técnico Nivel Medio en Electrónica",
+        lblLocation: "Ubicación",
+        lblPhone: "Teléfono",
+        copyEmail: "Copiar Email",
+        copied: "¡Copiado!",
+        footCopy: "Portafolio © 2026",
+        heroEyebrow: "Portafolio Profesional",
+        heroSubtitle: "Estudiante de Ingeniería Civil Biomédica y Técnico de Nivel Medio en Electrónica Industrial",
+        heroLede: "Especializado en la intersección entre ingeniería avanzada, arquitectura de software y salud, con experiencia práctica en el análisis de neuroimágenes funcionales, fabricación digital y despliegue de sistemas biomédicos inteligentes.",
+        filterLabel: "Filtrar CV (Selecciona uno o varios perfiles en simultáneo):",
+        menuOpen: "Menú",
+        menuClose: "Cerrar",
+        viewDemo: "Demo",
+        viewCode: "Código",
+        viewDeploy: "Despliegue",
+        viewRepo: "Repositorio",
+        viewReport: "Reporte (PDF)",
+        viewTool: "Acceso Herramienta",
+        viewCredential: "Ver credencial en línea",
+        viewOriginalCred: "Ver credencial original",
+        
+        nav: {
+          perfil: "Perfil Profesional",
+          experiencia: "Experiencia",
+          formacion: "Formación Académica",
+          certificaciones: "Certificaciones",
+          proyectos: "Proyectos Destacados",
+          reconocimientos: "Reconocimientos",
+          habilidades: "Tech Stack & Skills",
+          adicional: "Información"
+        },
+        filters: {
+          all: "Ver Todo",
+          data: "Ciencia de Datos / BI",
+          ml: "Machine Learning e IA",
+          software: "Software / Backend",
+          clinica: "Ingeniería Clínica",
+          hardware: "Fabricación Digital",
+          investigacion: "Investigación / I+D"
+        },
+        profile: {
+          title: "Perfil Profesional",
+          text: "Especializado en el diseño e implementación de tecnologías sanitarias críticas, demostrando capacidades avanzadas en:",
+          list: [
+            "Investigación de <strong>neuroimágenes estructurales/funcionales</strong> y conectividad de redes cerebrales.",
+            "<strong>Fabricación digital avanzada</strong>, ingeniería inversa y prototipado rápido en entornos FabLab.",
+            "Desarrollo de robótica médica, instrumentación biomédica, telemetría y visión artificial.",
+            "Diseño de <strong>architecturas de software robustas</strong> (ETL, API REST, Dashboards) utilizando Python, TypeScript y SQL."
+          ],
+          tail: "Enfoque proactivo orientado al desarrollo de sistemas bioingenieriles con alta escalabilidad, optimización algorítmica y un profundo impacto social en la asistencia clínica y de investigación."
+        },
+        profileLeads: {
+          all: "Estudiante de último año en Ingeniería Civil Biomédica con sólida formación técnica inicial en Electrónica Industrial y experiencia académica internacional en IA aplicada al entorno médico mediante una estancia en la Università di Bologna.",
+          data: "Estudiante de último año en Ingeniería Civil Biomédica con enfoque en Ciencia de Datos y BI para el sector salud. Especializado en pipelines analísticos complexes (ETL), normalización de bases de datos clínicas y reportería interactiva.",
+          ml: "Especialización internacional en IA y Machine Learning aplicado al entorno médico en la Università di Bologna. Experiencia en el preprocesamiento automatizado de neuroimágenes masivas (fMRI, dTI) y models neuronales profundos.",
+          software: "Desarrollador enfocado en arquitectura de software de salud, APIs REST robustas, sincronización en tiempo real vía WebSockets e integraciones seguras en entornos web distribuidos utilizando Python, TypeScript y bases de datos.",
+          clinica: "Orientado a la gestión de tecnologías sanitarias, planificación de mantenimiento predictivo/correctivo en infraestructura crítica y optimización sistémica de recursos operativos hospitalarios.",
+          hardware: "Especializado en el desarrollo de hardware médico, robótica de asistencia motora, instrumentación bioeléctrica (sensores EMG/ECG) y flujos avanzados de diseño paramétrico CAD/CAM en entornos FabLab.",
+          investigacion: "Enfoque científico e investigativo en el modelamiento de sistemas bioingenieriles complejos, conectividad estructural de redes neuronales, e ingeniería inversa aplicada al diseño de dispositivos médicos."
+        },
+        experiencia: {
+          title: "Experiencia Laboral",
+          items: [
+            {
+              title: "Practicante en Ingeniería de Desarrollo e Investigación",
+              org: "Instituto Milenio iHEALTH · Chile",
+              date: "Ene 2026 — Mar 2026",
+              profiles: "data ml investigacion",
+              bullets: [
+                "Investigador adjunto en Stream 4: Evaluación de disrupción de <strong>redes funcionales cerebrales</strong> en pacientes oncológicos mediante técnicas avanzadas de neuroimagen (<strong>fMRI, dTI</strong>) y análisis matemático de conectividad cerebral.",
+                "Diseño e implementación de scripts y <strong>flujos de Machine Learning</strong> para el preprocesamiento y limpieza automatizada de datos neuroimagológicos masivos."
+              ]
+            },
+            {
+              title: "Operario en Mantenimiento — Congreso Nacional",
+              org: "Cooperativa De Trabajo SVA · Valparaíso, Chile",
+              date: "Ene 2025 — Feb 2025",
+              profiles: "clinica",
+              bullets: [
+                "Gestión integral del mantenimiento preventivo, predictivo y correctivo de <strong>sistemas de CCTV complejos</strong>, redes de detección temprana de incendios y cableado estructurado dentro de la infraestructura crítica del Congreso Nacional.",
+                "Actualización técnica avanzada de planos eléctricos y diagramas de redes; resolución de incidencias en tiempo real bajo estrictos protocolos de seguridad institucional."
+              ]
+            },
+            {
+              title: "Instructor de Laboratorio & Especialista de Equipos",
+              org: "FabLab UV — Universidad de Valparaíso · Chile",
+              date: "Mar 2023 — Presente",
+              profiles: "hardware investigacion",
+              bullets: [
+                "Encargado técnico del mantenimiento correctivo y <strong>calibración micrométrica</strong> de maquinaria industrial: impresoras 3D (FDM/SLA), fresadoras CNC, cortadoras láser CO2 y enrutadores.",
+                "Líder de capacitación técnica y metodológica a estudiantes en diseño paramétrico y <strong>flujos avanzados de fabricación digital</strong>.",
+                "Desarrollador de proyectos de <strong>ingeniería inversa</strong> aplicados al diseño de carcasas, fijaciones y chasis para hardware biomédico."
+              ]
+            },
+            {
+              title: "Practicante — Departamento de Mantenimiento",
+              org: "Cámara de Diputadas y Diputados de Chile · Valparaíso, Chile",
+              date: "Ago 2024 — Sep 2024",
+              profiles: "clinica",
+              bullets: [
+                "Planificación técnica y supervisión de los planes de mantenimiento preventivo aplicados al equipamiento audiovisual y de climatización en las salas legislativas principales.",
+                "Gestión administrativa técnica y licitación de insumos de ingeniería mediante la plataforma oficial de compras públicas del Estado chileno (<strong>Mercado Público</strong>)."
+              ]
+            },
+            {
+              title: "Asistente Topográfico & Mantenimiento de Equipos",
+              org: "Incigeo SPA · Chile",
+              date: "2022 — 2023",
+              profiles: "data clinica",
+              bullets: [
+                "Procesamiento de datos de campo y soporte operativo en levantamientos geodésicos y topográficos destinados a obras civiles masivas.",
+                "Responsable de la calibración preventiva e inspección de estaciones totales, receptores GNSS y software de posicionamiento geográfico."
+              ]
+            }
+          ]
+        },
+        formacion: {
+          title: "Formación Académica",
+          items: [
+            {
+              title: "Estudiante de Intercambio Erasmus+",
+              org: "Alma Mater Studiorum — Università di Bologna · Italia",
+              date: "Sep 2025 — Feb 2026",
+              bullets: [
+                "<b>Asignaturas de Postgrado aprobadas:</b> Artificial Intelligence for Medicine, Bioimmagini e Ingegneria Clinica, Project Work in AI for Industry, Project Management and Soft Skills, Machine Learning and Data Mining.",
+                "<b>Área de Especialización:</b> Implementación de <strong>Redes Neuronales Convolucionales (CNN)</strong> en diagnóstico por imagen médica, gestión de Big Data clínico y modelos predictivos hospitalarios."
+              ]
+            },
+            {
+              title: "Licenciatura en Ciencias de la Ingeniería Biomédica",
+              org: "Universidad de Valparaíso · Chile",
+              date: "2021 — Presente",
+              bullets: [
+                "<b>Estatus actual:</b> Alumno regular de último año en el programa integrado de Ingeniería Civil Biomédica. Foco directo en <strong>Bioinstrumentación avanzada</strong>, Sistemas de Información de Salud (HIS) y Procesamiento Digital de Señales (DSP)."
+              ]
+            },
+            {
+              title: "Técnico de Nivel Medio en Electrónica Industrial",
+              org: "Colegio Salesiano de Valparaíso · Chile",
+              date: "2017 — 2020",
+              bullets: [
+                "Formación de especialización en automatización secuencial, <strong>lógica cableada y programada (PLC)</strong>, diseño de circuitos impresos (PCB) y control electrónico de potencia industrial."
+              ]
+            }
+          ]
+        },
+        certificaciones: {
+          title: "Certificaciones Profesionales",
+          items: [
+            {
+              platform: "Universidad de Valparaíso",
+              title: "Fabricación Digital Avanzada (FAB-D)",
+              desc: "90 horas acreditadas en metodologías globales FabLab. Entornos <strong>CAD/CAM paramétricos</strong>, optimización CNC y encapsulamiento de hardware electrónico médico.",
+              link: "https://drive.google.com/file/d/1evt4FpQzL9LuA9la4xAQsxKdmMFZgI60/view?usp=sharing",
+              type: "original",
+              profiles: "hardware investigacion"
+            },
+            {
+              platform: "Google — Coursera",
+              title: "Google Business Intelligence",
+              desc: "Diseño de arquitecturas de almacenamiento de datos, estructuración de <strong>pipelines analíticos complejos (ETL)</strong> y optimización de dashboards a gran escala.",
+              link: "https://www.coursera.org/account/accomplishments/specialization/G8S1T4CKDO53",
+              type: "online",
+              profiles: "data software"
+            },
+            {
+              platform: "Google — Coursera",
+              title: "Google Data Analytics",
+              desc: "Ciclo analítico completo de datos. Dominio práctico avanzado en bases de datos relacionales <strong>SQL</strong>, programación analítica en <strong>R Core</strong> y minería estructurada.",
+              link: "https://www.coursera.org/account/accomplishments/specialization/96B4VBQYHBBP",
+              type: "online",
+              profiles: "data"
+            },
+            {
+              platform: "Google — Coursera",
+              title: "Data-Driven Decision Making",
+              desc: "Formulación de hipótesis estadísticas analíticas robustas, modelado y gobernanza de datos en arquitecturas e infraestructuras de TI complejas.",
+              link: "https://www.coursera.org/account/accomplishments/specialization/WVEPE3UG3EEE",
+              type: "online",
+              profiles: "data ml"
+            },
+            {
+              platform: "Google — Coursera",
+              title: "Google AI Essentials",
+              desc: "Aplicación avanzada de Inteligencia Artificial Generativa, <strong>ingeniería de instrucciones (prompt engineering)</strong> y despliegue ético de modelos fundacionales.",
+              link: "https://www.coursera.org/account/accomplishments/specialization/Y62SPQVRY19Z",
+              type: "online",
+              profiles: "ml investigacion"
+            }
+          ]
+        },
+        proyectos: {
+          title: "Proyectos Destacados",
+          items: [
+            {
+              title: "Biomedical DSP — Suite de Procesamiento",
+              tag: "Educativo Universitario & SaaS",
+              profiles: "data clinica software",
+              stack: ["Python", "JavaScript", "TypeScript", "DSP Core", "Tailwind CSS"],
+              bullets: [
+                "<strong>Plataforma educativa universitaria</strong> web dedicada al Procesamiento Digital de Señales (<strong>DSP</strong>) biomédicas (ECG, EEG, EMG).",
+                "Pipelines analíticos en tiempo real: Filtros <strong>IIR/FIR</strong>, eliminación adaptativa de ruido (Notch) y <strong>FFT</strong> interactiva."
+              ],
+              actions: [
+                { type: "deploy", url: "https://biomedical-dsp-uv.vercel.app/" },
+                { type: "code", label: "Backend", url: "https://github.com/MaximilianoAntonio/Biomedical-DSP" },
+                { type: "code", label: "Frontend", url: "https://github.com/MaximilianoAntonio/Biomedical-DSP-UV" }
+              ]
+            },
+            {
+              title: "HGF Repuestos — Inventario Predictivo",
+              tag: "Producción Comercial",
+              profiles: "data software",
+              stack: ["Python", "Django", "TypeScript", "PostgreSQL", "Render Nube"],
+              bullets: [
+                "Sistema ERP con dashboard analítico, gestión transaccional y generador dinámico de <strong>etiquetas QR</strong> vectoriales.",
+                "Predicción de demanda basada en modelos de <strong>series temporales</strong> y regresión lineal robusta."
+              ],
+              actions: [
+                { type: "deploy", label: "Producción", url: "https://hgf-repuestos.onrender.com/" },
+                { type: "code", url: "https://github.com/MaximilianoAntonio/HGF_Repuestos" }
+              ]
+            },
+            {
+              title: "Gestión de Flota Vehicular Autogestionada",
+              tag: "Producción Institucional",
+              profiles: "clinica software",
+              stack: ["Django REST", "Preact.js", "WebSockets", "HTML5/CSS3"],
+              bullets: [
+                "Arquitectura distribuida para el SSVQ, automatizando asignaciones críticas de vehículos de salud pública.",
+                "Construcción de SPA fluida sincronizada mediante canales asíncronos bidireccionales y control en tiempo real."
+              ],
+              actions: [
+                { type: "demo", url: "https://youtu.be/SWLqz3MG5k4" },
+                { type: "code", label: "Monolito", url: "https://github.com/MaximilianoAntonio/Asignacion-vehiculos" },
+                { type: "code", label: "Front", url: "https://github.com/MaximilianoAntonio/frontflota" }
+              ]
+            },
+            {
+              title: "GENCLA — Homologador de Ingeniería Clínica",
+              tag: "Académico & BI",
+              profiles: "data clinica",
+              stack: ["Python", "Vercel Core", "BI Intelligence", "Data Engineering"],
+              bullets: [
+                "Unificación, limpieza y normalización de bases de datos clínicas heterogéneas desde sistemas legacy.",
+                "Módulos de inteligencia de negocio (BI) con rankings multidimensionales de <strong>criticidad de dispositivos médicos</strong>."
+              ],
+              actions: [
+                { type: "tool", url: "https://gencla.vercel.app/" }
+              ]
+            },
+            {
+              title: "PUCO — Analizador de Licitaciones Estatales",
+              tag: "SaaS / Automatización",
+              profiles: "data software",
+              stack: ["Python", "TypeScript", "API REST", "Web Scraping", "ETL Pipelines"],
+              bullets: [
+                "Ingesta estratégica, filtrado semántico y preprocesamiento masivo de datos de licitaciones públicas chilenas.",
+                "Tuberías de datos (<strong>ETL</strong>) para consolidar información financiera e índices de competitividad comercial."
+              ],
+              actions: [
+                { type: "deploy", url: "https://puco.onrender.com/" },
+                { type: "code", url: "https://github.com/MaximilianoAntonio/PuCo" }
+              ]
+            },
+            {
+              title: "Brazo Robótico 3-GDL con Visión Artificial",
+              tag: "Robótica & Visión",
+              profiles: "ml hardware software",
+              stack: ["Python", "OpenCV", "Arduino", "Dynamixel AX-12A", "Impresión 3D"],
+              bullets: [
+                "Manipulador antropomórfico controlado por hardware embebido y lógica cinemática paramétrica en Python.",
+                "Pipeline de <strong>visión artificial</strong> para segmentación espacial, extracción geométrica y clasificación en tiempo real."
+              ],
+              actions: [
+                { type: "demo", url: "https://www.youtube.com/watch?v=Cd75hz88lqM" },
+                { type: "code", label: "Cinemática", url: "https://github.com/MaximilianoAntonio/ur3e" }
+              ]
+            },
+            {
+              title: "Robot Continuo Biomédico Exploratorio",
+              tag: "Bioingeniería / Hardware",
+              profiles: "clinica hardware investigacion",
+              stack: ["Arduino IDE", "Sensores EMG", "CAD Mecánico", "MATLAB"],
+              bullets: [
+                "Co-desarrollo de dispositivo hiper-redundante flexible para exploración interna quirúrgica o rehabilitación motora.",
+                "Acondicionamiento de señal para <strong>sensores electromiográficos (EMG)</strong> de superficie acoplados a vectores cinemáticos."
+              ],
+              actions: [
+                { type: "repo", label: "Repo FabLab", url: "https://github.com/FabLab-Projects/ProyectoRobotContinuo3" },
+                { type: "code", label: "Core", url: "https://github.com/Erj5/Continuum-Robot" }
+              ]
+            },
+            {
+              title: "Taller HMI por Reconocimiento de Gestos",
+              tag: "Transferencia Tecnológica",
+              profiles: "ml investigacion",
+              stack: ["Python", "OpenCV Core", "Computer Vision", "Doc Científica"],
+              bullets: [
+                "Diseño de interfaces Hombre-Máquina (<strong>HMI</strong>) no invasivas basadas en visión computacional.",
+                "Algoritmos base ligeros para procesamiento matricial de imágenes y mapeo cinemático de contornos de manos."
+              ],
+              actions: [
+                { type: "repo", label: "Repo Oficial", url: "https://github.com/fablab-UV/Taller-HMI-por-Gestos-FABLAB-UV-2026-" }
+              ]
+            },
+            {
+              title: "Prototipo de Incubadora Neonatal con Lazos PID",
+              tag: "Hardware Médico",
+              profiles: "clinica hardware software",
+              stack: ["Python", "Arduino Core", "Control PID", "MySQL", "IoT Architecture"],
+              bullets: [
+                "Implementación de un chasis termo-regulado controlado computacionalmente mediante algoritmos <strong>PID adaptativos</strong>.",
+                "Firmware de sensado de variables biomédicas para almacenamiento continuo de logs metabólicos históricos."
+              ],
+              actions: [
+                { type: "report", url: "https://github.com/MaximilianoAntonio/incubator-prototype/blob/main/Reporte%20Final%20Incubadora.pdf" },
+                { type: "repo", url: "https://github.com/MaximilianoAntonio/incubator-prototype" }
+              ]
+            }
+          ]
+        },
+        reconocimientos: {
+          title: "Reconocimientos y Constancias",
+          coursesTitle: "Cursos de Especialización y Actualización",
+          items: [
+            {
+              title: "Primera Escuela de Invierno iHEALTH",
+              date: "Jul 2025",
+              org: "Instituto Milenio iHEALTH — IA aplicada en Salud",
+              profiles: "ml data investigacion",
+              desc: "Seleccionado nacional mediante concurso competitivo cerrado para cursar la formación avanzada en <strong>análisis matricial médico de datos</strong>, redes profundas neuronales y neurociencia computacional."
+            },
+            {
+              title: "Rally Latinoamericano de Innovación — 3er Lugar Regional",
+              date: "Oct 2024",
+              org: "Comité Organizador Regional — Categoría Impacto Social",
+              profiles: "clinica",
+              desc: "Galardón por el diseño de una infraestructura técnica de comunicación de emergencia y despliegue tecnológico ágil para la coordinación ante catástrofes y desastres geográficos."
+            },
+            {
+              title: "Datathon Make Health Latam",
+              date: "Ene 2023",
+              org: "CENS (Chile) & Massachusetts Institute of Technology (MIT)",
+              profiles: "data investigacion",
+              desc: "Participante destacado en la competencia de <strong>minería de datos médicos</strong> orientada a proponer arquitecturas clínicas escalables ante problemáticas demográficas complejas en América Latina."
+            }
+          ],
+          courses: [
+            { title: "Copilot y GitHub", date: "Jun 2026", org: "Academia RED & Microsoft", profiles: "ml data software", desc: "Integración de herramientas de IA generativa para aceleración de software y control de versiones distribuido. Folio: 9095932737MG." },
+            { title: "ExperiencIA LATAM", date: "Jun 2026", org: "Academia RED & Microsoft", profiles: "ml", desc: "Impacto socioeconómico de la Inteligencia Artificial, despliegue en la nube y adopción de arquitecturas cognitivas. Folio: 3553359018MG." },
+            { title: "IA para Líderes de Proyecto", date: "Jun 2026", org: "Academia RED & Microsoft", profiles: "ml data", desc: "Gobernanza y dirección de proyectos ingenieriles complejos utilizando modelos predictivos inteligentes. Folio: 8334574810MG." },
+            { title: "IA para Ejecutivos de TI", date: "Jun 2026", org: "Academia RED & Microsoft", profiles: "ml data software", desc: "Modernización de infraestructuras tecnológicas, escalabilidad y orquestación de servicios cloud. Folio: 7866165207MG." },
+            { title: "IA para Directores de PYMES", date: "Jun 2026", org: "Academia RED & Microsoft", profiles: "data", desc: "Flujos ágiles de transformación digital e integración de herramientas analíticas predictivas operativas. Folio: 0877919322MG." },
+            { title: "Protección de Datos Personales", date: "Jun 2026", org: "Academia RED — Ciberseguridad", profiles: "clinica data", desc: "Marcos éticos y regulatorios aplicables a la gobernanza de datos clínicos e historiales médicos privados. Folio: 3078213461MG." },
+            { title: "Ciberseguridad en el Trabajo", date: "Jun 2026", org: "Academia RED — Ciberseguridad", profiles: "clinica data", desc: "Análisis preventivo de vectores de ataque informáticos y mitigación de riesgos perimetrales de red. Folio: 0391765378MG." },
+            { title: "IA para la Vida y el Trabajo", date: "Jun 2026", org: "Academia RED & Microsoft", profiles: "ml", desc: "Fundamentos computacionales de inteligencia artificial y optimización de flujos de valor cognitivos. Folio: 5744337648MG." },
+            { title: "IA para Marketing y Ventas", date: "Jun 2026", org: "Academia RED & Microsoft", profiles: "data", desc: "Análisis predictivo del comportamiento de datos comerciales y segmentación algorítmica de bases. Folio: 7265359589MG." },
+            { title: "IA para Recursos Humanos", date: "Jun 2026", org: "Academia RED & Microsoft", profiles: "data", desc: "Arquitecturas analíticas para gestión de talento, auditoría predictiva y diseño organizacional optimizado. Folio: 5206747675MG." },
+            { title: "IA para Docentes", date: "Jun 2026", org: "Academia RED & Microsoft", profiles: "ml investigacion", desc: "Diseño instruccional técnico, transferencia de conocimiento e ingeniería y talleres didácticos. Folio: 9394018456MG." },
+            { title: "Organización Moderna", date: "Jun 2026", org: "Academia RED — Ciberseguridad", profiles: "data software", desc: "Optimización sistémica de procesos informáticos, marcos ágiles e integración de pipelines de datos. Folio: 7010164484MG." }
+          ]
+        },
+        habilidades: {
+          title: "Tech Stack & Habilidades Técnicas",
+          items: [
+            { label: "Lenguajes Core", value: "Python (DSP & Data Science), C/C++, SQL (PostgreSQL/MySQL), JavaScript, TypeScript, Arduino C++" },
+            { label: "Frameworks & Backend", value: "Django Web Framework, Flask, Preact.js, React, HTML5, CSS3, WebSockets, REST APIs" },
+            { label: "Ciencia de Datos & IA", value: "Pandas, NumPy, Scikit-learn, OpenCV (Procesamiento Numérico y Visión), Power BI, Looker Studio" },
+            { label: "Hardware & Fabricación", value: "CNC, Impresión 3D FDM/SLA avanzada, Instrumentación Biomédica (EMG, ECG), Raspberry Pi, ATMega" },
+            { label: "Diseño CAD/CAM & DevOps", value: "Autodesk Fusion 360, SolidWorks, AutoCAD, Git/GitHub, Vercel Deployments, Docker básico" },
+            { label: "Competencias Idiomas", value: "Español (Nativo), Inglés (Intermedio B1-B2 fluido), Italiano (Intermedio B1 conversacional)" }
+          ]
+        },
+        adicional: {
+          title: "Información Adicional",
+          blocks: [
+            { label: "Disponibilidad Profesional", text: "Disponibilidad inmediata para la inserción en prácticas profesionales requeridas para la titulación, incorporación a laboratorios de investigación neurocientífica avanzada, desarrollo de dispositivos biomédicos inteligentes (IoMT), o programación de software clínico robusto." },
+            { label: "Vectores de Interés Técnico", text: "Procesamiento avanzado de neuroimágenes de conectividad estructural, diseño modular de exoesqueletos y robótica de asistencia motora, arquitectura e ingeniería de datos de salud en la nube, y automatización de procesos de ingeniería clínica a nivel hospitalario." }
+          ]
+        }
+      },
+      en: {
+        skipLink: "Skip to main content",
+        brandRole: "Biomedical Engineering Student<br>Industrial Electronics Technician",
+        lblLocation: "Location",
+        lblPhone: "Phone",
+        copyEmail: "Copy Email",
+        copied: "Copied!",
+        footCopy: "Portfolio © 2026",
+        heroEyebrow: "Professional Portfolio",
+        heroSubtitle: "Biomedical Engineering Student & Industrial Electronics Technician",
+        heroLede: "Specialized at the intersection of advanced engineering, software architecture, and healthcare, with hands-on experience in functional neuroimaging analysis, digital fabrication, and intelligent biomedical systems deployment.",
+        filterLabel: "Filter Resume (Select one or multiple profiles simultaneously):",
+        menuOpen: "Menu",
+        menuClose: "Close",
+        viewDemo: "Demo",
+        viewCode: "Code",
+        viewDeploy: "Deploy",
+        viewRepo: "Repository",
+        viewReport: "Report (PDF)",
+        viewTool: "Access Tool",
+        viewCredential: "View online credential",
+        viewOriginalCred: "View original credential",
+        
+        nav: {
+          perfil: "Professional Profile",
+          experiencia: "Experience",
+          formacion: "Education",
+          certificaciones: "Certifications",
+          proyectos: "Featured Projects",
+          reconocimientos: "Awards & Honors",
+          habilidades: "Tech Stack & Skills",
+          adicional: "Additional Info"
+        },
+        filters: {
+          all: "View All",
+          data: "Data Science / BI",
+          ml: "Machine Learning & AI",
+          software: "Software / Backend",
+          clinica: "Clinical Engineering",
+          hardware: "Digital Fabrication",
+          investigacion: "Research / R&D"
+        },
+        profile: {
+          title: "Professional Profile",
+          text: "Specialized in the design and implementation of critical healthcare technologies, demonstrating advanced capabilities in:",
+          list: [
+            "Research in <strong>structural/functional neuroimaging</strong> and brain network connectivity.",
+            "<strong>Advanced digital fabrication</strong>, reverse engineering, and rapid prototyping within FabLab environments.",
+            "Development of medical robotics, biomedical instrumentation, telemetry, and computer vision.",
+            "Designing <strong>robust software architectures</strong> (ETL, REST APIs, Dashboards) using Python, TypeScript, and SQL."
+          ],
+          tail: "Proactive approach focused on building highly scalable bio-engineering systems, algorithmic optimization, and delivering a profound social impact on clinical care and medical research."
+        },
+        profileLeads: {
+          all: "Final-year Biomedical Engineering student with a solid foundational background in Industrial Electronics and international academic experience in AI and Machine Learning applied to medicine through an Erasmus+ stay at the Università di Bologna.",
+          data: "Final-year Biomedical Engineering student focusing on Data Science and BI for the healthcare sector. Specialized in complex analytical pipelines (ETL), clinical database normalization, and interactive reporting.",
+          ml: "International specialization in AI and Machine Learning applied to healthcare environments at the Università di Bologna. Experience in the automated preprocessing of massive neuroimaging datasets (fMRI, dTI) and deep neural models.",
+          software: "Developer focused on healthcare software architecture, robust REST APIs, real-time synchronization via WebSockets, and secure integrations in distributed web environments using Python, TypeScript, and databases.",
+          clinica: "Oriented toward healthcare technology management, planning predictive/corrective maintenance for critical infrastructure, and systemic optimization of hospital operational resources.",
+          hardware: "Specialized in medical hardware development, motor-assist robotics, bioelectric instrumentation (EMG/ECG sensors), and advanced CAD/CAM parametric design workflows in FabLab environments.",
+          investigacion: "Scientific and investigative approach to modeling complex bio-engineering systems, structural connectivity of neural networks, and reverse engineering applied to medical device design."
+        },
+        experiencia: {
+          title: "Work Experience",
+          items: [
+            {
+              title: "Research and Development Engineering Intern",
+              org: "iHEALTH Millennium Institute · Chile",
+              date: "Jan 2026 — Mar 2026",
+              profiles: "data ml investigacion",
+              bullets: [
+                "Research assistant in Stream 4: Assessing disruption of <strong>functional brain networks</strong> in oncological patients using advanced neuroimaging techniques (<strong>fMRI, dTI</strong>) and mathematical brain connectivity analysis.",
+                "Designed and implemented scripts and <strong>Machine Learning workflows</strong> for the automated preprocessing and cleaning of massive neuroimaging datasets."
+              ]
+            },
+            {
+              title: "Maintenance Operator — National Congress",
+              org: "SVA Workers Cooperative · Valparaíso, Chile",
+              date: "Jan 2025 — Feb 2025",
+              profiles: "clinica",
+              bullets: [
+                "Comprehensive management of preventive, predictive, and corrective maintenance for <strong>complex CCTV systems</strong>, early fire detection networks, and structured cabling within the critical infrastructure of the National Congress.",
+                "Advanced technical updates of electrical blueprints and network diagrams; real-time troubleshooting under strict institutional security protocols."
+              ]
+            },
+            {
+              title: "Laboratory Instructor & Equipment Specialist",
+              org: "FabLab UV — University of Valparaíso · Chile",
+              date: "Mar 2023 — Present",
+              profiles: "hardware investigacion",
+              bullets: [
+                "Technical lead for corrective maintenance and <strong>micrometric calibration</strong> of industrial machinery: 3D printers (FDM/SLA), CNC milling machines, CO2 laser cutters, and routers.",
+                "Led technical and methodological training for students in parametric design and <strong>advanced digital fabrication workflows</strong>.",
+                "Developed <strong>reverse engineering</strong> projects applied to designing enclosures, fixtures, and chassis for biomedical hardware."
+              ]
+            },
+            {
+              title: "Intern — Maintenance Department",
+              org: "Chamber of Deputies of Chile · Valparaíso, Chile",
+              date: "Aug 2024 — Sep 2024",
+              profiles: "clinica",
+              bullets: [
+                "Technical planning and supervision of preventive maintenance strategies applied to audiovisual and HVAC equipment in the primary legislative chambers.",
+                "Technical administrative management and bidding for engineering supplies via the official public procurement platform of the Chilean State (<strong>Mercado Público</strong>)."
+              ]
+            },
+            {
+              title: "Surveying Assistant & Equipment Maintenance",
+              org: "Incigeo SPA · Chile",
+              date: "2022 — 2023",
+              profiles: "data clinica",
+              bullets: [
+                "Field data processing and operational support in geodetic and topographical surveys for massive civil works.",
+                "Responsible for preventive calibration and inspection of total stations, GNSS receivers, and geographic positioning software."
+              ]
+            }
+          ]
+        },
+        formacion: {
+          title: "Education",
+          items: [
+            {
+              title: "Erasmus+ Exchange Student",
+              org: "Alma Mater Studiorum — Università di Bologna · Italy",
+              date: "Sep 2025 — Feb 2026",
+              bullets: [
+                "<b>Approved Graduate Courses:</b> Artificial Intelligence for Medicine, Bioimmagini e Ingegneria Clinica, Project Work in AI for Industry, Project Management and Soft Skills, Machine Learning and Data Mining.",
+                "<b>Area of Specialization:</b> Implementation of <strong>Convolutional Neural Networks (CNN)</strong> in medical image diagnosis, clinical Big Data management, and hospital predictive models."
+              ]
+            },
+            {
+              title: "Bachelor of Science in Biomedical Engineering",
+              org: "University of Valparaíso · Chile",
+              date: "2021 — Present",
+              bullets: [
+                "<b>Current Status:</b> Regular final-year student in the integrated Civil Biomedical Engineering program. Direct focus on <strong>Advanced Bioinstrumentation</strong>, Healthcare Information Systems (HIS), and Digital Signal Processing (DSP)."
+              ]
+            },
+            {
+              title: "Industrial Electronics Technician",
+              org: "Colegio Salesiano de Valparaíso · Chile",
+              date: "2017 — 2020",
+              bullets: [
+                "Specialized training in sequential automation, <strong>hardwired and programmed logic (PLC)</strong>, printed circuit board (PCB) design, and industrial electronic power control."
+              ]
+            }
+          ]
+        },
+        certificaciones: {
+          title: "Professional Certifications",
+          items: [
+            {
+              platform: "University of Valparaíso",
+              title: "Advanced Digital Fabrication (FAB-D)",
+              desc: "90 accredited hours in global FabLab methodologies. Parametric <strong>CAD/CAM environments</strong>, CNC optimization, and medical electronic hardware packaging.",
+              link: "https://drive.google.com/file/d/1evt4FpQzL9LuA9la4xAQsxKdmMFZgI60/view?usp=sharing",
+              type: "original",
+              profiles: "hardware investigacion"
+            },
+            {
+              platform: "Google — Coursera",
+              title: "Google Business Intelligence",
+              desc: "Designing data warehousing architectures, structuring <strong>complex analytical pipelines (ETL)</strong>, and large-scale dashboard optimization.",
+              link: "https://www.coursera.org/account/accomplishments/specialization/G8S1T4CKDO53",
+              type: "online",
+              profiles: "data software"
+            },
+            {
+              platform: "Google — Coursera",
+              title: "Google Data Analytics",
+              desc: "Full data analytics lifecycle. Advanced hands-on proficiency in relational databases (<strong>SQL</strong>), analytical programming in <strong>R Core</strong>, and structured mining.",
+              link: "https://www.coursera.org/account/accomplishments/specialization/96B4VBQYHBBP",
+              type: "online",
+              profiles: "data"
+            },
+            {
+              platform: "Google — Coursera",
+              title: "Data-Driven Decision Making",
+              desc: "Formulating robust analytical statistical hypotheses, data modeling, and governance across complex IT infrastructures and architectures.",
+              link: "https://www.coursera.org/account/accomplishments/specialization/WVEPE3UG3EEE",
+              type: "online",
+              profiles: "data ml"
+            },
+            {
+              platform: "Google — Coursera",
+              title: "Google AI Essentials",
+              desc: "Advanced application of Generative Artificial Intelligence, <strong>prompt engineering</strong>, and ethical deployment of foundational models.",
+              link: "https://www.coursera.org/account/accomplishments/specialization/Y62SPQVRY19Z",
+              type: "online",
+              profiles: "ml investigacion"
+            }
+          ]
+        },
+        proyectos: {
+          title: "Featured Projects",
+          items: [
+            {
+              title: "Biomedical DSP — Processing Suite",
+              tag: "University Educational & SaaS",
+              profiles: "data clinica software",
+              stack: ["Python", "JavaScript", "TypeScript", "DSP Core", "Tailwind CSS"],
+              bullets: [
+                "Web-based <strong>university educational platform</strong> dedicated to Biomedical Digital Signal Processing (<strong>DSP</strong>) including ECG, EEG, and EMG.",
+                "Real-time analytical pipelines: <strong>IIR/FIR</strong> filters, adaptive noise canceling (Notch), and interactive <strong>FFT</strong> arrays."
+              ],
+              actions: [
+                { type: "deploy", url: "https://biomedical-dsp-uv.vercel.app/" },
+                { type: "code", label: "Backend", url: "https://github.com/MaximilianoAntonio/Biomedical-DSP" },
+                { type: "code", label: "Frontend", url: "https://github.com/MaximilianoAntonio/Biomedical-DSP-UV" }
+              ]
+            },
+            {
+              title: "HGF Repuestos — Predictive Inventory",
+              tag: "Commercial Production",
+              profiles: "data software",
+              stack: ["Python", "Django", "TypeScript", "PostgreSQL", "Render Cloud"],
+              bullets: [
+                "ERP system incorporating an analytical dashboard, transactional engineering, and a dynamic vector <strong>QR code</strong> generator.",
+                "Demand forecasting based on <strong>time-series</strong> algorithms and robust linear regression models."
+              ],
+              actions: [
+                { type: "deploy", label: "Production", url: "https://hgf-repuestos.onrender.com/" },
+                { type: "code", url: "https://github.com/MaximilianoAntonio/HGF_Repuestos" }
+              ]
+            },
+            {
+              title: "Self-Managed Fleet Tracking System",
+              tag: "Institutional Production",
+              profiles: "clinica software",
+              stack: ["Django REST", "Preact.js", "WebSockets", "HTML5/CSS3"],
+              bullets: [
+                "Distributed architecture deployed for SSVQ, automating critical public health vehicle management.",
+                "Built a fluid SPA synchronized via asynchronous bidirectional channels for real-time tracking control."
+              ],
+              actions: [
+                { type: "demo", url: "https://youtu.be/SWLqz3MG5k4" },
+                { type: "code", label: "Monolith", url: "https://github.com/MaximilianoAntonio/Asignacion-vehiculos" },
+                { type: "code", label: "Front", url: "https://github.com/MaximilianoAntonio/frontflota" }
+              ]
+            },
+            {
+              title: "GENCLA — Clinical Engineering Matcher",
+              tag: "Academic & BI",
+              profiles: "data clinica",
+              stack: ["Python", "Vercel Core", "BI Intelligence", "Data Engineering"],
+              bullets: [
+                "Unification, cleanup, and normalization of highly heterogeneous clinical databases parsed from legacy frameworks.",
+                "Business intelligence (BI) modules computing multi-dimensional <strong>medical device criticality rankings</strong>."
+              ],
+              actions: [
+                { type: "tool", url: "https://gencla.vercel.app/" }
+              ]
+            },
+            {
+              title: "PUCO — State Procurement Analyzer",
+              tag: "SaaS / Automation",
+              profiles: "data software",
+              stack: ["Python", "TypeScript", "REST API", "Web Scraping", "ETL Pipelines"],
+              bullets: [
+                "Strategic data ingestion, semantic filtering, and massive preprocessing of Chilean public tender bids.",
+                "Data plumbing pipelines (<strong>ETL</strong>) yielding financial metrics and commercial competitiveness indices."
+              ],
+              actions: [
+                { type: "deploy", url: "https://puco.onrender.com/" },
+                { type: "code", url: "https://github.com/MaximilianoAntonio/PuCo" }
+              ]
+            },
+            {
+              title: "3-DOF Robotic Arm with Computer Vision",
+              tag: "Robotics & Vision",
+              profiles: "ml hardware software",
+              stack: ["Python", "OpenCV", "Arduino", "Dynamixel AX-12A", "3D Printing"],
+              bullets: [
+                "Anthropomorphic manipulator driven by custom embedded hardware control loops and parametric kinematics compiled in Python.",
+                "<strong>Computer vision</strong> pipeline performing spatial segmentation, geometric extraction, and real-time indexing algorithms."
+              ],
+              actions: [
+                { type: "demo", url: "https://www.youtube.com/watch?v=Cd75hz88lqM" },
+                { type: "code", label: "Kinematics", url: "https://github.com/MaximilianoAntonio/ur3e" }
+              ]
+            },
+            {
+              title: "Continuum Biomedical Exploratory Robot",
+              tag: "Bioengineering / Hardware",
+              profiles: "clinica hardware investigacion",
+              stack: ["Arduino IDE", "EMG Sensors", "Mechanical CAD", "MATLAB"],
+              bullets: [
+                "Co-developed a highly redundant flexible platform built for minimally invasive surgical diagnostics or motor therapy systems.",
+                "Signal conditioning setup engineered for surface <strong>electromyographic (EMG) sensors</strong> bound to kinematic control scripts."
+              ],
+              actions: [
+                { type: "repo", label: "FabLab Repo", url: "https://github.com/FabLab-Projects/ProyectoRobotContinuo3" },
+                { type: "code", label: "Core", url: "https://github.com/Erj5/Continuum-Robot" }
+              ]
+            },
+            {
+              title: "HMI Workshop via Gesture Recognition",
+              tag: "Tech Transfer",
+              profiles: "ml investigacion",
+              stack: ["Python", "OpenCV Core", "Computer Vision", "Scientific Doc"],
+              bullets: [
+                "Designed non-invasive Human-Machine Interfaces (<strong>HMI</strong>) powered by computational vision frameworks.",
+                "Lightweight structural matrix algorithms processing vector streams and performing kinematic tracking of hand contours."
+              ],
+              actions: [
+                { type: "repo", label: "Official Repo", url: "https://github.com/fablab-UV/Taller-HMI-por-Gestos-FABLAB-UV-2026-" }
+              ]
+            },
+            {
+              title: "Neonatal Incubator Prototype via PID Loops",
+              tag: "Medical Hardware",
+              profiles: "clinica hardware software",
+              stack: ["Python", "Arduino Core", "PID Control", "MySQL", "IoT Architecture"],
+              bullets: [
+                "Assembled a closed thermo-regulated environment actively driven via compute-bound <strong>adaptive PID algorithms</strong>.",
+                "Biomedical telemetry sensor array engineering continuous firmware stack logging historic metabolic indexes."
+              ],
+              actions: [
+                { type: "report", url: "https://github.com/MaximilianoAntonio/incubator-prototype/blob/main/Reporte%20Final%20Incubadora.pdf" },
+                { type: "repo", url: "https://github.com/MaximilianoAntonio/incubator-prototype" }
+              ]
+            }
+          ]
+        },
+        reconocimientos: {
+          title: "Awards and Honors",
+          coursesTitle: "Specialization and Continuing Education",
+          items: [
+            {
+              title: "First iHEALTH Winter School",
+              date: "Jul 2025",
+              org: "iHEALTH Millennium Institute — AI applied to Healthcare",
+              profiles: "ml data investigacion",
+              desc: "Selected nationally via a highly competitive and closed call to undergo advanced training in <strong>medical data matrix analysis</strong>, deep neural layers, and computational neuroscience."
+            },
+            {
+              title: "Latin American Innovation Rally — 3rd Regional Place",
+              date: "Oct 2024",
+              org: "Regional Organizing Committee — Social Impact Track",
+              profiles: "clinica",
+              desc: "Awarded for designing an agile communications infrastructure and emergency response node orchestrated for swift disaster relief management."
+            },
+            {
+              title: "Datathon Make Health Latam",
+              date: "Jan 2023",
+              org: "CENS (Chile) & Massachusetts Institute of Technology (MIT)",
+              profiles: "data investigacion",
+              desc: "Distinguished competitor in the <strong>clinical data mining</strong> hackathon, tasked with structuring scalable healthcare system blueprints confronting complex Latin American demographic models."
+            }
+          ],
+          courses: [
+            { title: "Copilot and GitHub", date: "Jun 2026", org: "RED Academy & Microsoft", profiles: "ml data software", desc: "Integrating generative AI engines for accelerated programming lifecycles and source code architecture loops. Id: 9095932737MG." },
+            { title: "ExperiencIA LATAM", date: "Jun 2026", org: "RED Academy & Microsoft", profiles: "ml", desc: "Socioeconomic disruptions of Artificial Intelligence engines, cloud scaling systems, and cognitive asset matrices. Id: 3553359018MG." },
+            { title: "AI for Project Managers", date: "Jun 2026", org: "RED Academy & Microsoft", profiles: "ml data", desc: "Project lifecycle governance and technical management of engineering structures using intelligent algorithms. Id: 8334574810MG." },
+            { title: "AI for IT Executives", date: "Jun 2026", org: "RED Academy & Microsoft", profiles: "ml data software", desc: "Modernizing corporate technical structures, computational scalability, and cloud microservices orchestration. Id: 7866165207MG." },
+            { title: "AI for SMB Directors", date: "Jun 2026", org: "RED Academy & Microsoft", profiles: "data", desc: "Agile digital transformation tracks and automated onboarding layouts parsing predictive asset fields. Id: 0877919322MG." },
+            { title: "Personal Data Protection", date: "Jun 2026", org: "RED Academy — Cybersecurity", profiles: "clinica data", desc: "Ethical frameworks, statutory directives, and compliance protocols governing clinical data structures and patient privacy. Id: 3078213461MG." },
+            { title: "Cybersecurity at the Workplace", date: "Jun 2026", org: "RED Academy — Cybersecurity", profiles: "clinica data", desc: "Preventive auditing of system threat vectors, defensive encryption, and edge infrastructure hazard mitigation. Id: 0391765378MG." },
+            { title: "AI for Life and Work", date: "Jun 2026", org: "RED Academy & Microsoft", profiles: "ml", desc: "Algorithmic properties of compute intelligence blocks and task management scaling loops. Id: 5744337648MG." },
+            { title: "AI for Marketing and Sales", date: "Jun 2026", org: "RED Academy & Microsoft", profiles: "data", desc: "Predictive modelling indexing commercial consumer metrics and database profiling matrices. Id: 7265359589MG." },
+            { title: "AI for Human Resources", date: "Jun 2026", org: "RED Academy & Microsoft", profiles: "data", desc: "Analytical frameworks modeling talent assessment structures, predictive analysis, and structural designs. Id: 5206747675MG." },
+            { title: "AI for Educators", date: "Jun 2026", org: "RED Academy & Microsoft", profiles: "ml investigacion", desc: "Technical instructional design layout, systemic knowledge transfer loops, and practical developer tracks. Id: 9394018456MG." },
+            { title: "The Modern Organization", date: "Jun 2026", org: "RED Academy — Cybersecurity", profiles: "data software", desc: "Systemic optimization workflows across IT networks, agile execution, and scalable data pipeline configurations. Id: 7010164484MG." }
+          ]
+        },
+        habilidades: {
+          title: "Tech Stack & Technical Skills",
+          items: [
+            { label: "Core Languages", value: "Python (DSP & Data Science), C/C++, SQL (PostgreSQL/MySQL), JavaScript, TypeScript, Arduino C++" },
+            { label: "Frameworks & Backend", value: "Django Web Framework, Flask, Preact.js, React, HTML5, CSS3, WebSockets, REST APIs" },
+            { label: "Data Science & AI", value: "Pandas, NumPy, Scikit-learn, OpenCV (Matrix Processing & Vision), Power BI, Looker Studio" },
+            { label: "Hardware & Fabrication", value: "CNC, Advanced FDM/SLA 3D Printing, Biomedical Instrumentation (EMG, ECG), Raspberry Pi, ATMega" },
+            { label: "CAD/CAM & DevOps", value: "Autodesk Fusion 360, SolidWorks, AutoCAD, Git/GitHub, Vercel Deployments, Basic Docker" },
+            { label: "Language Skills", value: "Spanish (Native), English (Intermediate B1-B2 Fluent), Italian (Intermediate B1 Conversational)" }
+          ]
+        },
+        adicional: {
+          title: "Additional Information",
+          blocks: [
+            { label: "Professional Availability", text: "Immediate availability for engineering internship placements required for graduation, integration into advanced neuroscientific computing labs, intelligent biomedical hardware prototyping (IoMT), or robust healthcare systems software development." },
+            { label: "Technical Interest Vectors", text: "Advanced structural and functional brain connectivity neuroimaging pipelines, modular biomechanical exoskeleton engineering, cloud-based healthcare data architecture, and full hospital clinical infrastructure lifecycle automation." }
+          ]
+        }
+      }
+    };
+
+    let currentLang = "es";
+    let selectedProfiles = new Set(['all']);
+
+    // --- RENDERIZADORES DE CONTENIDO INTERNACIONALIZADO ---
+    function renderStaticText(lang) {
+      const data = I18N_DATA[lang];
+      document.documentElement.lang = lang;
+      
+      // Meta headers
+      document.title = lang === "es" ? "Maximiliano Gaete — Portafolio" : "Maximiliano Gaete — Portfolio";
+      
+      // Globals y Botones
+      document.getElementById('txt-skip-link').innerText = data.skipLink;
+      document.getElementById('txt-brand-role').innerHTML = data.brandRole;
+      document.getElementById('txt-lbl-location').innerText = data.lblLocation;
+      document.getElementById('txt-lbl-phone').innerText = data.lblPhone;
+      document.getElementById('copy-email').innerText = data.copyEmail;
+      document.getElementById('txt-foot-copy').innerText = data.footCopy;
+      
+      // Hero
+      document.getElementById('txt-hero-eyebrow').innerText = data.heroEyebrow;
+      document.getElementById('txt-hero-subtitle').innerText = data.heroSubtitle;
+      document.getElementById('txt-hero-lede').innerText = data.heroLede;
+      document.getElementById('txt-filter-label').innerText = data.filterLabel;
+      
+      // Nav links
+      for (const [key, value] of Object.entries(data.nav)) {
+        const link = document.getElementById(`nav-${key}`);
+        if (link) link.innerText = value;
+      }
+
+      // Sección Perfil
+      document.getElementById('perfil-title').innerText = data.profile.title;
+      document.getElementById('txt-profile-text').innerText = data.profile.text;
+      document.getElementById('txt-profile-tail').innerText = data.profile.tail;
+      
+      const pList = document.getElementById('txt-profile-list');
+      pList.innerHTML = "";
+      data.profile.list.forEach(item => {
+        const li = document.createElement('li');
+        li.innerHTML = item;
+        pList.appendChild(li);
+      });
+
+      // Actualizar toggles de idioma
+      document.querySelectorAll('.global-lang-btn').forEach(btn => {
+        btn.innerText = lang === "es" ? "EN" : "ES";
+      });
+    }
+
+    function renderExperiencia(lang) {
+      const container = document.getElementById('experiencia-container');
+      container.innerHTML = "";
+      const data = I18N_DATA[lang].experiencia;
+      
+      document.getElementById('exp-title').innerText = data.title;
+      
+      data.items.forEach(item => {
+        const block = document.createElement('div');
+        block.className = "editorial-block";
+        block.setAttribute('data-profile', item.profiles);
+        
+        let bulletsHtml = "";
+        item.bullets.forEach(b => { bulletsHtml += `<li>${b}</li>`; });
+
+        block.innerHTML = `
+          <div class="entry-head">
+            <div>
+              <div class="entry-title">${item.title}</div>
+              <div class="entry-org">${item.org}</div>
+            </div>
+            <time class="entry-date">${item.date}</time>
+          </div>
+          <ul class="content-list">${bulletsHtml}</ul>
+        `;
+        container.appendChild(block);
+      });
+    }
+
+    function renderFormacion(lang) {
+      const container = document.getElementById('formacion-container');
+      container.innerHTML = "";
+      const data = I18N_DATA[lang].formacion;
+      
+      document.getElementById('form-title').innerText = data.title;
+      
+      data.items.forEach(item => {
+        const block = document.createElement('div');
+        block.className = "editorial-block";
+        
+        let bulletsHtml = "";
+        item.bullets.forEach(b => { bulletsHtml += `<li>${b}</li>`; });
+
+        block.innerHTML = `
+          <div class="entry-head">
+            <div>
+              <div class="entry-title">${item.title}</div>
+              <div class="entry-org">${item.org}</div>
+            </div>
+            <time class="entry-date">${item.date}</time>
+          </div>
+          <ul class="content-list">${bulletsHtml}</ul>
+        `;
+        container.appendChild(block);
+      });
+    }
+
+    function renderCertificaciones(lang) {
+      const container = document.getElementById('certificaciones-container');
+      container.innerHTML = "";
+      const current = I18N_DATA[lang];
+      
+      document.getElementById('cert-title').innerText = current.certificaciones.title;
+      
+      current.certificaciones.items.forEach(item => {
+        const block = document.createElement('div');
+        block.className = "editorial-block";
+        block.setAttribute('data-profile', item.profiles);
+        
+        const labelLink = item.type === "original" ? current.viewOriginalCred : current.viewCredential;
+
+        block.innerHTML = `
+          <div class="project-head">
+            <span class="cert-platform">${item.platform}</span>
+            <h3 class="entry-title">${item.title}</h3>
+          </div>
+          <p class="block-text" style="font-size: 14px;">${item.desc}</p>
+          <div class="project-actions">
+            <a class="project-link" href="${item.link}" target="_blank" rel="noopener noreferrer">
+              ${labelLink} <span class="arrow">↗</span>
+            </a>
+          </div>
+        `;
+        container.appendChild(block);
+      });
+    }
+
+    function renderProyectos(lang) {
+      const container = document.getElementById('proyectos-container');
+      container.innerHTML = "";
+      const current = I18N_DATA[lang];
+      
+      document.getElementById('proj-title').innerText = current.proyectos.title;
+      
+      current.proyectos.items.forEach(item => {
+        const block = document.createElement('article');
+        block.className = "editorial-block";
+        block.setAttribute('data-profile', item.profiles);
+        
+        let stackHtml = "";
+        item.stack.forEach(s => { stackHtml += `<span class="tech-badge">${s}</span>`; });
+
+        let bulletsHtml = "";
+        item.bullets.forEach(b => { bulletsHtml += `<li>${b}</li>`; });
+
+        let actionsHtml = "";
+        item.actions.forEach(act => {
+          let lbl = "";
+          if (act.label) {
+            lbl = act.label;
+          } else {
+            if (act.type === "deploy") lbl = current.viewDeploy;
+            if (act.type === "code") lbl = current.viewCode;
+            if (act.type === "demo") lbl = current.viewDemo;
+            if (act.type === "tool") lbl = current.viewTool;
+            if (act.type === "repo") lbl = current.viewRepo;
+            if (act.type === "report") lbl = current.viewReport;
+          }
+          actionsHtml += `<a class="project-link" href="${act.url}" target="_blank" rel="noopener noreferrer">${lbl} <span class="arrow">↗</span></a>`;
+        });
+
+        block.innerHTML = `
+          <div class="project-head">
+            <h3 class="entry-title">${item.title} <span class="project-tag">${item.tag}</span></h3>
+          </div>
+          <div class="project-stack">${stackHtml}</div>
+          <ul class="content-list">${bulletsHtml}</ul>
+          <div class="project-actions">${actionsHtml}</div>
+        `;
+        container.appendChild(block);
+      });
+    }
+
+    function renderReconocimientos(lang) {
+      const container = document.getElementById('reconocimientos-container');
+      container.innerHTML = "";
+      const current = I18N_DATA[lang].reconocimientos;
+      
+      document.getElementById('rec-title').innerText = current.title;
+      document.getElementById('courses-title').innerText = current.coursesTitle;
+      
+      current.items.forEach(item => {
+        const block = document.createElement('div');
+        block.className = "editorial-block";
+        block.setAttribute('data-profile', item.profiles);
+        block.innerHTML = `
+          <div class="entry-head">
+            <div class="entry-title">${item.title}</div>
+            <time class="entry-date">${item.date}</time>
+          </div>
+          <div class="award-org">${item.org}</div>
+          <p class="block-text">${item.desc}</p>
+        `;
+        container.appendChild(block);
+      });
+
+      const coursesContainer = document.getElementById('courses-container');
+      coursesContainer.innerHTML = "";
+      current.courses.forEach(c => {
+        const card = document.createElement('div');
+        card.className = "editorial-block course-card";
+        card.setAttribute('data-profile', c.profiles);
+        card.innerHTML = `
+          <div class="entry-head">
+            <div class="entry-title">${c.title}</div>
+            <time class="entry-date">${c.date}</time>
+          </div>
+          <div class="award-org">${c.org}</div>
+          <p class="block-text">${c.desc}</p>
+        `;
+        coursesContainer.appendChild(card);
+      });
+    }
+
+    function renderHabilidades(lang) {
+      const container = document.getElementById('skills-container');
+      container.innerHTML = "";
+      const data = I18N_DATA[lang].habilidades;
+      
+      document.getElementById('skills-title').innerText = data.title;
+      
+      data.items.forEach(item => {
+        const row = document.createElement('div');
+        row.className = "skill-row-item";
+        row.innerHTML = `
+          <div class="skill-label">${item.label}</div>
+          <div class="skill-value">${item.value}</div>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    function renderAdicional(lang) {
+      const container = document.getElementById('adicional-container');
+      container.innerHTML = "";
+      const data = I18N_DATA[lang].adicional;
+      
+      document.getElementById('add-title').innerText = data.title;
+      
+      data.blocks.forEach(b => {
+        const block = document.createElement('div');
+        block.className = "editorial-block";
+        block.innerHTML = `
+          <div class="add-label">${b.label}</div>
+          <div class="add-text">${b.text}</div>
+        `;
+        container.appendChild(block);
+      });
+    }
+
+    function renderFiltersBar(lang) {
+      const container = document.getElementById('filter-buttons-container');
+      container.innerHTML = "";
+      const labels = I18N_DATA[lang].filters;
+      
+      for (const [key, label] of Object.entries(labels)) {
+        const btn = document.createElement('button');
+        btn.className = "filter-btn";
+        if (selectedProfiles.has(key)) btn.classList.add('active');
+        btn.setAttribute('data-target', key);
+        btn.innerHTML = `${label} <span class="filter-count">0</span>`;
+        
+        btn.addEventListener('click', () => {
+          handleFilterClick(key, btn);
+        });
+        
+        container.appendChild(btn);
+      }
+    }
+
+    // --- ENLACE COMPLETO DE IDIOMAS Y RE-INICIALIZACIÓN ---
+    function translateEntireDOM(lang) {
+      renderStaticText(lang);
+      renderExperiencia(lang);
+      renderFormacion(lang);
+      renderCertificaciones(lang);
+      renderProyectos(lang);
+      renderReconocimientos(lang);
+      renderHabilidades(lang);
+      renderAdicional(lang);
+      
+      renderFiltersBar(lang);
+      
+      // Re-vincular los observadores en los nuevos elementos inyectados
+      document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+      
+      // Re-calcular contadores y aplicar estados persistentes de filtros
+      initFilterCounters();
+      applyFilters();
+    }
+
+    // --- MANEJADORES GLOBALES DE INTERACCIÓN ---
+    function handleFilterClick(target, button) {
+      if (target === 'all') {
+        selectedProfiles.clear();
+        selectedProfiles.add('all');
+      } else {
+        if (selectedProfiles.has('all')) {
+          selectedProfiles.delete('all');
+          const allBtn = document.querySelector('.filter-btn[data-target="all"]');
+          if (allBtn) allBtn.classList.remove('active');
+        }
+
+        if (selectedProfiles.has(target)) {
+          selectedProfiles.delete(target);
+          button.classList.remove('active');
+        } else {
+          selectedProfiles.add(target);
+          button.classList.add('active');
+        }
+      }
+      applyFilters();
+    }
 
     // 1. Scroll Progress Bar
     const progress = document.getElementById('scroll-progress');
@@ -1435,7 +2028,6 @@
         }
       });
     }, { threshold: 0.05 });
-    document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
 
     // 3. Scroll Spy (Navegación Activa)
     const sections = document.querySelectorAll('section');
@@ -1466,32 +2058,18 @@
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(email).then(() => {
             const originalText = emailLink.innerText;
-            emailLink.innerText = '¡Copiado!';
+            emailLink.innerText = I18N_DATA[currentLang].copied;
             setTimeout(() => { emailLink.innerText = originalText; }, 1500);
           });
         }
       });
     }
 
-    // 5. MOTOR DE FILTRADO AVANZADO CON SOPORTE MULTI-SELECCIÓN (LOGICA "OR")
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const editorialBlocks = document.querySelectorAll('.editorial-block[data-profile]');
-    const profileLead = document.querySelector('.profile-lead');
-    const coursesTitle = document.getElementById('courses-title');
-
-    let selectedProfiles = new Set(['all']);
-
-    const profileTexts = {
-      all: "Estudiante de último año en Ingeniería Civil Biomédica con sólida formación técnica inicial en Electrónica Industrial y experiencia académica internacional en IA aplicada al entorno médico mediante una estancia en la Università di Bologna.",
-      data: "Estudiante de último año en Ingeniería Civil Biomédica con enfoque en Ciencia de Datos y BI para el sector salud. Especializado en pipelines analísticos complexes (ETL), normalización de bases de datos clínicas y reportería interactiva.",
-      ml: "Especialización internacional en IA y Machine Learning aplicado al entorno médico en la Università di Bologna. Experiencia en el preprocesamiento automatizado de neuroimágenes masivas (fMRI, dTI) y models neuronales profundos.",
-      software: "Desarrollador enfocado en arquitectura de software de salud, APIs REST robustas, sincronización en tiempo real vía WebSockets e integraciones seguras en entornos web distribuidos utilizando Python, TypeScript y bases de datos.",
-      clinica: "Orientado a la gestión de tecnologías sanitarias, planificación de mantenimiento predictivo/correctivo en infraestructura crítica y optimización sistémica de recursos operativos hospitalarios.",
-      hardware: "Especializado en el desarrollo de hardware médico, robótica de asistencia motora, instrumentación bioeléctrica (sensores EMG/ECG) y flujos avanzados de diseño paramétrico CAD/CAM en entornos FabLab.",
-      investigacion: "Enfoque científico e investigativo en el modelamiento de sistemas bioingenieriles complejos, conectividad estructural de redes neuronales, e ingeniería inversa aplicada al diseño de dispositivos médicos."
-    };
-
+    // 5. MOTOR DE FILTRADO CONFIGURABLE CONTINUO
     function initFilterCounters() {
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      const editorialBlocks = document.querySelectorAll('.editorial-block[data-profile]');
+      
       filterButtons.forEach(button => {
         const target = button.getAttribute('data-target');
         const badge = button.querySelector('.filter-count');
@@ -1511,6 +2089,11 @@
     }
 
     function applyFilters() {
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      const editorialBlocks = document.querySelectorAll('.editorial-block[data-profile]');
+      const profileLead = document.querySelector('.profile-lead');
+      const coursesTitle = document.getElementById('courses-title');
+
       if (selectedProfiles.size === 0 || selectedProfiles.has('all')) {
         selectedProfiles.clear();
         selectedProfiles.add('all');
@@ -1523,8 +2106,8 @@
 
       const currentArray = Array.from(selectedProfiles);
       const lastSelected = currentArray[currentArray.length - 1];
-      if (profileLead && profileTexts[lastSelected]) {
-        profileLead.innerText = profileTexts[lastSelected];
+      if (profileLead && I18N_DATA[currentLang].profileLeads[lastSelected]) {
+        profileLead.innerText = I18N_DATA[currentLang].profileLeads[lastSelected];
       }
 
       let visibleIndex = 0;
@@ -1556,32 +2139,6 @@
       }
     }
 
-    filterButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const target = button.getAttribute('data-target');
-
-        if (target === 'all') {
-          selectedProfiles.clear();
-          selectedProfiles.add('all');
-        } else {
-          if (selectedProfiles.has('all')) {
-            selectedProfiles.delete('all');
-            document.querySelector('.filter-btn[data-target="all"]').classList.remove('active');
-          }
-
-          if (selectedProfiles.has(target)) {
-            selectedProfiles.delete(target);
-            button.classList.remove('active');
-          } else {
-            selectedProfiles.add(target);
-            button.classList.add('active');
-          }
-        }
-
-        applyFilters();
-      });
-    });
-
     // 6. CONTROL INTERACTIVO DE MENÚ DESPLEGABLE MÓVIL
     const menuToggle = document.getElementById('menu-toggle');
     const sidebar = document.querySelector('.sidebar');
@@ -1589,9 +2146,9 @@
       menuToggle.addEventListener('click', () => {
         sidebar.classList.toggle('open');
         if (sidebar.classList.contains('open')) {
-          menuToggle.innerText = 'Cerrar';
+          menuToggle.innerText = I18N_DATA[currentLang].menuClose;
         } else {
-          menuToggle.innerText = 'Menú';
+          menuToggle.innerText = I18N_DATA[currentLang].menuOpen;
         }
       });
 
@@ -1601,15 +2158,26 @@
         link.addEventListener('click', () => {
           if (window.innerWidth <= 950) {
             sidebar.classList.remove('open');
-            menuToggle.innerText = 'Menú';
+            menuToggle.innerText = I18N_DATA[currentLang].menuOpen;
           }
         });
       });
     }
 
+    // Interceptores de Switches globales de Idioma
+    document.addEventListener('click', (e) => {
+      if (e.target && e.target.classList.contains('global-lang-btn')) {
+        currentLang = currentLang === "es" ? "en" : "es";
+        translateEntireDOM(currentLang);
+        if (menuToggle) {
+          menuToggle.innerText = sidebar.classList.contains('open') ? I18N_DATA[currentLang].menuClose : I18N_DATA[currentLang].menuOpen;
+        }
+      }
+    });
+
+    // Carga inicial
     document.addEventListener('DOMContentLoaded', () => {
-      initFilterCounters();
-      applyFilters();
+      translateEntireDOM(currentLang);
     });
 
   })();
